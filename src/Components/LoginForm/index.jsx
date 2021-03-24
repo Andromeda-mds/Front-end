@@ -6,27 +6,40 @@ import {
   LoginInput,
   LoginButton,
 } from "./styles";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
+  const [passwordVisibility, setPasswordVisibility] = React.useState(true);
+
   return (
     <Container>
       <InputSection>
         <form className="form">
-          <LoginInput
-            label="E-mail"
-            variant="filled"
-            InputProps={{ className: "inputProps" }}
-            InputLabelProps={{className: "inputLabelProps"}}
-            type="text"
-          />
-          <br/>
-          <LoginInput
-            label="Senha"
-            variant="filled"
-            InputProps={{ className: "inputProps" }}
-            InputLabelProps={{className: "inputLabelProps"}}
-            type="password"
-          />
+          <>
+            <LoginInput
+              label="E-mail"
+              variant="filled"
+              InputProps={{ className: "inputProps" }}
+              InputLabelProps={{ className: "inputLabelProps" }}
+              type="text"
+            />
+            <br />
+            <div className="input-password">
+              <LoginInput
+                label="Senha"
+                variant="filled"
+                InputProps={{ className: "inputProps" }}
+                InputLabelProps={{ className: "inputLabelProps" }}
+                type={passwordVisibility ? "password" : "text"}
+              />
+              <span className="icon" onClick={() => setPasswordVisibility(!passwordVisibility)}>
+                {
+                  passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />
+                }
+              </span>
+            </div>
+          </>
         </form>
       </InputSection>
       <ButtonSection>

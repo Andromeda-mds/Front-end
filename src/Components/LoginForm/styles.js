@@ -20,14 +20,26 @@ export const InputSection = styled.div`
     align-items: center;
     width: 100%;
     .inputProps {
-      background-color: #FAFAFA;
-      color: #FF7800;
+      background-color: #fafafa;
+      color: #ff7800;
       &::after {
-        border-bottom-color: #FF7800;
+        border-bottom-color: #ff7800;
       }
     }
-    .inputLabelProps{
+    .inputLabelProps {
+      color: gray;
+    }
+    .input-password {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      .icon{
+        position: absolute;
+        margin: 0 0 0 28rem;
         color: gray;
+      }
     }
   }
 `;
