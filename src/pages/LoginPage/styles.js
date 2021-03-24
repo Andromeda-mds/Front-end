@@ -1,25 +1,26 @@
 import styled from "styled-components"
-import loginImage from "../../Assets/loginImage.svg";
 
 export const Container = styled.div`
-    height: 100%;
-    width: 100%;
+    height: 85%;
+    width: 95%;
     display: flex;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     
 `;
 
 export const FirstSection = styled.div`
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 40%;
     height: 100%;
+    background-color: #fff;
 `;
 
 export const SecondSection = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 55%;
+    width: 60%;
     background: #77E8EA;
 `;
 

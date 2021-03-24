@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, LoginPageWrapper } from "./styles";
 import LoginPage from "../LoginPage";
 
 const Wrapper = () => {
@@ -7,6 +7,14 @@ const Wrapper = () => {
     localStorage.getItem("id")
   );
 
-  return <Container>{loginToken ?? <LoginPage />}</Container>;
+  return (
+    <Container>
+      {loginToken ?? (
+        <LoginPageWrapper>
+          <LoginPage />
+        </LoginPageWrapper>
+      )}
+    </Container>
+  );
 };
 export default Wrapper;
