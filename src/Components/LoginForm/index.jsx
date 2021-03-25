@@ -16,30 +16,31 @@ const LoginForm = (props) => {
     <Container>
       <InputSection>
         <form className="form">
-          <>
+          <LoginInput
+            label="E-mail"
+            variant="filled"
+            InputProps={{ className: "inputProps" }}
+            InputLabelProps={{ className: "inputLabelProps" }}
+            type="text"
+          />
+          <br />
+          <div className="input-password">
             <LoginInput
-              label="E-mail"
+              id="password"
+              label="Senha"
               variant="filled"
               InputProps={{ className: "inputProps" }}
               InputLabelProps={{ className: "inputLabelProps" }}
-              type="text"
+              type={passwordVisibility ? "password" : "text"}
             />
-            <br />
-            <div className="input-password">
-              <LoginInput
-                label="Senha"
-                variant="filled"
-                InputProps={{ className: "inputProps" }}
-                InputLabelProps={{ className: "inputLabelProps" }}
-                type={passwordVisibility ? "password" : "text"}
-              />
-              <span className="icon" onClick={() => setPasswordVisibility(!passwordVisibility)}>
-                {
-                  passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />
-                }
-              </span>
-            </div>
-          </>
+
+            <span
+              className="icon"
+              onClick={() => setPasswordVisibility(!passwordVisibility)}
+            >
+              {passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </span>
+          </div>
         </form>
       </InputSection>
       <ButtonSection>

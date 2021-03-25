@@ -33,15 +33,17 @@ export const InputSection = styled.div`
       display: flex;
       position: relative;
       justify-content: center;
+      z-index: 2;
       align-items: center;
       width: 100%;
-      .icon{
-        position: absolute;
-        margin: 0 0 0 28rem;
-        color: gray;
+        .icon {
+          z-index: 1;
+          position: absolute;
+          color: gray;
+          margin: 0 0 0 28rem;
+        }
       }
     }
-  }
 `;
 
 export const ButtonSection = styled.div`
