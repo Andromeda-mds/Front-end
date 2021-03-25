@@ -1,19 +1,21 @@
 import React from "react";
 import { Container, LoginPageWrapper } from "./styles";
 import LoginPage from "../LoginPage";
+import CadastroMedico from '../CadastroMedicoPage'
 
 const Wrapper = () => {
   const [loginToken, setLoginToken] = React.useState(
-    localStorage.getItem("id")
+    localStorage.getItem("loginToken")
   );
 
   return (
     <Container>
-      {loginToken ?? (
+      {/* {loginToken !== null || loginToken === undefined ? (
         <LoginPageWrapper>
           <LoginPage />
         </LoginPageWrapper>
-      )}
+      ): <CadastroMedico /> */}
+      <CadastroMedico />
     </Container>
   );
 };
