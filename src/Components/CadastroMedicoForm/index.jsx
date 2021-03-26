@@ -16,7 +16,10 @@ import {
     ButtonSection,
     CadastrarMedicoButton,
     CadastroMedicoFormWrapper
+
 } from "./styles"
+import InputLabel from '@material-ui/core/InputLabel';
+import Check from "@material-ui/icons/Check";
 
 
 const CadastroMedicoForm = () => {
@@ -57,10 +60,15 @@ const CadastroMedicoForm = () => {
                     
                     <br/>
                     <div className="linha3">
+                        
                         <InputEspecialidade
                             label = "Especialidade"
                             variant= "outlined"
-                        />
+                        >
+                            <option aria-label="None" value="" />
+                            <option value={"Cardiologista"}>Cardiologista</option>
+                        </InputEspecialidade>
+
                         <InputTelefone
                             label = "Telefone"
                             variant= "outlined"
@@ -73,6 +81,7 @@ const CadastroMedicoForm = () => {
                             label = "CEP"
                             variant= "outlined"
                         />
+
                         <InputCidade
                             label = "Cidade"
                             variant= "outlined"
@@ -94,7 +103,10 @@ const CadastroMedicoForm = () => {
                 </form>
                 </InputSection>
             <ButtonSection>
-                <CadastrarMedicoButton/>
+                <CadastrarMedicoButton>
+                    <h1>Cadastrar Médico</h1>
+                    <Check/>
+                </CadastrarMedicoButton>
             </ButtonSection>
         </Container>
 

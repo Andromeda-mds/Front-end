@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";      
+import TextField from "@material-ui/core/TextField";   
+import InputLabel from '@material-ui/core/InputLabel';   
+import  Select  from "@material-ui/core/Select";
 
 export const CadastroMedicoFormWrapper = styled.div`
     height: 100vh;
@@ -15,7 +17,7 @@ export const Container = styled.div`
 
 
 export const InputSection = styled.div`
-    width: 100%;
+  width: 100%;
   height: 35%;
   display: flex;
   flex-direction: column;
@@ -69,13 +71,34 @@ export const ButtonSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  
+
 `;
 
 export const CadastrarMedicoButton = styled.button`
-     width: 12.5rem;
-     height: 2.5rem;
-     border-radius: 10px;
-     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    width: 12.5rem;
+    height: 2.5rem;
+    border-radius: 0.625rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: #16E01E;
+    color: white;
+    border: none;
+    transition: all 0.3s ease 0s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        background-color: #ff7800;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+    >h1{
+        font-weight: 500;
+        width: 80%;
+    }
+    
 `
 
 
@@ -85,9 +108,7 @@ export const InputNome = styled(TextField)`
     width: 40%;
     padding-left: 1rem;
     margin-top: 1rem;
-    color: gray;
     .MuiOutlinedInput-root{
-
         border-radius: 8px;
         .Mui-focused{
             border-color: green;
@@ -144,15 +165,21 @@ export const InputCRM = styled(TextField)`
     }
 `;
 
-export const InputEspecialidade = styled(TextField)`
-    height: 3.4rem;
-    width: 60%;
-    padding-left: 1rem;
-    margin-top: 1rem;
-    color: gray;
-    .MuiOutlinedInput-root{
-        border-radius: 8px;
-    }
+export const InputEspecialidade = styled(Select)`
+        height: 3.4rem;
+        width: 60%;
+        //background-color:red;
+        .MuiSelect-root{
+            
+        }
+        .MuiSelect-outlined {
+            border-radius: 8px;
+            padding-left: 1rem;
+            margin-top: 1rem;
+            background-color: green; 
+        }
+        
+        
 `;
 
 export const InputTelefone = styled(TextField)`
