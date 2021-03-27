@@ -7,6 +7,7 @@ import AlreadyLoggedRoute from './utils/Routes/AlreadyLoggedRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './utils/Routes/ProtectedRoute'
+import CadastroSecretario from './pages/CadastroSecretarioPage'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           {/* <Wrapper /> */}
           <Switch>
             <ProtectedRoute path="/cadastro/medico" render={() => <CadastroMedico />} />
+            <ProtectedRoute path="/cadastro/secretario" render={() => <CadastroSecretario />} />
             <Route path="/login" render={() => <LoginPage />} />
             <AlreadyLoggedRoute path="/homepage" render={() => <HomePage />}/>
           </Switch>
