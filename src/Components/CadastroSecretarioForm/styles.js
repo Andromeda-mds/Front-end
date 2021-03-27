@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import InputLabel from '@material-ui/core/InputLabel';   
 import  Select  from "@material-ui/core/Select";
 
-export const CadastroMedicoFormWrapper = styled.div`
+export const CadastroSecretarioFormWrapper = styled.div`
     height: 100vh;
     width: 100%;
     /* overflow-y: scroll; */
@@ -54,12 +54,6 @@ export const InputSection = styled.div`
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha5{
-        width: 40%;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-    }
   }
 `;
 
@@ -76,7 +70,7 @@ export const ButtonSection = styled.div`
 
 `;
 
-export const CadastrarMedicoButton = styled.button`
+export const CadastrarSecretarioButton = styled.button`
     width: 12.5rem;
     height: 2.5rem;
     border-radius: 0.625rem;
@@ -145,7 +139,7 @@ export const InputDataNascimento = styled(TextField)`
 
 export const InputEmail = styled(TextField)`
     height: 3.4rem;
-    width: 69.5%;
+    width: 70.5%;
     padding-left: 1rem;
     margin-top: 1rem;
     color: gray;
@@ -154,37 +148,10 @@ export const InputEmail = styled(TextField)`
     }
 `;
 
-export const InputCRM = styled(TextField)`
-    height: 3.4rem;
-    width: 30%;
-    padding-left: 1rem;
-    margin-top: 1rem;
-    color: gray;
-    .MuiOutlinedInput-root{
-        border-radius: 8px;
-    }
-`;
-
-export const InputEspecialidade = styled(Select)`
-        height: 3.4rem;
-        width: 60%;
-        //background-color:red;
-        .MuiSelect-root{
-            
-        }
-        .MuiSelect-outlined {
-            border-radius: 8px;
-            padding-left: 1rem;
-            margin-top: 1rem;
-            //background-color: green; 
-        }
-        
-        
-`;
 
 export const InputTelefone = styled(TextField)`
     height: 3.4rem;
-    width: 39.5%;
+    width: 29%;
     padding-left: 1rem;
     margin-top: 1rem;
     color: gray;
