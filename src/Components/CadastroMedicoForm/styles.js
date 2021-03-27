@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";   
 import InputLabel from '@material-ui/core/InputLabel';   
-import  Select  from "@material-ui/core/Select";
+import  Select  from "@material-ui/core/Select";dddd
 
 export const CadastroMedicoFormWrapper = styled.div`
     height: 100vh;
@@ -176,7 +176,7 @@ export const InputEspecialidade = styled(Select)`
             border-radius: 8px;
             padding-left: 1rem;
             margin-top: 1rem;
-            background-color: green; 
+            //background-color: green; 
         }
         
         
@@ -237,3 +237,4 @@ export const InputNumero = styled(TextField)`
         border-radius: 8px;
     }
 `;
+

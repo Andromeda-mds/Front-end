@@ -20,6 +20,7 @@ import {
 } from "./styles"
 import InputLabel from '@material-ui/core/InputLabel';
 import Check from "@material-ui/icons/Check";
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 
 const CadastroMedicoForm = () => {
@@ -39,10 +40,12 @@ const CadastroMedicoForm = () => {
                         <InputCPF
                             label = "CPF"
                             variant= "outlined"
+                        
                         />
                         <InputDataNascimento
                             variant= "outlined"
                             type= "date"
+                            
                         />
                     </div>
                     
@@ -61,14 +64,19 @@ const CadastroMedicoForm = () => {
                     <br/>
                     <div className="linha3">
                         
-                        <InputEspecialidade
-                            label = "Especialidade"
-                            variant= "outlined"
-                        >
-                            <option aria-label="None" value="" />
-                            <option value={"Cardiologista"}>Cardiologista</option>
-                        </InputEspecialidade>
-
+                    <InputEspecialidade
+                        htmlFor= "demo-customized-select-native"
+                        label = "Especialidade"
+                        variant= "outlined"
+                    >
+                    <option aria-label="None" value="" />
+                    <option value={"Cardiologia"}>Cardiologia</option>
+                    <option value={"Dermatologia"}>Dermatologia</option>
+                    <option value={"Endocrinologia"}>Endocrinologia</option>
+                    <option value={"Endoscopia"}>Endoscopia</option>
+                    <option value={"Pediatria"}>Pediatria</option>
+                    <option value={"Urologia"}>Urologia</option>
+                </InputEspecialidade>
                         <InputTelefone
                             label = "Telefone"
                             variant= "outlined"
