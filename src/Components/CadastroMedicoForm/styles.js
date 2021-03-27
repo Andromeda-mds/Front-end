@@ -167,7 +167,7 @@ export const InputCRM = styled(TextField)`
 
 export const InputEspecialidade = styled(Select)`
         height: 3.4rem;
-        width: 60%;
+        /* width: 60%; */
         //background-color:red;
         .MuiSelect-root{
             
