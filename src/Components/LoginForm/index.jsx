@@ -19,7 +19,9 @@ const LoginForm = () => {
     console.log(email);
     if (password === "clear-login-token")
       return localStorage.removeItem("loginToken");
-    setLoginToken(`${email}-id`);
+    if (email.length > 0) {
+      setLoginToken(`${email}-id`);
+    }
     localStorage.setItem("loginToken", loginToken);
     console.log(loginToken);
     console.log(password);
