@@ -11,18 +11,22 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SearchIcon from '@material-ui/icons/Search';
 import EventIcon from '@material-ui/icons/Event';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import {Redirect} from 'react-router-dom'
 
 
 const HomePage = () => {
 
-  const [isMedico, setIsMedico] = React.useState(false);
+  const [isMedico, setIsMedico] = React.useState(true);
 
 
   return (
     <home.Wrapper>
       <home.Container>
         <home.ContentPage>
+          <home.HeaderDiv>
+
           <Header />
+          </home.HeaderDiv>
           <div className="content-div">
             <h1>content</h1>
             {
@@ -30,10 +34,12 @@ const HomePage = () => {
               <div>
                 <h1>Sou médico</h1>
                 <div className="buttonSectionMedico">
+                <a href="/medico/agenda" style={{textDecoration: 'none'}}>
                   <home.AgendaButton>
-                    <EventIcon style={{ fontSize: 80 }} />
+                    <EventIcon style={{ fontSize: 80 }}/>
                     <h1>Agenda</h1>
                   </home.AgendaButton>
+                  </a>
                   <home.GuiaMedicoButton>
                     <AssignmentIcon style= {{ fontSize: 70 }}/>
                     <h1>Guia Médico</h1>
