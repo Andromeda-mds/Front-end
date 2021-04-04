@@ -13,6 +13,7 @@ export const CadastroMedicoFormWrapper = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    
 `;
 
 

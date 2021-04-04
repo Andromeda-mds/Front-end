@@ -1,11 +1,14 @@
 import React from 'react';
 import * as header from './styles';
+import logo from '../../Assets/logo.svg';
+import ligthLogo from '../../Assets/ligthLogo.svg';
+import darkLogo from '../../Assets/darkLogo.svg';
 
 const Header = () => {
 
     return(
         <header.Container>
-            <h1>header</h1>
+            <header.logoDiv style={{backgroundImage: `url(${darkLogo})`}}/>
         </header.Container>
     )
 }
