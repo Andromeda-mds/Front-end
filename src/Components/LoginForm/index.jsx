@@ -12,6 +12,26 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 const LoginForm = (props) => {
   const [passwordVisibility, setPasswordVisibility] = React.useState(true);
 
+
+const LoginForm = () => {
+  const [loginToken, setLoginToken] = React.useState(
+    localStorage.getItem("loginToken")
+  );
+  // const [objectLogin, setObjectLogin] = React.useState({});
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit = () => {
+    console.log(email);
+    if (password === "clear-login-token")
+      return localStorage.removeItem("loginToken");
+    if (email.length > 0) {
+      setLoginToken(`${email}-id`);
+    }
+    localStorage.setItem("loginToken", loginToken);
+    console.log(loginToken);
+    console.log(password);
+  };
   return (
     <Container>
       <InputSection>
@@ -22,8 +42,10 @@ const LoginForm = (props) => {
             InputProps={{ className: "inputProps" }}
             InputLabelProps={{ className: "inputLabelProps" }}
             type="text"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br />
+
           <div className="input-password">
             <LoginInput
               id="password"
@@ -41,10 +63,11 @@ const LoginForm = (props) => {
               {passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </span>
           </div>
+
         </form>
       </InputSection>
       <ButtonSection>
-        <LoginButton>Login</LoginButton>
+        <LoginButton onClick={() => handleSubmit()}>Login</LoginButton>
       </ButtonSection>
     </Container>
   );

@@ -8,13 +8,15 @@ import {
   ImageCardWrapper,
   LoginDescription,
   DescriptionTitle,
-  DescriptionText
+  DescriptionText,
+  LoginPageWrapper
 } from "./styles";
 import LoginForm from "../../Components/LoginForm";
 import loginImage from "../../Assets/loginImage.svg";
 
 const LoginPage = () => {
-  return (
+  return(
+    <LoginPageWrapper>
     <Container>
       <FirstSection>
         <LoginTitle><h1>SisPOC</h1></LoginTitle>
@@ -31,6 +33,7 @@ const LoginPage = () => {
         </ImageCardWrapper>
       </SecondSection>
     </Container>
+    </LoginPageWrapper>
   );
 };
 

@@ -1,5 +1,17 @@
 import styled from "styled-components"
 
+
+export const LoginPageWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D4F0F0;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+`;
+
 export const Container = styled.div`
     height: 85%;
     width: 95%;
