@@ -5,12 +5,13 @@ import {
         Titulo
         } from "./styles"
 import CadastroSecretarioForm from "../../Components/CadastroSecretarioForm"
+import Header from "../../Components/Header";
 
 const CadastroSecretarioPage = () =>{
     return (
         <Container>
+             <Header/>
             <div>
-                <Barra><h1>Sispoc</h1></Barra>
                 <Titulo> <h1>Cadastrar Secretário(a)</h1> </Titulo>
             </div>
             <CadastroSecretarioForm/>

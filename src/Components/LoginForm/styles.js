@@ -20,16 +20,30 @@ export const InputSection = styled.div`
     align-items: center;
     width: 100%;
     .inputProps {
-      background-color: #FAFAFA;
-      color: #FF7800;
+      background-color: #fafafa;
+      color: #ff7800;
       &::after {
-        border-bottom-color: #FF7800;
+        border-bottom-color: #ff7800;
       }
     }
-    .inputLabelProps{
-        color: gray;
+    .inputLabelProps {
+      color: gray;
     }
-  }
+    .input-password {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      z-index: 2;
+      align-items: center;
+      width: 100%;
+        .icon {
+          z-index: 1;
+          position: absolute;
+          color: gray;
+          margin: 0 0 0 28rem;
+        }
+      }
+    }
 `;
 
 export const ButtonSection = styled.div`
