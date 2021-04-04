@@ -7,7 +7,9 @@ import {
   LoginInput,
   LoginButton,
 } from "./styles";
+
 import { Redirect } from "react-router-dom";
+
 
 const LoginForm = () => {
   const [loginToken, setLoginToken] = React.useState(
@@ -40,7 +42,6 @@ const LoginForm = () => {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <Container>
       {login ? (
@@ -56,8 +57,10 @@ const LoginForm = () => {
               type="text"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <br />
+          <br />
+          <div className="input-password">
             <LoginInput
+              id="password"
               label="Senha"
               variant="filled"
               InputProps={{ className: "inputProps" }}
