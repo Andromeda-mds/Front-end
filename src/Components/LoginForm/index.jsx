@@ -20,27 +20,33 @@ const LoginForm = () => {
   const [password, setPassword] = React.useState("");
   const [login, setLogin] = React.useState(false);
 
+    React.useEffect(() => {
+
+      loginToken ? setLogin(true) : setLogin(false)
+    },[loginToken, password])
+
   const handleSubmit = () => {
     // console.log(email);
-    // if (password === "clear-login-token")
-    //   return localStorage.removeItem("loginToken");
-    // if (email.length > 0) {
-    //   setLoginToken(`${email}-id`);
-    // }
-    // localStorage.setItem("loginToken", loginToken);
-    // console.log(loginToken);
-    // console.log(password);
+    if (password === "clear-login-token")
+      return localStorage.removeItem("loginToken");
+    if (email.length > 0) {
+      setLoginToken('')
+      localStorage.setItem("loginToken", `${email}-token`);
+      window.location.reload();
+    }
+    console.log(loginToken);
+    console.log(password);
 
-    axios
-      .post("http://localhost:3001/login", {
-        username: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
-        setLogin(!login);
-      })
-      .catch((err) => console.log(err));
+    // axios
+    //   .post("http://localhost:3001/login", {
+    //     username: email,
+    //     password: password,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     setLogin(!login);
+    //   })
+    //   .catch((err) => console.log(err));
   };
   return (
     <Container>
@@ -57,22 +63,24 @@ const LoginForm = () => {
               type="text"
               onChange={(e) => setEmail(e.target.value)}
             />
-          <br />
-          <div className="input-password">
-            <LoginInput
-              id="password"
-              label="Senha"
-              variant="filled"
-              InputProps={{ className: "inputProps" }}
-              InputLabelProps={{ className: "inputLabelProps" }}
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <br />
+            <div className="input-password">
+              <LoginInput
+                id="password"
+                label="Senha"
+                variant="filled"
+                InputProps={{ className: "inputProps" }}
+                InputLabelProps={{ className: "inputLabelProps" }}
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </form>
         </InputSection>
-      )}
+        )
+      }
       <ButtonSection>
-        <LoginButton onClick={() => handleSubmit()}>Login</LoginButton>
+        <LoginButton onClick={handleSubmit}>Login</LoginButton>
       </ButtonSection>
     </Container>
   );
