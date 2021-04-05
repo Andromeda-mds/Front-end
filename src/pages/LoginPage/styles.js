@@ -52,6 +52,7 @@ export const LoginImageCard = styled.div`
   height: 71%;
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const ImageCardWrapper = styled.div`
@@ -65,7 +66,6 @@ export const ImageCardWrapper = styled.div`
 export const LoginDescription = styled.div`
   width: 100%;
   height: 30%;
-  /*background: lightblue;*/
 `;
 
 export const DescriptionTitle = styled.div`
@@ -101,7 +101,7 @@ export const OptionsBarDiv = styled.div`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   .active {
     transition: 0.3s;
-    background-color: lightgreen;
+    background-color: #FF7800;
     color: white;
   }
 `;

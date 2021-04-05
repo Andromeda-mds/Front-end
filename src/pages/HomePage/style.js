@@ -21,20 +21,32 @@ export const ContentPage = styled.div`
   height: 100%;
   .content-div {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     width: 100%;
-    height: 15%;
+    height: 50%;
+    justify-content: center;
+    
+    .content-secretario{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .content-medico {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
   }
   .buttonSectionSecretario {
     display: flex;
-    flex-direction: row;
     width: 100%;
     height: 40%;
     padding: 4rem;
   }
   .buttonSectionMedico {
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
     width: 100%;
     height: 40%;
     padding: 4rem;
@@ -54,7 +66,7 @@ export const BuscarMedicosButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: 15%;
+  margin-left: 9%;
   &:hover {
     background-color: #ff7800;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
@@ -95,6 +107,17 @@ export const BuscarPacientesButton = styled.button`
     font-weight: 600;
     width: 80%;
   }
+
+  .buscarMedicos{
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 1rem; */
+    padding-left: 3rem;
+    position: relative;
+    .search{
+      position: absolute;
+    }
+  }
 `;
 
 export const NovaConsultaButton = styled.button`
@@ -125,6 +148,11 @@ export const NovaConsultaButton = styled.button`
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
+    position: relative;
+    .add{
+      position: fixed;
+      padding: 1.7rem;
+    }
   }
 `;
 
@@ -182,5 +210,23 @@ export const GuiaMedicoButton = styled.button`
 `;
 
 export const HeaderDiv = styled.div`
-  height: 12%;
+  height: 11%;
+  /* box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); */
+`;
+
+export const PersonDiv = styled.div`
+  width: 10%;
+  height: 32%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  >span{
+    cursor: pointer;
+    :hover{
+      color: lightgrey;
+      text-decoration: underline;
+    }
+  }
 `;

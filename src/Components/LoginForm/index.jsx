@@ -11,6 +11,9 @@ import {
 import { Redirect } from "react-router-dom";
 import { backendURL } from "../../services/api";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
+
 const LoginForm = (props) => {
   const [loginToken, setLoginToken] = React.useState(
     localStorage.getItem("loginToken")
@@ -19,14 +22,16 @@ const LoginForm = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [login, setLogin] = React.useState(false);
+  const [showCircularProgress, setShowCircularProgress] = React.useState(false);
 
   const handleSubmit = () => {
-
-    console.log(props.Role)
-
+    console.log(props.Role);
+    setShowCircularProgress(true);
     axios
       .post(
-        `${backendURL}${props.Role === 1 ? "medico" : "secretario"}/authenticate`,
+        `${backendURL}${
+          props.Role === 1 ? "medico" : "secretario"
+        }/authenticate`,
         {
           email: email,
           senhaAcesso: password,
@@ -36,17 +41,26 @@ const LoginForm = (props) => {
         console.log(res);
 
         localStorage.setItem("loginToken", res.data.token);
-        localStorage.setItem("role", `${props.Role === 1 ? "medico" : "secretario" }`);
+        localStorage.setItem(
+          "role",
+          `${props.Role === 1 ? "medico" : "secretario"}`
+        );
         setLoginToken(localStorage.getItem("loginToken"));
+        setShowCircularProgress(false);
         setLogin(!login);
       })
       .catch((err) => {
+        setShowCircularProgress(false);
+
         console.log(err);
-        alert('usuário ou senha inválido.');
+        alert("usuário ou senha inválido.");
       });
   };
   return (
     <Container>
+      <Backdrop open={showCircularProgress}>
+        <CircularProgress />
+      </Backdrop>
       {login ? (
         <Redirect to={{ pathname: "/" }} />
       ) : (

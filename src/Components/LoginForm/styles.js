@@ -48,6 +48,7 @@ export const InputSection = styled.div`
 `;
 
 export const ButtonSection = styled.div`
+  margin-top: 1rem;
   width: 100%;
   height: 40%;
   display: flex;

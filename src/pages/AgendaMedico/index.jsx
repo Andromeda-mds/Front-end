@@ -17,9 +17,13 @@ const AgendaMedico = () => {
       <S.HeaderDiv>
         <Header />
       </S.HeaderDiv>
-      <ScheduleComponent>
-        <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-      </ScheduleComponent>
+      <S.Content>
+        <S.AgendaDiv>
+          <ScheduleComponent>
+            <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
+          </ScheduleComponent>
+        </S.AgendaDiv>
+      </S.Content>
     </S.Wrapper>
   );
 };

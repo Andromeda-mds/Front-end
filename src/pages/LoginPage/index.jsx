@@ -17,6 +17,7 @@ import {
 } from "./styles";
 import LoginForm from "../../Components/LoginForm";
 import loginImage from "../../Assets/loginImage.svg";
+import logo from '../../Assets/darkLogo.svg';
 
 const LoginPage = () => {
 
@@ -26,7 +27,7 @@ const LoginPage = () => {
     <LoginPageWrapper>
       <Container>
         <FirstSection>
-          <LoginTitle>
+          <LoginTitle >
             <h1>SisPOC</h1>
           </LoginTitle>
           <LoginDescription>
