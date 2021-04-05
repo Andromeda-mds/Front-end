@@ -1,7 +1,21 @@
 import React from "react";
 import {
-    Container
-} from "./styles"
+    Container,
+    InputSection,
+    InputNome,
+    InputConvenio,
+    InputCEP,
+    InputCPF,
+    InputCidade,
+    InputDataNascimento,
+    InputEmail,
+    InputLogradouro,
+    InputNumero,
+    InputTelefone,
+    ButtonSection,
+    CadastrarPacienteButton,
+    CadastroPacienteFormWrapper
+  } from "./styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Check from "@material-ui/icons/Check";
 import MenuItem from "@material-ui/core/MenuItem";
