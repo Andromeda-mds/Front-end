@@ -1,26 +1,21 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import decode from "jwt-decode";
 
 export default function BoardRoute({ path, render }) {
-  
+  const [storageIsValid, setStorageIsValid] = React.useState(localStorage.getItem("loginToken"))
+  if (storageIsValid) {
+    if (storageIsValid.length < 10) localStorage.clear();
+  }
+  const decodedToken = storageIsValid ? decode(localStorage.getItem("loginToken")) : 1;
+
   return (
-      <>
-        { localStorage.getItem("loginToken") ? (
-        localStorage.getItem("userRole") === "Admin" ? (
-          <Route path={path} render={render} />
-        ) : (
-          <>
-            <Redirect
-              to={{pathname: "/homepage"}}
-              />
-            {errorNotification("Autorização negada", "Você não tem autorização para acessar essa página.")}
-          </>
-        )
+    <>
+      {!localStorage.getItem("loginToken") ||
+      decodedToken.exp <= Math.floor(new Date() / 1000) ? (
+        <Route path={path} render={render} />
       ) : (
-        <>
-          {successNotification("Acesse sua conta", "Você precisa acessar sua conta antes de acessar essa página.")}
-          <Redirect to={{pathname: "/login" }}/>
-        </>
+        <Redirect to={{ pathname: "/" }} />
       )}
     </>
   );

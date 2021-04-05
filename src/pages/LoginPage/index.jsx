@@ -9,30 +9,52 @@ import {
   LoginDescription,
   DescriptionTitle,
   DescriptionText,
-  LoginPageWrapper
+  LoginPageWrapper,
+  OptionsBarDiv,
+  OptionsBarWrapper,
+  TabBarRigth,
+  TabBarLeft
 } from "./styles";
 import LoginForm from "../../Components/LoginForm";
 import loginImage from "../../Assets/loginImage.svg";
 
 const LoginPage = () => {
-  return(
+
+  const [changeTab, setChangeTab] = React.useState(1);
+
+  return (
     <LoginPageWrapper>
-    <Container>
-      <FirstSection>
-        <LoginTitle><h1>SisPOC</h1></LoginTitle>
-        <LoginDescription>
-            <DescriptionTitle><h1>Sistema Para Organização de Consultórios</h1></DescriptionTitle>
-            <DescriptionText><p>Bem vindo! Entre com  sua conta para ter acesso.</p></DescriptionText>
-        </LoginDescription>
-        
-        <LoginForm />
-      </FirstSection>
-      <SecondSection>
-        <ImageCardWrapper>
-          <LoginImageCard style={{ backgroundImage: `url(${loginImage})` }} />
-        </ImageCardWrapper>
-      </SecondSection>
-    </Container>
+      <Container>
+        <FirstSection>
+          <LoginTitle>
+            <h1>SisPOC</h1>
+          </LoginTitle>
+          <LoginDescription>
+            <DescriptionTitle>
+              <h1>Sistema Para Organização de Consultórios</h1>
+            </DescriptionTitle>
+            <DescriptionText>
+              <p>Bem vindo! Entre com sua conta para ter acesso.</p>
+            </DescriptionText>
+          </LoginDescription>
+          <OptionsBarWrapper>
+            <OptionsBarDiv>
+                  <TabBarLeft className={changeTab === 1 ? "active" : ""} label="médico" onClick={() => setChangeTab(1)}>
+                    médico
+                  </TabBarLeft>
+                  <TabBarRigth className={changeTab === 2 ? "active" : ""}label="secretário" onClick={() => setChangeTab(2)}>
+                    secretário
+                  </TabBarRigth>
+            </OptionsBarDiv>
+          </OptionsBarWrapper>
+          <LoginForm Role={changeTab}/>
+        </FirstSection>
+        <SecondSection>
+          <ImageCardWrapper>
+            <LoginImageCard style={{ backgroundImage: `url(${loginImage})` }} />
+          </ImageCardWrapper>
+        </SecondSection>
+      </Container>
     </LoginPageWrapper>
   );
 };

@@ -9,9 +9,9 @@ import {
 } from "./styles";
 
 import { Redirect } from "react-router-dom";
+import { backendURL } from "../../services/api";
 
-
-const LoginForm = () => {
+const LoginForm = (props) => {
   const [loginToken, setLoginToken] = React.useState(
     localStorage.getItem("loginToken")
   );
@@ -20,38 +20,35 @@ const LoginForm = () => {
   const [password, setPassword] = React.useState("");
   const [login, setLogin] = React.useState(false);
 
-    React.useEffect(() => {
-
-      loginToken ? setLogin(true) : setLogin(false)
-    },[loginToken, password])
-
   const handleSubmit = () => {
-    // console.log(email);
-    if (password === "clear-login-token")
-      return localStorage.removeItem("loginToken");
-    if (email.length > 0) {
-      setLoginToken('')
-      localStorage.setItem("loginToken", `${email}-token`);
-      window.location.reload();
-    }
-    console.log(loginToken);
-    console.log(password);
 
-    // axios
-    //   .post("http://localhost:3001/login", {
-    //     username: email,
-    //     password: password,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     setLogin(!login);
-    //   })
-    //   .catch((err) => console.log(err));
+    console.log(props.Role)
+
+    axios
+      .post(
+        `${backendURL}${props.Role === 1 ? "medico" : "secretario"}/authenticate`,
+        {
+          email: email,
+          senhaAcesso: password,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+
+        localStorage.setItem("loginToken", res.data.token);
+        localStorage.setItem("role", `${props.Role === 1 ? "medico" : "secretario" }`);
+        setLoginToken(localStorage.getItem("loginToken"));
+        setLogin(!login);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('usuário ou senha inválido.');
+      });
   };
   return (
     <Container>
       {login ? (
-        <Redirect to={{ pathname: "/homepage" }} />
+        <Redirect to={{ pathname: "/" }} />
       ) : (
         <InputSection>
           <form className="form">
@@ -77,8 +74,7 @@ const LoginForm = () => {
             </div>
           </form>
         </InputSection>
-        )
-      }
+      )}
       <ButtonSection>
         <LoginButton onClick={handleSubmit}>Login</LoginButton>
       </ButtonSection>

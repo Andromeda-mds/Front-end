@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 export const Container = styled.div`
   height: 60%;
   width: 100%;
+  margin-top: 2.5rem;
 `;
 
 export const InputSection = styled.div`
@@ -36,14 +37,14 @@ export const InputSection = styled.div`
       z-index: 2;
       align-items: center;
       width: 100%;
-        .icon {
-          z-index: 1;
-          position: absolute;
-          color: gray;
-          margin: 0 0 0 28rem;
-        }
+      .icon {
+        z-index: 1;
+        position: absolute;
+        color: gray;
+        margin: 0 0 0 28rem;
       }
     }
+  }
 `;
 
 export const ButtonSection = styled.div`

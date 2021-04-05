@@ -11,7 +11,7 @@ import "../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
 
 export const Wrapper = styled.div`
-    height: 120vh;
+    height: 100vh;
     width: 100%;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
