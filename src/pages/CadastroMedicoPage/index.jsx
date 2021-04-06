@@ -1,23 +1,23 @@
 import React from "react";
-import { Container, Barra, Titulo, formDiv } from "./styles";
+import * as home from "./styles";
 import CadastroMedicoForm from "../../Components/CadastroMedicoForm";
 import Header from "../../Components/Header";
 
 const CadastroMedicoPage = () => {
   return (
-    <Container>
+    <home.Container>
       <Header />
 
       <div className="content">
-        <formDiv>
-          <Titulo>
+        <home.formDiv>
+          <home.Titulo>
             {" "}
             <h1>Cadastrar Médico(a)</h1>{" "}
-          </Titulo>
+          </home.Titulo>
           <CadastroMedicoForm />
-        </formDiv>
+        </home.formDiv>
       </div>
-    </Container>
+    </home.Container>
   );
 };
 
