@@ -11,6 +11,8 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SearchIcon from '@material-ui/icons/Search';
 import EventIcon from '@material-ui/icons/Event';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+
 
 
 const HomePage = () => {
@@ -26,7 +28,7 @@ const HomePage = () => {
             <h1>content</h1>
             {
               isMedico ? 
-              <div>
+              <div className="paginaMedico">
                 <h1>Sou médico</h1>
                 <div className="buttonSectionMedico">
                   <home.AgendaButton>
@@ -40,13 +42,47 @@ const HomePage = () => {
                 </div>
               </div>
               :
-              <div>
+              // <div className="paginaAdmin">
+              //   <h1>Sou Admin</h1>
+              //   <div className="buttonSectionAdmin">
+              //     <home.BuscarMedicosAdmButton>
+              //       <div className="buscarMedicosAdm">
+              //         <AccountBoxIcon style={{  fontSize: 70 }} />
+              //         <LocalHospitalIcon style={{  fontSize: 30}}/>
+              //         <h1>Buscar Médicos</h1>
+              //       </div>
+              //     </home.BuscarMedicosAdmButton>
+              //     <home.BuscarSecretariosAdmButton>
+              //        <div className="buscarSecretariosAdm">
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <AssignmentIcon style={{  fontSize: 30}} />
+              //        </div>
+              //         <h1>Buscar Secretários</h1>
+              //     </home.BuscarSecretariosAdmButton>
+              //     <home.CadastrarMedicoButton>
+              //         <div className="cadastrarMedico">
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <LocalHospitalIcon style={{  fontSize: 30}}/>
+              //           <h1>Cadastrar Médico</h1>
+              //         </div>
+              //     </home.CadastrarMedicoButton>
+              //     <home.CadastrarSecretario>
+              //         <div className="cadastrarSecretario"> 
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <AssignmentIcon style={{  fontSize: 30}} />
+              //           <h1>Cadastrar Secretário</h1>
+              //         </div>
+              //     </home.CadastrarSecretario>
+
+              //  </div>
+              // </div>
+              <div className="paginaSecretario">
                 <h1>Sou secretário</h1>
                 <div className="buttonSectionSecretario">
                   <home.BuscarMedicosButton>
                     <div className="buscarMedicos">
-                    <AccountBoxIcon style={{  fontSize: 70 }} />
-                    <SearchIcon style={{  fontSize: 60 }}/>
+                      <AccountBoxIcon style={{  fontSize: 70 }} />
+                      <SearchIcon style={{  fontSize: 60 }}/>
                     </div>
                     <h1>Buscar Médicos</h1>
                   </home.BuscarMedicosButton>
