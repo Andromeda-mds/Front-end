@@ -14,6 +14,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import decode from "jwt-decode";
 import axios from "axios";
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { backendURL } from "../../services/api";
 
 const HomePage = () => {
@@ -86,6 +87,41 @@ const HomePage = () => {
                   </a>
                 </div>
               </div>
+              :
+              // <div className="content-Admin">
+              //   <h1>Sou Admin</h1>
+              //   <div className="buttonSectionAdmin">
+              //     <home.BuscarMedicosAdmButton>
+              //       <div className="buscarMedicosAdm">
+              //         <AccountBoxIcon style={{  fontSize: 70 }} />
+              //         <LocalHospitalIcon style={{  fontSize: 30}}/>
+              //         <h1>Buscar Médicos</h1>
+              //       </div>
+              //     </home.BuscarMedicosAdmButton>
+              //     <home.BuscarSecretariosAdmButton>
+              //        <div className="buscarSecretariosAdm">
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <AssignmentIcon style={{  fontSize: 30}} />
+              //        </div>
+              //         <h1>Buscar Secretários</h1>
+              //     </home.BuscarSecretariosAdmButton>
+              //     <home.CadastrarMedicoButton>
+              //         <div className="cadastrarMedico">
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <LocalHospitalIcon style={{  fontSize: 30}}/>
+              //           <h1>Cadastrar Médico</h1>
+              //         </div>
+              //     </home.CadastrarMedicoButton>
+              //     <home.CadastrarSecretario>
+              //         <div className="cadastrarSecretario"> 
+              //           <AccountBoxIcon style={{  fontSize: 70 }} />
+              //           <AssignmentIcon style={{  fontSize: 30}} />
+              //           <h1>Cadastrar Secretário</h1>
+              //         </div>
+              //     </home.CadastrarSecretario>
+
+              //  </div>
+              // </div>
             ) : (
               <div className="content-secretario">
                 {/* <h1>Sou secretário</h1> */}
