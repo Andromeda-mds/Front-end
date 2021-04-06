@@ -33,25 +33,25 @@ const HomePage = () => {
     clientId = await decode(localStorage.getItem("loginToken"))._id;
     console.log(clientId);
 
-    axios
-      .get(
-        `${backendURL}${
-          role === "medico" ? "medico" : "secretario"
-        }/${clientId}`,
-        {
-          headers: {
-            "x-access-token": `${localStorage.getItem("loginToken")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setClientData(res.data);
-        console.log(res);
-      })
-      .catch((err) => {
-        alert("Ocorreu um erro na requisição");
-        console.log(err);
-      });
+    // axios
+    //   .get(
+    //     `${backendURL}${
+    //       role === "medico" ? "medico" : "secretario"
+    //     }/${clientId}`,
+    //     {
+    //       headers: {
+    //         "x-access-token": `${localStorage.getItem("loginToken")}`,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     setClientData(res.data);
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     alert("Ocorreu um erro na requisição");
+    //     console.log(err);
+    //   });
   };
 
   React.useEffect(() => {

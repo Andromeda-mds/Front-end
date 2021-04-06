@@ -170,6 +170,7 @@ export const AgendaButton = styled.button`
   flex-direction: column;
   margin-left: 15%;
   align-items: center;
+  outline-style: none;
   &:hover {
     background-color: #ff7800;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
@@ -196,6 +197,7 @@ export const GuiaMedicoButton = styled.button`
   flex-direction: column;
   margin-left: 15%;
   align-items: center;
+  outline-style: none;
   &:hover {
     background-color: #ff7800;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);

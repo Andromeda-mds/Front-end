@@ -13,21 +13,21 @@ import {
   OptionsBarDiv,
   OptionsBarWrapper,
   TabBarRigth,
-  TabBarLeft
+  TabBarLeft,
 } from "./styles";
 import LoginForm from "../../Components/LoginForm";
 import loginImage from "../../Assets/loginImage.svg";
-import logo from '../../Assets/darkLogo.svg';
+import logo from "../../Assets/darkLogo.svg";
+
 
 const LoginPage = () => {
-
   const [changeTab, setChangeTab] = React.useState(1);
 
   return (
     <LoginPageWrapper>
       <Container>
         <FirstSection>
-          <LoginTitle >
+          <LoginTitle>
             <h1>SisPOC</h1>
           </LoginTitle>
           <LoginDescription>
@@ -40,15 +40,23 @@ const LoginPage = () => {
           </LoginDescription>
           <OptionsBarWrapper>
             <OptionsBarDiv>
-                  <TabBarLeft className={changeTab === 1 ? "active" : ""} label="médico" onClick={() => setChangeTab(1)}>
-                    médico
-                  </TabBarLeft>
-                  <TabBarRigth className={changeTab === 2 ? "active" : ""}label="secretário" onClick={() => setChangeTab(2)}>
-                    secretário
-                  </TabBarRigth>
+              <TabBarLeft
+                className={changeTab === 1 ? "active" : ""}
+                label="médico"
+                onClick={() => setChangeTab(1)}
+              >
+                médico
+              </TabBarLeft>
+              <TabBarRigth
+                className={changeTab === 2 ? "active" : ""}
+                label="secretário"
+                onClick={() => setChangeTab(2)}
+              >
+                secretário
+              </TabBarRigth>
             </OptionsBarDiv>
           </OptionsBarWrapper>
-          <LoginForm Role={changeTab}/>
+          <LoginForm Role={changeTab} />
         </FirstSection>
         <SecondSection>
           <ImageCardWrapper>

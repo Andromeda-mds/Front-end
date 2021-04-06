@@ -14,15 +14,23 @@ import { backendURL } from "../../services/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 const LoginForm = (props) => {
   const [loginToken, setLoginToken] = React.useState(
     localStorage.getItem("loginToken")
   );
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   // const [objectLogin, setObjectLogin] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [login, setLogin] = React.useState(false);
   const [showCircularProgress, setShowCircularProgress] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit = () => {
     console.log(props.Role);
@@ -46,25 +54,38 @@ const LoginForm = (props) => {
           `${props.Role === 1 ? "medico" : "secretario"}`
         );
         setLoginToken(localStorage.getItem("loginToken"));
-        setShowCircularProgress(false);
-        setLogin(!login);
+        setTimeout(() => {
+          setShowCircularProgress(false);
+          setLogin(!login);
+        }, 3000);
       })
-      .catch((err) => {
-        setShowCircularProgress(false);
-
+      .catch(async (err) => {
+        setTimeout(() => {
+          setShowCircularProgress(false);
+          // alert("usuário ou senha inválido.");
+          setOpen(true);
+        }, 3000);
         console.log(err);
-        alert("usuário ou senha inválido.");
+        // alert("usuário ou senha inválido.");
       });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
   return (
     <Container>
-      <Backdrop open={showCircularProgress}>
-        <CircularProgress />
-      </Backdrop>
       {login ? (
         <Redirect to={{ pathname: "/" }} />
       ) : (
         <InputSection>
+          <Backdrop style={{ zIndex: "99999" }} open={showCircularProgress}>
+            <CircularProgress style={{ color: "#FF7800" }} />
+          </Backdrop>
           <form className="form">
             <LoginInput
               label="E-mail"
@@ -92,6 +113,11 @@ const LoginForm = (props) => {
       <ButtonSection>
         <LoginButton onClick={handleSubmit}>Login</LoginButton>
       </ButtonSection>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          usuário ou senha inválido
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

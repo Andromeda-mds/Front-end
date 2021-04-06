@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 `;
 
 export const HeaderDiv = styled.div`
-  height: 10%;
+  height: 11%;
 `;
 
 export const Content = styled.div`
