@@ -30,3 +30,7 @@ export const Titulo = styled.div`
     }
 `;
 
+export const HeaderDiv = styled.div`
+    height: 12%;
+`;
+
