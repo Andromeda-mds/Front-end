@@ -14,15 +14,15 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import decode from "jwt-decode";
 import axios from "axios";
+import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import { backendURL } from "../../services/api";
 
 const HomePage = () => {
-  const [role] = React.useState(localStorage.getItem("role"));
+  const [role, setRole] = React.useState(localStorage.getItem("role"));
   const [clientData, setClientData] = React.useState({});
   // const [clientId, setClientId] = React.useState("");
   var clientId;
   const [clientName, setClientName] = React.useState("");
-
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
@@ -31,7 +31,6 @@ const HomePage = () => {
   const handleDataClientByToken = async () => {
     setClientName(await decode(localStorage.getItem("loginToken")).nome);
     clientId = await decode(localStorage.getItem("loginToken"))._id;
-    console.log(clientId);
 
     // axios
     //   .get(
@@ -67,54 +66,88 @@ const HomePage = () => {
             <Header />
           </home.HeaderDiv>
           <div className="content-div">
-            {/* <h1>content</h1> */}
-            {role === "medico" ? (
-              <div className="content-medico">
-                {/* <h1>Sou médico</h1> */}
-                <div className="buttonSectionMedico">
-                  <a href="/medico/agenda" style={{ textDecoration: "none" }}>
-                    <home.AgendaButton>
-                      <EventIcon style={{ fontSize: 80 }} />
-                      <h1>Agenda</h1>
-                    </home.AgendaButton>
-                  </a>
-                  <a>
-                    <home.GuiaMedicoButton>
-                      <AssignmentIcon style={{ fontSize: 70 }} />
-                      <h1>Guia Médico</h1>
-                    </home.GuiaMedicoButton>
-                  </a>
+            {role === "medico" || role === "secretario" ? (
+              role === "medico" ? (
+                <div className="content-medico">
+                  <div className="buttonSectionMedico">
+                    <a href="/medico/agenda" style={{ textDecoration: "none" }}>
+                      <home.AgendaButton>
+                        <EventIcon style={{ fontSize: 80 }} />
+                        <h1>Agenda</h1>
+                      </home.AgendaButton>
+                    </a>
+                    <a>
+                      <home.GuiaMedicoButton>
+                        <AssignmentIcon style={{ fontSize: 70 }} />
+                        <h1>Guia Médico</h1>
+                      </home.GuiaMedicoButton>
+                    </a>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="content-secretario">
+                  <div className="buttonSectionSecretario">
+                    <home.BuscarMedicosButton>
+                      <div className="buscarMedicos">
+                        <AccountBoxIcon style={{ fontSize: 70 }} />
+                        <div className="search">
+                          <SearchIcon style={{ fontSize: 60 }} />
+                        </div>
+                      </div>
+                      <h1>Buscar Médicos</h1>
+                    </home.BuscarMedicosButton>
+                    <home.BuscarPacientesButton>
+                      <FindInPageIcon style={{ fontSize: 70 }} />
+                      <h1>Buscar ficha de paciente</h1>
+                    </home.BuscarPacientesButton>
+                    <home.NovaConsultaButton>
+                      <div className="calendario">
+                        <CalendarToday style={{ fontSize: 70 }} />
+                        <div className="add">
+                          <AddIcon style={{ fontSize: 30 }} />
+                        </div>
+                      </div>
+                      <h1>Nova consulta</h1>
+                    </home.NovaConsultaButton>
+                  </div>
+                </div>
+              )
             ) : (
-              <div className="content-secretario">
-                {/* <h1>Sou secretário</h1> */}
-                <div className="buttonSectionSecretario">
-                  <home.BuscarMedicosButton>
-                    <div className="buscarMedicos">
+              <div className="content-Admin">
+                <h1>Sou Admin</h1>
+                <div className="buttonSectionAdmin">
+                  <home.BuscarMedicosAdmButton>
+                    <div className="buscarMedicosAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
-                      <div className="search">
-                        <SearchIcon style={{ fontSize: 60 }} />
-                      </div>
+                      <LocalHospitalIcon style={{ fontSize: 30 }} />
+                      <h1>Buscar Médicos</h1>
                     </div>
-                    <h1>Buscar Médicos</h1>
-                  </home.BuscarMedicosButton>
-                  <home.BuscarPacientesButton>
-                    <FindInPageIcon style={{ fontSize: 70 }} />
-                    <h1>Buscar ficha de paciente</h1>
-                  </home.BuscarPacientesButton>
-                  <home.NovaConsultaButton>
-                    <div className="calendario">
-                      <CalendarToday style={{ fontSize: 70 }} />
-                      <div className="add">
-                        <AddIcon style={{ fontSize: 30 }} />
-                      </div>
+                  </home.BuscarMedicosAdmButton>
+                  <home.BuscarSecretariosAdmButton>
+                    <div className="buscarSecretariosAdm">
+                      <AccountBoxIcon style={{ fontSize: 70 }} />
+                      <AssignmentIcon style={{ fontSize: 30 }} />
                     </div>
-                    <h1>Nova consulta</h1>
-                  </home.NovaConsultaButton>
+                    <h1>Buscar Secretários</h1>
+                  </home.BuscarSecretariosAdmButton>
+                  <home.CadastrarMedicoButton>
+                    <div className="cadastrarMedico">
+                      <AccountBoxIcon style={{ fontSize: 70 }} />
+                      <LocalHospitalIcon style={{ fontSize: 30 }} />
+                      <h1>Cadastrar Médico</h1>
+                    </div>
+                  </home.CadastrarMedicoButton>
+                  <home.CadastrarSecretario>
+                    <div className="cadastrarSecretario">
+                      <AccountBoxIcon style={{ fontSize: 70 }} />
+                      <AssignmentIcon style={{ fontSize: 30 }} />
+                      <h1>Cadastrar Secretário</h1>
+                    </div>
+                  </home.CadastrarSecretario>
                 </div>
               </div>
             )}
+
             <home.PersonDiv>
               <p>{clientName}</p>
               <PersonOutlineIcon fontSize="large" style={{ color: "gray" }} />

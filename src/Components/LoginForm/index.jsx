@@ -17,6 +17,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
+import decode from 'jwt-decode'
+
 const LoginForm = (props) => {
   const [loginToken, setLoginToken] = React.useState(
     localStorage.getItem("loginToken")
@@ -32,8 +34,23 @@ const LoginForm = (props) => {
   const [showCircularProgress, setShowCircularProgress] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const handleSubmit = () => {
+  const defineRole = (token) => {
+
+    var name = decode(token).nome;
+    console.log(name);
     console.log(props.Role);
+    
+    if(props.Role === 2 && name === "Adm"){
+      return "adm"
+    }else if(props.Role === 2){
+      return "secretario"
+    }else{
+      return "medico"
+    }
+  }
+
+  const handleSubmit = () => {
+    // console.log(props.Role);
     setShowCircularProgress(true);
     axios
       .post(
@@ -47,11 +64,11 @@ const LoginForm = (props) => {
       )
       .then((res) => {
         console.log(res);
-
         localStorage.setItem("loginToken", res.data.token);
+
         localStorage.setItem(
           "role",
-          `${props.Role === 1 ? "medico" : "secretario"}`
+          `${defineRole(res.data.token)}`
         );
         setLoginToken(localStorage.getItem("loginToken"));
         setTimeout(() => {
