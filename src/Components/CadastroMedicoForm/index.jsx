@@ -25,6 +25,7 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 
+
 const CadastroMedicoForm = () => {
   const Especialidades = [
     {
@@ -60,8 +61,8 @@ const CadastroMedicoForm = () => {
   const [numero, setNumero] = React.useState("");
   const [cpf, setCpf] = React.useState("");
   const [dataDeNascimento, setDataDeNascimento] = React.useState("");
-  const [showCircularProgress, setShowCircularProgress] = React.useState(false);
-
+  const [showCircularProgress, setShowCircularProgress] = React.useState(false); 
+  
   const handleEspecialidade = (event) => {
     setEspecialidade(event.target.value);
   };

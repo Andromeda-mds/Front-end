@@ -1,22 +1,18 @@
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";   
-import InputLabel from '@material-ui/core/InputLabel';   
-import  Select  from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField"
+import InputLabel from "@material-ui/core/InputLabel"
+import Select from "@material-ui/core/Select"
 
-export const CadastroMedicoFormWrapper = styled.div`
+export const CadastroPacienteFormWrapper = styled.div`
     height: 100vh;
     width: 100%;
-    /* overflow-y: scroll; */
     scroll-snap-type: y mandatory;
 `;
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    //background-color: green;
-    height: 85%;
 `;
-
 
 export const InputSection = styled.div`
   width: 100%;
@@ -31,7 +27,6 @@ export const InputSection = styled.div`
     justify-content: center;
     align-items: left;
     width: 100%;
-    height: 90%;
     padding: 2rem 0 0 2rem;
     .linha1{
         width: 40%;
@@ -66,20 +61,15 @@ export const InputSection = styled.div`
   }
 `;
 
-
-
 export const ButtonSection = styled.div`
   width: 100%;
-  height: 10%;
+  height: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
-  margin-left: 15rem;
-
 `;
 
-export const CadastrarMedicoButton = styled.button`
+export const CadastrarPacienteButton = styled.button`
     width: 12.5rem;
     height: 2.5rem;
     border-radius: 0.625rem;
@@ -100,11 +90,8 @@ export const CadastrarMedicoButton = styled.button`
     >h1{
         font-weight: 500;
         width: 80%;
-    }
-    
+    }   
 `
-
-
 
 export const InputNome = styled(TextField)`
     height: 3.4rem;
@@ -127,9 +114,7 @@ export const InputCPF = styled(TextField)`
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
-    }
-    
-
+    }  
 `;
 
 export const InputDataNascimento = styled(TextField)`
@@ -148,7 +133,7 @@ export const InputDataNascimento = styled(TextField)`
 
 export const InputEmail = styled(TextField)`
     height: 3.4rem;
-    width: 69.5%;
+    width: 70.5%;
     padding-left: 1rem;
     margin-top: 1rem;
     color: gray;
@@ -157,20 +142,9 @@ export const InputEmail = styled(TextField)`
     }
 `;
 
-export const InputCRM = styled(TextField)`
-    height: 3.4rem;
-    width: 30%;
-    padding-left: 1rem;
-    margin-top: 1rem;
-    color: gray;
-    .MuiOutlinedInput-root{
-        border-radius: 8px;
-    }
-`;
-
-export const InputEspecialidade = styled(Select)`
+export const InputConvenio = styled(Select)`
         height: 3.4rem;
-        /* width: 60%; */
+        //width: 60%; 
         //background-color:red;
         .MuiSelect-root{
             
@@ -187,7 +161,7 @@ export const InputEspecialidade = styled(Select)`
 
 export const InputTelefone = styled(TextField)`
     height: 3.4rem;
-    width: 39.5%;
+    width: 29%;
     padding-left: 1rem;
     margin-top: 1rem;
     color: gray;
@@ -240,4 +214,3 @@ export const InputNumero = styled(TextField)`
         border-radius: 8px;
     }
 `;
-
