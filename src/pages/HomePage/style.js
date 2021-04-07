@@ -270,7 +270,6 @@ export const BuscarMedicosAdmButton = styled.button`
     transition: all 0.3s ease 0s;
     justify-content: center;
     flex-direction: column;
-    /* margin-left: 10%; */
     align-items: center;
     outline-style: none;
     &:hover{
@@ -280,17 +279,22 @@ export const BuscarMedicosAdmButton = styled.button`
         transform: translateY(-7px);
     }
     >h1{
-        font-weight: 600;
-        width: 96%;
-        justify-content: center;
+      font-weight: 600;
+      width: 80%;
     }
-    /* .buscarMedicosAdm{
+    .buscarMedicosAdm{
+      //display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
       position: relative;
-      .lupa{
+      /* .lupa{
+        background-color: green;
         position: fixed;
-        background:
-      }
-    } */
+        top: 18.5rem;
+        left: 8.3rem;
+        color: ${Theme.colors.$sispocPrimary};
+      } */
+    }
 
 `;
 
@@ -349,6 +353,16 @@ export const CadastrarMedicoButton = styled.button`
         width: 96%;
         justify-content: center;
     }
+    .cadastrarMedico{
+        padding: 2.5rem;
+        height: 100%;
+        width: 100%;
+        color: black;
+    }
+    >a{
+      height: 100%;
+      width: 100%;
+    }
 
 `;
 
@@ -377,6 +391,16 @@ export const CadastrarSecretario = styled.button`
         font-weight: 600;
         width: 96%;
         justify-content: center;
+    }
+    .cadastrarSecretario{
+      padding: 2.5rem;
+      height: 100%;
+      width: 100%;
+      color: black;
+    }
+    >a{
+      height: 100%;
+      width: 100%;
     }
 `
  export const PersonDiv = styled.div`

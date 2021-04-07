@@ -142,11 +142,13 @@ const HomePage = () => {
                     </a>
                   </home.CadastrarMedicoButton>
                   <home.CadastrarSecretario>
+                    <a href="/cadastro/secretario" style={{textDecoration: "none"} }>
                     <div className="cadastrarSecretario">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
                       <AssignmentIcon style={{ fontSize: 30 }} />
                       <h1>Cadastrar Secretário</h1>
                     </div>
+                    </a>
                   </home.CadastrarSecretario>
                 </div>
               </div>
