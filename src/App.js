@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./utils/Routes/ProtectedRoute";
 import CadastroSecretario from "./pages/CadastroSecretarioPage";
 import AgendaMedico from "./pages/AgendaMedico";
+import CadastroPaciente from "./pages/CadastroPacientePage";
 
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
             path="/cadastro/secretario"
             render={() => <CadastroSecretario />}
           />
+          <ProtectedRoute
+            path="/cadastro/paciente"
+            render={() => <CadastroPaciente />}
+          />  
           <ProtectedRoute
             path="/medico/agenda"
             render={() => <AgendaMedico />}
