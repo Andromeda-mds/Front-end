@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const InputSection = styled.div`
   width: 100%;
-  height: 35%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -144,7 +144,7 @@ export const InputEmail = styled(TextField)`
 
 export const InputConvenio = styled(Select)`
         height: 3.4rem;
-        /* width: 60%; */
+        //width: 60%; 
         //background-color:red;
         .MuiSelect-root{
             

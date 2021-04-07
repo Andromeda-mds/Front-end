@@ -1,7 +1,21 @@
 import React from "react";
 import {
-    Container
-} from "./styles"
+    Container,
+    InputSection,
+    InputNome,
+    InputConvenio,
+    InputCEP,
+    InputCPF,
+    InputCidade,
+    InputDataNascimento,
+    InputEmail,
+    InputLogradouro,
+    InputNumero,
+    InputTelefone,
+    ButtonSection,
+    CadastrarPacienteButton,
+    CadastroPacienteFormWrapper
+  } from "./styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Check from "@material-ui/icons/Check";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -9,6 +23,7 @@ import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+
 
 const CadastroPacienteForm = () => {
     const Convenios = [
@@ -22,6 +37,7 @@ const CadastroPacienteForm = () => {
         }
     ];
 
+    const [showCircularProgress, setShowCircularProgress] = React.useState(false);
     const [nomeCompleto, setNomeCompleto] = React.useState("");
     const [telefone, setTelefone] = React.useState("");
     const [email, setEmail] = React.useState("");
@@ -117,7 +133,7 @@ const CadastroPacienteForm = () => {
 
                     <br />
                     <div className="linha3">
-                        <FormControl variant="outlined" style={{ width: "60%"}}>
+                        <FormControl variant="outlined" style={{ width: "100%"}}>
                             <InputLabel id="convenio">Convênio</InputLabel>
                             <InputConvenio
                                 labelId="convenio"
@@ -164,7 +180,7 @@ const CadastroPacienteForm = () => {
                 </form>
             </InputSection>
             <ButtonSection>
-                <CadastrarPacienteButton onClick={}>
+                <CadastrarPacienteButton onClick={handleForm}>
                     <h1>Cadastrar Paciente</h1>
                     <Check />
                 </CadastrarPacienteButton>
