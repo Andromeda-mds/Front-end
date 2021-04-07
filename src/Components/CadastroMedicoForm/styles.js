@@ -13,13 +13,14 @@ export const CadastroMedicoFormWrapper = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    
+    //background-color: green;
+    height: 85%;
 `;
 
 
 export const InputSection = styled.div`
   width: 100%;
-  height: 35%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,6 +31,7 @@ export const InputSection = styled.div`
     justify-content: center;
     align-items: left;
     width: 100%;
+    height: 90%;
     padding: 2rem 0 0 2rem;
     .linha1{
         width: 40%;
@@ -68,12 +70,12 @@ export const InputSection = styled.div`
 
 export const ButtonSection = styled.div`
   width: 100%;
-  height: 40%;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  
+  margin-top: 3rem;
+  margin-left: 15rem;
 
 `;
 
