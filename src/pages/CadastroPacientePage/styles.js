@@ -25,7 +25,6 @@ export const Barra = styled.div`
         font-size: 2rem;
         line-height: 40px;
     }
-
 `;
 
 export const formDiv = styled.div`
@@ -67,4 +66,3 @@ export const PersonDiv = styled.div`
     }
   }
 `; 
-
