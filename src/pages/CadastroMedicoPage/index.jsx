@@ -8,13 +8,15 @@ import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 const CadastroMedicoPage = () => {
 
   const [clientName, setClientName] = React.useState("");
-  var clientId;
  
 
   const handleDataClientByToken = async () => {
     setClientName(await decode(localStorage.getItem("loginToken")).nome);
-    clientId = await decode(localStorage.getItem("loginToken"))._id;
   }
+
+  React.useEffect(() => {
+    handleDataClientByToken();
+  },[]);
 
   const handleLogout = () => {
     localStorage.clear();
