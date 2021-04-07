@@ -114,11 +114,13 @@ const HomePage = () => {
               )
             ) : (
               <div className="content-Admin">
-                <h1>Sou Admin</h1>
                 <div className="buttonSectionAdmin">
                   <home.BuscarMedicosAdmButton>
                     <div className="buscarMedicosAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
+                      {/* <div className="lupa">
+                        <SearchIcon style={{ fontSize: 20 }} />
+                      </div> */}
                       <LocalHospitalIcon style={{ fontSize: 30 }} />
                       <h1>Buscar Médicos</h1>
                     </div>
@@ -131,11 +133,13 @@ const HomePage = () => {
                     <h1>Buscar Secretários</h1>
                   </home.BuscarSecretariosAdmButton>
                   <home.CadastrarMedicoButton>
-                    <div className="cadastrarMedico">
-                      <AccountBoxIcon style={{ fontSize: 70 }} />
-                      <LocalHospitalIcon style={{ fontSize: 30 }} />
-                      <h1>Cadastrar Médico</h1>
-                    </div>
+                    <a href="/cadastro/medico" style={{textDecoration: "none"} }>
+                      <div className="cadastrarMedico">
+                        <AccountBoxIcon style={{ fontSize: 70 }} />
+                        <LocalHospitalIcon style={{ fontSize: 30 }} />
+                        <h1>Cadastrar Médico</h1>
+                      </div>
+                    </a>
                   </home.CadastrarMedicoButton>
                   <home.CadastrarSecretario>
                     <div className="cadastrarSecretario">
