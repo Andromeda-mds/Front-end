@@ -1,22 +1,21 @@
 import React from "react";
-import {
-        Container, 
-        Barra,
-        Titulo
-        } from "./styles"
+import * as home from "./styles"
 import CadastroSecretarioForm from "../../Components/CadastroSecretarioForm"
 import Header from "../../Components/Header";
 
 const CadastroSecretarioPage = () =>{
     return (
-        <Container>
-             <Header/>
+        <home.Container>
+            <home.HeaderDiv>
+                <Header/>
+            </home.HeaderDiv>
+
             <div>
-                <Titulo> <h1>Cadastrar Secretário(a)</h1> </Titulo>
+                <home.Titulo> <h1>Cadastrar Secretário(a)</h1> </home.Titulo>
             </div>
             <CadastroSecretarioForm/>
 
-        </Container>
+        </home.Container>
     );
 };
 

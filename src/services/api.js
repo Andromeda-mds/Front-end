@@ -1,9 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
+//URL de desenvolvimento
+// export const _backendURL = "http://localhost:3000/";
 
-export const backendURL = "http://localhost:3000/v1/";
+//URL de produção
+export const backendURL = process.env.REACT_APP_API_URL;
 
-export const backendApi = axios.create({
-    baseURL: backendURL,
-    responseType: "json",
-  });
