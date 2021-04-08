@@ -134,11 +134,14 @@ const CadastroMedicoForm = () => {
       <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
         <div >
           <DialogTitle>Dados do médico</DialogTitle>
-          <hr style={{width: "90%"}}/>
+          <hr style={{width: "100%"}}/>
           <DialogContent>
             <p>Nome: <b>{clientData.nomeCompleto}</b></p>
+            <br/>
             <p>CRM: <b>{clientData.crm}</b></p>
+            <br/>
             <p>E-mail: <b>{clientData.email}</b></p>
+            <br/>
             <p>Senha: <b>{clientData.senhaAcesso}</b></p>
           </DialogContent>
         </div>
