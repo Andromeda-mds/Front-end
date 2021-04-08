@@ -34,3 +34,20 @@ export const HeaderDiv = styled.div`
     height: 12%;
 `;
 
+export const PersonDiv = styled.div`
+  width: 10%;
+  height: 32%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 85%;
+  //background-color: green;
+  >span{
+    cursor: pointer;
+    :hover{
+      color: lightgrey;
+      text-decoration: underline;
+    }
+  }
+`; 
