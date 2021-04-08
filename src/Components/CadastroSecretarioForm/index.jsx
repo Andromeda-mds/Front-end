@@ -23,6 +23,9 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import decode from 'jwt-decode';
+import Dialog from "@material-ui/core/Dialog";
+import { DialogContent, DialogTitle } from "@material-ui/core";
+import { backendURL } from "../../services/api";
 
 
 const CadastroSecretarioForm = () => {
@@ -37,6 +40,8 @@ const CadastroSecretarioForm = () => {
     const [dataDeNascimento, setDataDeNascimento] = React.useState("");
     const [showCircularProgress, setShowCircularProgress] = React.useState(false);
     const [clientToken, setClientToken] = React.useState(localStorage.getItem("loginToken"));
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [clientData, setClientData] = React.useState({});
 
     function makeid(length) {
         var result = "";
@@ -66,18 +71,22 @@ const CadastroSecretarioForm = () => {
         setShowCircularProgress(true);
         console.log(clientToken)
         axios
-        .post("http://localhost:3001/secretario", {
-            nomeCompleto: nomeCompleto,
-            cpf: cpf,
-            email: email,
-            telefone: telefone,
-            dataDeNascimento: dataDeNascimento,
-            endereco: _endereco,
-            senhaAcesso: _senhaAcesso
-        }, { headers: {"x-access-token" : `${clientToken}`}})
+        .post(
+            `${backendURL}secretario`, 
+            {
+                nomeCompleto: nomeCompleto,
+                cpf: cpf,
+                email: email,
+                telefone: telefone,
+                dataDeNascimento: dataDeNascimento,
+                endereco: _endereco,
+                senhaAcesso: _senhaAcesso
+            }, { headers: {"x-access-token" : `${clientToken}`}})
         .then((res) => {
             console.log(res.data.message);
+            setClientData(res.data.item);
             setTimeout(() => setShowCircularProgress(false), 3000);
+            setTimeout(() => setOpenDialog(!openDialog), 3000);
             alert(res.data.message);
         })
         .catch((err) => {
@@ -89,6 +98,21 @@ const CadastroSecretarioForm = () => {
 
     return(
         <Container>
+                 <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
+                    <div >
+                    <DialogTitle>Dados do secretário</DialogTitle>
+                    <hr style={{width: "100%"}}/>
+                    <DialogContent>
+                        <p>Nome: <b>{clientData.nomeCompleto}</b></p>
+                        <br/>
+                        <p>CPF: <b>{clientData.cpf}</b></p>
+                        <br/>
+                        <p>E-mail: <b>{clientData.email}</b></p>
+                        <br/>
+                        <p>Senha: <b>{clientData.senhaAcesso}</b></p>
+                    </DialogContent>
+                    </div>
+                </Dialog>
                 <Backdrop open={showCircularProgress}>
                     <CircularProgress />
                 </Backdrop>
