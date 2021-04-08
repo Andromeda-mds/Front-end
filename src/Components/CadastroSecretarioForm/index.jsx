@@ -22,6 +22,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import decode from 'jwt-decode';
 
 
 const CadastroSecretarioForm = () => {
@@ -35,7 +36,7 @@ const CadastroSecretarioForm = () => {
     const [cpf, setCpf] = React.useState("");
     const [dataDeNascimento, setDataDeNascimento] = React.useState("");
     const [showCircularProgress, setShowCircularProgress] = React.useState(false);
-
+    const [clientToken, setClientToken] = React.useState(localStorage.getItem("loginToken"));
 
     function makeid(length) {
         var result = "";
@@ -63,6 +64,7 @@ const CadastroSecretarioForm = () => {
         let _senhaAcesso = makeid(8);
         let _endereco = handleEndereco();
         setShowCircularProgress(true);
+        console.log(clientToken)
         axios
         .post("http://localhost:3001/secretario", {
             nomeCompleto: nomeCompleto,
@@ -72,7 +74,7 @@ const CadastroSecretarioForm = () => {
             dataDeNascimento: dataDeNascimento,
             endereco: _endereco,
             senhaAcesso: _senhaAcesso
-        })
+        }, { headers: {"x-access-token" : `${clientToken}`}})
         .then((res) => {
             console.log(res.data.message);
             setTimeout(() => setShowCircularProgress(false), 3000);
