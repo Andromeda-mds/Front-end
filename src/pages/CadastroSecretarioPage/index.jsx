@@ -30,7 +30,7 @@ const CadastroSecretarioPage = () =>{
                 <Header/>
             </home.HeaderDiv>
 
-            <div>
+            <div className="content">
                 <home.Titulo> 
                     <h1>Cadastrar Secretário(a)</h1>
                     <home.PersonDiv>
@@ -41,8 +41,9 @@ const CadastroSecretarioPage = () =>{
                         </span>
                     </home.PersonDiv> 
                 </home.Titulo>
+                <CadastroSecretarioForm/>
             </div>
-            <CadastroSecretarioForm/>
+            
 
         </home.Container>
     );

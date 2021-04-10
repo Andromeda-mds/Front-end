@@ -13,6 +13,7 @@ export const CadastroSecretarioFormWrapper = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    
 `;
 
 
@@ -23,13 +24,15 @@ export const InputSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  //background-color:green;
   .form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: left;
     width: 100%;
-    padding: 2rem 0 0 2rem;
+    padding: 0rem 0 0 2rem;
+    
     .linha1{
         width: 40%;
         display: flex;

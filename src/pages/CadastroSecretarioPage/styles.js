@@ -5,6 +5,11 @@ export const Container = styled.div`
     width: 100%;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
+    .content{
+        height:89%;
+        width:100%;
+        
+    }
 `;
 
 export const Barra = styled.div`
@@ -23,10 +28,14 @@ export const Barra = styled.div`
 export const Titulo = styled.div`
     width: 100%;
     height: 15%;
-    padding: 2rem;
+    padding: 0.5rem;
+    //background-color:red;
+    display: flex;
     >h1{
         font-size: 2rem;
         line-height: 40px;
+        margin-left: 2rem;
+        margin-top: 1rem;
     }
 `;
 
@@ -35,14 +44,14 @@ export const HeaderDiv = styled.div`
 `;
 
 export const PersonDiv = styled.div`
-  width: 10%;
-  height: 32%;
+  width: 5%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin-left: 85%;
-  //background-color: green;
+  margin-left: 60%;
+  /* background-color: red; */
   >span{
     cursor: pointer;
     :hover{
