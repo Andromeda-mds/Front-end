@@ -95,6 +95,50 @@ const CadastroMedicoForm = () => {
     return _result.toString();
   };
 
+  // const handleCEP = (event) => {​​​​​
+
+  //   const CEP = event;
+
+  //   if(CEP.length > 6){​​​​​
+
+  //     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+  //     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+
+  //     axios.get(`http://viacep.com.br/ws/${​​​​​CEP}​​​​​/json/`)
+  //     .then((res) =>{​​​​​
+
+  //       setCep(res.endereco.cep);
+
+  //       setCity(res.endereco.localidade);
+
+  //       setLogradouro(res.endereco.logradouro);
+
+  //       console.log(res)
+
+  //     }​​​​​)
+  //     .catch((err) =>{​​​​​
+
+  //       console.log(err)
+
+  //     }​​​​​)
+  //   }​​​​​
+  // }​​​​​
+
+  const handleCEP = (event) => {
+    const CEP = event;
+
+    if (CEP.length > 7) {
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";  
+      axios
+        .get(`http://viacep.com.br/ws/${CEP}​​​​​/json/`, {headers: {"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}})
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  };
+
   const handleForm = () => {
     let _senhaAcesso = makeid(8);
     let _endereco = handleEndereco();
@@ -132,17 +176,25 @@ const CadastroMedicoForm = () => {
   return (
     <Container>
       <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
-        <div >
+        <div>
           <DialogTitle>Dados do médico</DialogTitle>
-          <hr style={{width: "100%"}}/>
+          <hr style={{ width: "100%" }} />
           <DialogContent>
-            <p>Nome: <b>{clientData.nomeCompleto}</b></p>
-            <br/>
-            <p>CRM: <b>{clientData.crm}</b></p>
-            <br/>
-            <p>E-mail: <b>{clientData.email}</b></p>
-            <br/>
-            <p>Senha: <b>{clientData.senhaAcesso}</b></p>
+            <p>
+              Nome: <b>{clientData.nomeCompleto}</b>
+            </p>
+            <br />
+            <p>
+              CRM: <b>{clientData.crm}</b>
+            </p>
+            <br />
+            <p>
+              E-mail: <b>{clientData.email}</b>
+            </p>
+            <br />
+            <p>
+              Senha: <b>{clientData.senhaAcesso}</b>
+            </p>
           </DialogContent>
         </div>
       </Dialog>
@@ -217,7 +269,7 @@ const CadastroMedicoForm = () => {
             <InputCEP
               label="CEP"
               variant="outlined"
-              onChange={(e) => setCep(e.target.value)}
+              onChange={(e) => handleCEP(e.target.value)}
             />
 
             <InputCidade
