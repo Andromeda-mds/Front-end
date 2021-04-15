@@ -35,16 +35,16 @@ export const SecondSection = styled.div`
 `;
 
 export const LoginTitle = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0 0 0 2.2rem;
+  //display: flex;
+  //align-items: center;
   width: 100%;
-  height: 15%;
-  > h1 {
+  height: 20%;
+  //background-color: green;
+  /* > h1 {
     color: #77e8ea;
     font-size: 1.2rem;
     line-height: 49.03px;
-  }
+  } */
 `;
 
 export const LoginImageCard = styled.div`
@@ -128,4 +128,13 @@ export const TabBarLeft = styled.span`
   align-items: center;
   color: gray;
   border-radius: 3rem 0 0 3rem;
+`;
+
+export const LogoDiv = styled.div`
+    width: 15%;
+    height: 100%;
+    background: no-repeat center;
+    background-size: 7rem 7rem;
+    margin-left: 12rem;
+    padding: 3rem 3rem 3rem 3rem;
 `;
