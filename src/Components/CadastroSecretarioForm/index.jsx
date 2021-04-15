@@ -67,6 +67,7 @@ const CadastroSecretarioForm = () => {
 
     const handleForm = () => {
         let _senhaAcesso = makeid(8);
+        let _matricula = makeid(5);
         let _endereco = handleEndereco();
         setShowCircularProgress(true);
         console.log(clientToken)
@@ -80,6 +81,7 @@ const CadastroSecretarioForm = () => {
                 telefone: telefone,
                 dataDeNascimento: dataDeNascimento,
                 endereco: _endereco,
+                matricula: _matricula,
                 senhaAcesso: _senhaAcesso
             }, { headers: {"x-access-token" : `${clientToken}`}})
         .then((res) => {

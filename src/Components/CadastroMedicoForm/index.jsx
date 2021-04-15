@@ -97,6 +97,50 @@ const CadastroMedicoForm = () => {
     return _result.toString();
   };
 
+  // const handleCEP = (event) => {​​​​​
+
+  //   const CEP = event;
+
+  //   if(CEP.length > 6){​​​​​
+
+  //     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+  //     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+
+  //     axios.get(`http://viacep.com.br/ws/${​​​​​CEP}​​​​​/json/`)
+  //     .then((res) =>{​​​​​
+
+  //       setCep(res.endereco.cep);
+
+  //       setCity(res.endereco.localidade);
+
+  //       setLogradouro(res.endereco.logradouro);
+
+  //       console.log(res)
+
+  //     }​​​​​)
+  //     .catch((err) =>{​​​​​
+
+  //       console.log(err)
+
+  //     }​​​​​)
+  //   }​​​​​
+  // }​​​​​
+
+  const handleCEP = (event) => {
+    const CEP = event;
+
+    if (CEP.length > 7) {
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";  
+      axios
+        .get(`http://viacep.com.br/ws/${CEP}​​​​​/json/`, {headers: {"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}})
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  };
+
   const handleForm = () => {
     let _senhaAcesso = makeid(8);
     let _endereco = handleEndereco();
