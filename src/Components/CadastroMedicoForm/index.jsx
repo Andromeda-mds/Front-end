@@ -24,7 +24,12 @@ import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
-
+import { backendURL } from "../../services/api";
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import { DialogContent, DialogTitle } from "@material-ui/core";
 
 const CadastroMedicoForm = () => {
   const Especialidades = [
@@ -61,8 +66,13 @@ const CadastroMedicoForm = () => {
   const [numero, setNumero] = React.useState("");
   const [cpf, setCpf] = React.useState("");
   const [dataDeNascimento, setDataDeNascimento] = React.useState("");
-  const [showCircularProgress, setShowCircularProgress] = React.useState(false); 
-  
+  const [showCircularProgress, setShowCircularProgress] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [clientData, setClientData] = React.useState({});
+  const [clientToken, setClientToken] = React.useState(
+    localStorage.getItem("loginToken")
+  );
+
   const handleEspecialidade = (event) => {
     setEspecialidade(event.target.value);
   };
@@ -75,40 +85,87 @@ const CadastroMedicoForm = () => {
     for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
+
     return result;
   }
 
   const handleEndereco = () => {
-    let _result = [
-      cep,
-      city,
-      logradouro,
-      numero
-    ]
+    let _result = [cep, city, logradouro, numero];
 
     return _result.toString();
-  }
+  };
+
+  // const handleCEP = (event) => {​​​​​
+
+  //   const CEP = event;
+
+  //   if(CEP.length > 6){​​​​​
+
+  //     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+  //     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+
+  //     axios.get(`http://viacep.com.br/ws/${​​​​​CEP}​​​​​/json/`)
+  //     .then((res) =>{​​​​​
+
+  //       setCep(res.endereco.cep);
+
+  //       setCity(res.endereco.localidade);
+
+  //       setLogradouro(res.endereco.logradouro);
+
+  //       console.log(res)
+
+  //     }​​​​​)
+  //     .catch((err) =>{​​​​​
+
+  //       console.log(err)
+
+  //     }​​​​​)
+  //   }​​​​​
+  // }​​​​​
+
+  const handleCEP = (event) => {
+    const CEP = event;
+
+    if (CEP.length > 7) {
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      axios.defaults.headers.post["Content-Type"] =
+        "application/x-www-form-urlencoded";  
+      axios
+        .get(`http://viacep.com.br/ws/${CEP}​​​​​/json/`, {headers: {"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}})
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  };
 
   const handleForm = () => {
     let _senhaAcesso = makeid(8);
     let _endereco = handleEndereco();
     setShowCircularProgress(true);
     axios
-      .post("http://localhost:3001/medico", {
-        nomeCompleto: nomeCompleto,
-        cpf: cpf,
-        email: email,
-        crm: crm,
-        telefone: telefone,
-        especialidade: especialidade,
-        dataDeNascimento: dataDeNascimento,
-        endereco: _endereco,
-        senhaAcesso: _senhaAcesso,
-      })
+      .post(
+        `${backendURL}medico`,
+        {
+          nomeCompleto: nomeCompleto,
+          cpf: cpf,
+          email: email,
+          crm: crm,
+          telefone: telefone,
+          especialidade: especialidade,
+          dataDeNascimento: dataDeNascimento,
+          endereco: _endereco,
+          senhaAcesso: _senhaAcesso,
+        },
+        { headers: { "x-access-token": `${clientToken}` } }
+      )
       .then((res) => {
         console.log(res.data.message);
+        console.log(res.data.item);
+        setClientData(res.data.item);
         setTimeout(() => setShowCircularProgress(false), 3000);
-        alert(res.data.message);
+        setTimeout(() => setOpenDialog(!openDialog), 3000);
+        // alert(res.data.message);
       })
       .catch((err) => {
         console.log("Ocorreu um erro: ", err);
@@ -116,21 +173,31 @@ const CadastroMedicoForm = () => {
       });
   };
 
-  //   React.useEffect(() => {
-  //     axios
-  //       .post(".../medico", {
-  //         nomeCompleto: "",
-  //         Telefone: telefone,
-  //         CRM: crm,
-  //       })
-  //       .then((res) => console.log("Médico cadastrado com sucesso"))
-  //       .catch((err) =>
-  //         console.log("Ocorreu um erro ao cadastrar o médico.", err)
-  //       );
-  //   }, [submmitTrigger]);
-
   return (
     <Container>
+      <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
+        <div>
+          <DialogTitle>Dados do médico</DialogTitle>
+          <hr style={{ width: "100%" }} />
+          <DialogContent>
+            <p>
+              Nome: <b>{clientData.nomeCompleto}</b>
+            </p>
+            <br />
+            <p>
+              CRM: <b>{clientData.crm}</b>
+            </p>
+            <br />
+            <p>
+              E-mail: <b>{clientData.email}</b>
+            </p>
+            <br />
+            <p>
+              Senha: <b>{clientData.senhaAcesso}</b>
+            </p>
+          </DialogContent>
+        </div>
+      </Dialog>
       <Backdrop open={showCircularProgress}>
         <CircularProgress />
       </Backdrop>
@@ -202,7 +269,7 @@ const CadastroMedicoForm = () => {
             <InputCEP
               label="CEP"
               variant="outlined"
-              onChange={(e) => setCep(e.target.value)}
+              onChange={(e) => handleCEP(e.target.value)}
             />
 
             <InputCidade

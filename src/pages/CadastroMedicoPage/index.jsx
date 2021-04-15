@@ -2,7 +2,6 @@ import React from "react";
 import * as home from "./styles";
 import CadastroMedicoForm from "../../Components/CadastroMedicoForm";
 import Header from "../../Components/Header";
-import PersonDiv from "../HomePage/style";
 import decode from "jwt-decode";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 const CadastroMedicoPage = () => {

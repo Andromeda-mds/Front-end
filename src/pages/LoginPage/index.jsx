@@ -14,10 +14,11 @@ import {
   OptionsBarWrapper,
   TabBarRigth,
   TabBarLeft,
+  LogoDiv
 } from "./styles";
 import LoginForm from "../../Components/LoginForm";
 import loginImage from "../../Assets/loginImage.svg";
-import logo from "../../Assets/darkLogo.svg";
+import logo from "../../Assets/logo.svg";
 
 
 const LoginPage = () => {
@@ -28,7 +29,8 @@ const LoginPage = () => {
       <Container>
         <FirstSection>
           <LoginTitle>
-            <h1>SisPOC</h1>
+            <LogoDiv style={{ backgroundImage: `url(${logo})`}} />
+            {/* <h1>SisPOC</h1> */}
           </LoginTitle>
           <LoginDescription>
             <DescriptionTitle>
