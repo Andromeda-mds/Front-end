@@ -127,20 +127,6 @@ const CadastroMedicoForm = () => {
   //   }​​​​​
   // }​​​​​
 
-  const handleCEP = (event) => {
-    const CEP = event;
-
-    if (CEP.length > 7) {
-      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-      axios.defaults.headers.post["Content-Type"] =
-        "application/x-www-form-urlencoded";  
-      axios
-        .get(`http://viacep.com.br/ws/${CEP}​​​​​/json/`, {headers: {"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}})
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    }
-  };
-
   const handleForm = () => {
     let _senhaAcesso = makeid(8);
     let _endereco = handleEndereco();
@@ -176,11 +162,8 @@ const CadastroMedicoForm = () => {
 
   const handleCEP = (event, setCep) =>{
 
-      let CEP = event.target
-      CEP = CEP.value.replace(/[^0-9]/g, '')
-      if(CEP.length !== 8){
-        return;
-      }
+      setCep(event.target.value)
+      let CEP = event.target.value
       fetch(`http://viacep.com.br/ws/${CEP}/json/`)
         .then((res) => res.json())
         .then((data) => {
@@ -216,7 +199,8 @@ const CadastroMedicoForm = () => {
         crm: '',
         telefone: '',
         cep: '',
-        numero:''
+        numero:'',
+        city:''
       }}
       validateOnMount
       validationSchema={validationSchema}
@@ -252,7 +236,7 @@ const CadastroMedicoForm = () => {
                InputLabelProps={{ className: "inputLabelProps" }}
               //  onChange={(e) => setNomeCompleto(e.target.value)}
                value={values.nomeCompleto}
-               onChange={handleChange}
+               onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value)}}
                error={Boolean(errors.nomeCompleto) && dirty}
                helperText={(errors.nomeCompleto && dirty) ?  errors.nomeCompleto : false}
              />
@@ -265,7 +249,7 @@ const CadastroMedicoForm = () => {
                 //  onChange={(e) => setCpf(e.target.value)}
                  type="text"
                  value={values.cpf}
-                 onChange={handleChange}
+                 onChange={(e) => {handleChange(e); setCpf(e.target.value)}}
                  error={Boolean(errors.cpf) && dirty}
                  helperText={(errors.cpf && dirty) ?  errors.cpf : false}
                />
@@ -282,10 +266,9 @@ const CadastroMedicoForm = () => {
                  name="email"
                  label="Email"
                  variant="outlined"
-                //  onChange={(e) => setEmail(e.target.value)}
                  type="email"
                  value={values.email}
-                 onChange={handleChange}
+                 onChange={(e) => {handleChange(e); setEmail(e.target.value)}}
                  error={Boolean(errors.email) && dirty}
                  helperText={(errors.email && dirty) ?  errors.email : false}
                />
@@ -293,10 +276,9 @@ const CadastroMedicoForm = () => {
                  name="crm"
                  label="CRM"
                  variant="outlined"
-                //  onChange={(e) => setCrm(e.target.value)}
                  type="xnutmber"
                  value={values.crm}
-                 onChange={handleChange}
+                 onChange={(e) => {handleChange(e); setCrm(e.target.value)}}
                  error={Boolean(errors.crm) && dirty}
                  helperText={(errors.crm && dirty) ?  errors.crm : false}
                />
@@ -322,9 +304,8 @@ const CadastroMedicoForm = () => {
                  name="telefone"
                  label="Telefone"
                  variant="outlined"
-                //  onChange={(e) => setTelefone(e.target.value)}
                  value={values.telefone}
-                 onChange={handleChange}
+                 onChange={(e) => {handleChange(e); setTelefone(e.target.value)}}
                  error={Boolean(errors.telefone) && dirty}
                  helperText={(errors.telefone && dirty) ?  errors.telefone : false}
                />
@@ -336,14 +317,18 @@ const CadastroMedicoForm = () => {
                  name="cep"
                  label="CEP"
                  variant="outlined"
-                 onChange={(e) => handleCEP(e, setCep)}         
+                 onChange={(e) => {handleChange(e); handleCEP(e, setCep) }} 
+                 error={Boolean(errors.cep) && dirty}
+                 helperText={(errors.cep && dirty) ?  errors.cep : false}        
                />
                <InputCidade
-                 name="cidade"
+                 name="city"
                  label="Cidade"
                  variant="outlined"
-                 value={city}
-                 onChange={(e) => setCity(e.target.value)}
+                 value={values.city}
+                 onChange={(e) => {handleChange(e); setCity(e.target.value)}}
+                 error={Boolean(errors.city) && dirty}
+                 helperText={(errors.city && dirty) ?  errors.city : false}
                />
              </div>
    
@@ -353,8 +338,10 @@ const CadastroMedicoForm = () => {
                  name="logradouro"
                  label="Logradouro"
                  variant="outlined"
-                 value={logradouro}
-                 onChange={(e) => setLogradouro(e.target.value)}
+                 value={values.logradouro}
+                 onChange={(e) => {handleChange(e); setLogradouro(e.target.value)}}
+                 error={Boolean(errors.logradouro) && dirty}
+                 helperText={(errors.logradouro && dirty) ?  errors.logradouro : false}
                />
                <InputNumero
                  name="numero"
@@ -362,7 +349,7 @@ const CadastroMedicoForm = () => {
                  variant="outlined"
                 //  onChange={(e) => setNumero(e.target.value)}
                  value={values.numero}
-                 onChange={handleChange}
+                 onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
                  error={Boolean(errors.numero) && dirty}
                  helperText={(errors.numero && dirty) ?  errors.numero : false}
                />
