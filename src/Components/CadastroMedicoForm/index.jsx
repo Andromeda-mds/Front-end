@@ -241,7 +241,7 @@ const CadastroMedicoForm = () => {
                helperText={(errors.nomeCompleto && dirty) ?  errors.nomeCompleto : false}
              />
              <br />
-             <div className="linha1">
+             <div className="Linha-CPF-Data">
                <InputCPF
                  name="cpf"
                  label="CPF"
@@ -261,7 +261,7 @@ const CadastroMedicoForm = () => {
              </div>
    
              <br />
-             <div className="linha2">
+             <div className="Linha-Email-CRM">
                <InputEmail
                  name="email"
                  label="Email"
@@ -285,7 +285,7 @@ const CadastroMedicoForm = () => {
              </div>
    
              <br />
-             <div className="linha3">
+             <div className="Linha-Especialidade-Telefone">
                <FormControl variant="outlined" style={{ width: "60%" }}>
                  <InputLabel id="especialidades">Especialidade</InputLabel>
                  <InputEspecialidade
@@ -312,7 +312,7 @@ const CadastroMedicoForm = () => {
              </div>
    
              <br />
-             <div className="linha4">
+             <div className="Linha-CEP-Cidade">
                <InputCEP
                  name="cep"
                  label="CEP"
@@ -333,7 +333,7 @@ const CadastroMedicoForm = () => {
              </div>
    
              <br />
-             <div className="linha5">
+             <div className="Linha-Logradouro-Numero">
                <InputLogradouro
                  name="logradouro"
                  label="Logradouro"

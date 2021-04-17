@@ -33,25 +33,25 @@ export const InputSection = styled.div`
     width: 100%;
     padding: 0rem 0 0 2rem;
     
-    .linha1{
+    .Linha-CPF-Data{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha2{
+    .Linha-Email-Telefone{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha3{
+    .Linha-CEP-Cidade{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha4{
+    .Linha-Logradouro-Numero{
         width: 40%;
         display: flex;
         justify-content: space-between;

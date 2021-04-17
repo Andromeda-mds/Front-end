@@ -103,7 +103,7 @@ const CadastroPacienteForm = () => {
                         onChange={(e) => setNomeCompleto(e.target.value)}
                     />
                     <br />
-                    <div className="linha1">
+                    <div className="Linha-CPF-Data">
                         <InputCPF 
                             label="CPF"
                             variant="outlined"
@@ -117,7 +117,7 @@ const CadastroPacienteForm = () => {
                     </div>    
 
                     <br />
-                    <div className="linha2">
+                    <div className="Linha-Email-Telefone">
                         <InputEmail 
                             label="Email"
                             variant="outlined"
@@ -132,7 +132,7 @@ const CadastroPacienteForm = () => {
                     </div>
 
                     <br />
-                    <div className="linha3">
+                    <div className="Linha-Convenio">
                         <FormControl variant="outlined" style={{ width: "100%"}}>
                             <InputLabel id="convenio">Convênio</InputLabel>
                             <InputConvenio
@@ -150,7 +150,7 @@ const CadastroPacienteForm = () => {
                     </div>
                     
                     <br />
-                    <div className="linha4">
+                    <div className="Linha-CEP-Cidade">
                         <InputCEP
                             label = "CEP"
                             variant= "outlined"
@@ -165,7 +165,7 @@ const CadastroPacienteForm = () => {
                     </div>
 
                     <br />
-                    <div className="linha5">
+                    <div className="Linha-Logradouro-Numero">
                        <InputLogradouro
                             label = "Logradouro"
                             variant= "outlined"
