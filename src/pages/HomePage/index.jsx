@@ -16,49 +16,19 @@ import decode from "jwt-decode";
 import axios from "axios";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import { backendURL } from "../../services/api";
+import {Redirect} from 'react-router-dom'
+import GuiaMedico from '../GuiaMedicoPage';
+import ProfileIcon from "../../Components/ProfileIcon";
 
 const HomePage = () => {
   const [role, setRole] = React.useState(localStorage.getItem("role"));
   const [clientData, setClientData] = React.useState({});
   // const [clientId, setClientId] = React.useState("");
   var clientId;
-  const [clientName, setClientName] = React.useState("");
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
 
-  const handleDataClientByToken = async () => {
-    setClientName(await decode(localStorage.getItem("loginToken")).nome);
-    clientId = await decode(localStorage.getItem("loginToken"))._id;
-
-    // axios
-    //   .get(
-    //     `${backendURL}${
-    //       role === "medico" ? "medico" : "secretario"
-    //     }/${clientId}`,
-    //     {
-    //       headers: {
-    //         "x-access-token": `${localStorage.getItem("loginToken")}`,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     setClientData(res.data);
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     alert("Ocorreu um erro na requisição");
-    //     console.log(err);
-    //   });
-  };
-
-  React.useEffect(() => {
-    // setClientId(decode(localStorage.getItem("loginToken"))._id);
-    handleDataClientByToken();
-  }, []);
 
   return (
+
     <home.Wrapper>
       <home.Container>
         <home.ContentPage>
@@ -76,9 +46,9 @@ const HomePage = () => {
                         <h1>Agenda</h1>
                       </home.AgendaButton>
                     </a>
-                    <a>
+                    <a href="/guiamedico" style={{textDecoration: "none"}}>
                       <home.GuiaMedicoButton>
-                        <AssignmentIcon style={{ fontSize: 70 }} />
+                      <AssignmentIcon style={{ fontSize: 70 }} />
                         <h1>Guia Médico</h1>
                       </home.GuiaMedicoButton>
                     </a>
@@ -154,13 +124,9 @@ const HomePage = () => {
               </div>
             )}
 
-            <home.PersonDiv>
-              <p>{clientName}</p>
-              <PersonOutlineIcon fontSize="large" style={{ color: "gray" }} />
-              <span onClick={handleLogout}>
-                <p>Sair</p>
-              </span>
-            </home.PersonDiv>
+            <home.ProfileWrapper>
+              <ProfileIcon/>
+            </home.ProfileWrapper>
           </div>
         </home.ContentPage>
       </home.Container>
