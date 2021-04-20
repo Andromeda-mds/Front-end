@@ -42,21 +42,10 @@ export const Titulo = styled.div`
 export const HeaderDiv = styled.div`
     height: 12%;
 `;
+ 
 
-export const PersonDiv = styled.div`
-  width: 5%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin-left: 60%;
-  /* background-color: red; */
-  >span{
-    cursor: pointer;
-    :hover{
-      color: lightgrey;
-      text-decoration: underline;
-    }
-  }
-`; 
+export const ProfileWrapper = styled.div`
+    height: 100%;
+    width: 10%;
+    margin-left: 63%;
+`;

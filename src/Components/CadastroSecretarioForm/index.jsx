@@ -128,7 +128,7 @@ const CadastroSecretarioForm = () => {
                         onChange={(e) => setNomeCompleto(e.target.value)}
                     />
                     <br/>
-                    <div className="linha1">
+                    <div className="Linha-CPF-Data">
                         <InputCPF
                             label = "CPF"
                             variant= "outlined"
@@ -142,7 +142,7 @@ const CadastroSecretarioForm = () => {
                     </div>
                     
                     <br/>
-                    <div className="linha2">
+                    <div className="Linha-Email-Telefone">
                         <InputEmail
                             label = "Email"
                             variant= "outlined"
@@ -156,7 +156,7 @@ const CadastroSecretarioForm = () => {
                     </div>
                     
                     <br/>
-                    <div className="linha3">
+                    <div className="Linha-CEP-Cidade">
                         <InputCEP
                             label = "CEP"
                             variant= "outlined"
@@ -171,7 +171,7 @@ const CadastroSecretarioForm = () => {
                     </div>
                    
                     <br/>
-                    <div className="linha4">
+                    <div className="Linha-Logradouro-Numero">
                        <InputLogradouro
                             label = "Logradouro"
                             variant= "outlined"

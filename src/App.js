@@ -10,7 +10,8 @@ import ProtectedRoute from "./utils/Routes/ProtectedRoute";
 import CadastroSecretario from "./pages/CadastroSecretarioPage";
 import AgendaMedico from "./pages/AgendaMedico";
 import CadastroPaciente from "./pages/CadastroPacientePage";
-
+import GuiaMedico from './pages/GuiaMedicoPage'
+;
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             path="/medico/agenda"
             render={() => <AgendaMedico />}
           />
+          <ProtectedRoute path="/guiamedico" render={() => <GuiaMedico />}/>
           <BoardRoute path="/login" render={() => <LoginPage />} />
           <AlreadyLoggedRoute path="/homepage" render={() => <HomePage />} />
           <AlreadyLoggedRoute path="/" render={() => <HomePage />} />

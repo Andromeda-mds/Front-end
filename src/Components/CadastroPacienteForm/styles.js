@@ -28,31 +28,31 @@ export const InputSection = styled.div`
     align-items: left;
     width: 100%;
     padding: 2rem 0 0 2rem;
-    .linha1{
+    .Linha-CPF-Data{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha2{
+    .Linha-Email-Telefone{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha3{
+    .Linha-Convenio{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha4{
+    .Linha-CEP-Cidade{
         width: 40%;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
     }
-    .linha5{
+    .Linha-Logradouro-Numero{
         width: 40%;
         display: flex;
         justify-content: space-between;
