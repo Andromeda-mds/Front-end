@@ -403,19 +403,9 @@ export const CadastrarSecretario = styled.button`
       width: 100%;
     }
 `
- export const PersonDiv = styled.div`
-  width: 10%;
-  height: 32%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
 
-  >span{
-    cursor: pointer;
-    :hover{
-      color: lightgrey;
-      text-decoration: underline;
-    }
-  }
-`; 
+export const ProfileWrapper = styled.div`
+    height: 5%;
+    width: 5%;
+    margin-top: 5%;
+`;
