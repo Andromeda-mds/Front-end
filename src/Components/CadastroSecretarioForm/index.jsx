@@ -73,7 +73,7 @@ const CadastroSecretarioForm = () => {
         console.log(clientToken)
         axios
         .post(
-            `${backendURL}pessoa`, 
+            `${backendURL}secretario`, 
             {
                 nomeCompleto: nomeCompleto,
                 cpf: cpf,
