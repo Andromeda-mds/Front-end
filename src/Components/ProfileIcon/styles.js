@@ -3,9 +3,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     height: 100%;
-    width: 10%;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
 `;
 
 export const PersonDiv = styled.div`
@@ -15,9 +13,8 @@ export const PersonDiv = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* margin-left: 60%; */
-  /* background-color: red; */
   >span{
+    text-align: center;
     cursor: pointer;
     :hover{
       color: lightgrey;
