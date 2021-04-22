@@ -6,7 +6,7 @@ import ProfileIcon from "../../Components/ProfileIcon";
 import BotaoQuadrado from "../../Components/BotaoQuadrado";
 import DescriptionIcon from '@material-ui/icons/Description';
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-
+import Check from "@material-ui/icons/Check";
 
 
 
@@ -40,8 +40,16 @@ const GuiaMedicoPage = () => {
                                 <p>Idade:</p>
                                 <p>Convênio</p>
                             </div>
-                            <home.Button>Ficha completa</home.Button>
+                            <home.FichaCompletaBotao>Ficha completa</home.FichaCompletaBotao>
                         </div>
+                    </div>
+                    <div className="filaEspera-terminarConsulta">
+                        <home.FilaEsperaBotao>Ver fila de espera</home.FilaEsperaBotao>
+                        
+                        <home.TerminarConsultaBotao>
+                            <h1>Terminar consulta</h1>
+                            <Check/>
+                        </home.TerminarConsultaBotao>
                     </div>
                 </div>
                 <div className="first-section">

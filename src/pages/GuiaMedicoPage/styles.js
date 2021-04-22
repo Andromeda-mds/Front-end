@@ -28,6 +28,7 @@ export const Container = styled.div`
                 display: flex;
                 justify-content: center;
                 .button{
+                    margin-top: 0.5rem;
                     width: 40%;
                     height: 100%;
                 }
@@ -65,6 +66,14 @@ export const Container = styled.div`
                     }
                 }
             }
+            .filaEspera-terminarConsulta{
+                height: 35%;
+                width: 60%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
         }   
     }
 `;
@@ -80,14 +89,14 @@ export const ProfileWrapper = styled.div`
     width: 8%;
     margin-top: 2rem;
 `;
-export const Button = styled.button`
+export const FichaCompletaBotao = styled.button`
   margin-top: 1rem;
   width: 10rem;
   height: 2.5rem;
   border-radius: 1.5rem;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
   background-color: ${Theme.colors.$sispocThird};
-  color: #1b1b1b;
+  color: white;
   border: none;
   transition: all 0.3s ease 0s;
   display: flex;
@@ -95,6 +104,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   outline: none;
+  
   &:hover {
     background-color: #ff7800;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
@@ -102,3 +112,54 @@ export const Button = styled.button`
     transform: translateY(-7px);
   }
 `
+
+export const FilaEsperaBotao = styled.button`
+    margin-top: 1rem;
+    width: 12.5rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
+    background-color: ${Theme.colors.$sispocThird};
+    color: white;
+    border: none;
+    transition: all 0.3s ease 0s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    
+    &:hover {
+        background-color: #ff7800;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+
+`
+
+export const TerminarConsultaBotao = styled.button`
+    width: 12.5rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
+    background-color: #16E01E;
+    color: white;
+    border: none;
+    transition: all 0.3s ease 0s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    &:hover {
+        background-color: #ff7800;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+    >h1{
+        font-weight: 500;
+        width: 80%;
+    }
+`
+    
