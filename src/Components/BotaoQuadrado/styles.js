@@ -22,7 +22,7 @@ export const BotaoQuadrado = styled.button`
     transform: translateY(-7px);
   }
   > h1 {
-    padding: 2rem 0.5rem 0.5rem 0.5rem;
+    padding: 1.5rem 0.5rem 0.5rem 0.5rem;
     height: 20%;
     font-weight: 600;
     width: 80%;

@@ -20,6 +20,7 @@ import {Redirect} from 'react-router-dom'
 import GuiaMedico from '../GuiaMedicoPage';
 import ProfileIcon from "../../Components/ProfileIcon";
 import BotaoQuadrado from "../../Components/BotaoQuadrado";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const HomePage = () => {
   const [role, setRole] = React.useState(localStorage.getItem("role"));
@@ -67,10 +68,12 @@ const HomePage = () => {
                       </div>
                       <h1>Buscar Médicos</h1>
                     </home.BuscarMedicosButton>
-                    <home.BuscarPacientesButton>
-                      <FindInPageIcon style={{ fontSize: 70 }} />
-                      <h1>Buscar ficha de paciente</h1>
-                    </home.BuscarPacientesButton>
+                    <div className="cadastrarPacienteButton">
+                      <BotaoQuadrado 
+                        title="Buscar ficha de paciente"
+                        image={FindInPageIcon}
+                      />
+                      </div>
                     <home.NovaConsultaButton>
                       <div className="calendario">
                         <CalendarToday style={{ fontSize: 70 }} />
@@ -80,6 +83,15 @@ const HomePage = () => {
                       </div>
                       <h1>Nova consulta</h1>
                     </home.NovaConsultaButton>
+                    <a href="/cadastro/paciente" style={{textDecoration: "none"}}>
+                      <div className="cadastrarPacienteButton">
+                        <BotaoQuadrado
+                          image={PersonAddIcon}
+                          title="Cadastrar Paciente"
+                        />
+                      </div>
+                    </a>
+                    
                   </div>
                 </div>
               )
