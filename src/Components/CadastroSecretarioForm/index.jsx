@@ -26,6 +26,8 @@ import decode from 'jwt-decode';
 import Dialog from "@material-ui/core/Dialog";
 import { DialogContent, DialogTitle } from "@material-ui/core";
 import { backendURL } from "../../services/api";
+import {Formik} from 'formik';
+import validationSchema from '../CadastroMedicoForm/schema'
 
 
 const CadastroSecretarioForm = () => {
@@ -97,10 +99,44 @@ const CadastroSecretarioForm = () => {
         });
     };
 
+    const handleCEP = (event, setCep) =>{
+
+        let CEP = event.target.value
+        console.log(CEP)
+          if(CEP.length === 8){
+              axios.get(`http://viacep.com.br/ws/${CEP}/json/`)
+            .then((res) =>{
+              console.log(res)
+              setCep(res.data.cep);
+              setCity(res.data.localidade);
+              setLogradouro(res.data.logradouro);
+            })
+            .catch((err) =>{
+              console.log(err)
+            })
+        
+          }
+          
+  
+    }
+
 
     return(
-        <Container>
-                 <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
+        <Formik
+            initialValues={{
+                nomeCompleto: '',
+                cpf: '',
+                email: '',
+                crm: '',
+                telefone: '',
+                cep: '',
+                numero:''
+            }}
+            validationSchema={validationSchema}
+        >
+        {({handleChange, values, touched, errors, handleBlur}) =>(
+            <Container>
+                <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
                     <div className="caixaDialogo">
                         <DialogTitle>Dados do secretário</DialogTitle>
                         <hr style={{width: "100%"}}/>
@@ -119,84 +155,88 @@ const CadastroSecretarioForm = () => {
                     <CircularProgress />
                 </Backdrop>
                 <InputSection>
-                <form className="form">
-                    <InputNome
-                        label = "Nome-Completo"
-                        variant= "outlined"
-                        inputProps={{className: "inputProps"}}
-                        InputLabelProps={{className:"inputLabelProps"}}
-                        onChange={(e) => setNomeCompleto(e.target.value)}
-                    />
-                    <br/>
-                    <div className="Linha-CPF-Data">
-                        <InputCPF
-                            label = "CPF"
+                    <form className="form">
+                        <InputNome
+                            label = "Nome-Completo"
                             variant= "outlined"
-                            onChange={(e) => setCpf(e.target.value)}
+                            inputProps={{className: "inputProps"}}
+                            InputLabelProps={{className:"inputLabelProps"}}
+                            onChange={(e) => setNomeCompleto(e.target.value)}
                         />
-                        <InputDataNascimento
-                            variant= "outlined"
-                            type= "date"
-                            onChange={(e) => setDataDeNascimento(e.target.value)}
-                        />
-                    </div>
-                    
-                    <br/>
-                    <div className="Linha-Email-Telefone">
-                        <InputEmail
-                            label = "Email"
-                            variant= "outlined"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                       <InputTelefone
-                            label = "Telefone"
-                            variant= "outlined"
-                            onChange={(e) => setTelefone(e.target.value)}
-                        />
-                    </div>
-                    
-                    <br/>
-                    <div className="Linha-CEP-Cidade">
-                        <InputCEP
-                            label = "CEP"
-                            variant= "outlined"
-                            onChange={(e) => setCep(e.target.value)}
-                        />
+                        <br/>
+                        <div className="Linha-CPF-Data">
+                            <InputCPF
+                                label = "CPF"
+                                variant= "outlined"
+                                onChange={(e) => setCpf(e.target.value)}
+                            />
+                            <InputDataNascimento
+                                variant= "outlined"
+                                type= "date"
+                                onChange={(e) => setDataDeNascimento(e.target.value)}
+                            />
+                        </div>
+                        
+                        <br/>
+                        <div className="Linha-Email-Telefone">
+                            <InputEmail
+                                label = "Email"
+                                variant= "outlined"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <InputTelefone
+                                label = "Telefone"
+                                variant= "outlined"
+                                onChange={(e) => setTelefone(e.target.value)}
+                            />
+                        </div>
+                        
+                        <br/>
+                        <div className="Linha-CEP-Cidade">
+                            <InputCEP
+                                label = "CEP"
+                                variant= "outlined"
+                                onChange={(e) => setCep(e.target.value)}
+                            />
 
-                        <InputCidade
-                            label = "Cidade"
-                            variant= "outlined"
-                            onChange={(e) => setCity(e.target.value)}
-                         />
-                    </div>
-                   
-                    <br/>
-                    <div className="Linha-Logradouro-Numero">
-                       <InputLogradouro
-                            label = "Logradouro"
-                            variant= "outlined"
-                            onChange={(e) => setLogradouro(e.target.value)}
-                        />
-                        <InputNumero
-                            label = "Numero"
-                            variant= "outlined"
-                            onChange={(e) => setNumero(e.target.value)}
-                        /> 
-                    </div>
-                    
-                </form>
+                            <InputCidade
+                                label = "Cidade"
+                                variant= "outlined"
+                                onChange={(e) => setCity(e.target.value)}
+                                />
+                        </div>
+                        
+                        <br/>
+                        <div className="Linha-Logradouro-Numero">
+                            <InputLogradouro
+                                label = "Logradouro"
+                                variant= "outlined"
+                                onChange={(e) => setLogradouro(e.target.value)}
+                            />
+                            <InputNumero
+                                label = "Numero"
+                                variant= "outlined"
+                                onChange={(e) => setNumero(e.target.value)}
+                            /> 
+                        </div>
+                        
+                    </form>
                 </InputSection>
-            <ButtonSection>
-                <CadastrarSecretarioButton onClick={handleForm}>
-                    <h1>Cadastrar Secretário</h1>
-                    <Check/>
-                </CadastrarSecretarioButton>
-            </ButtonSection>
-        </Container>
-
+                <ButtonSection>
+                    <CadastrarSecretarioButton onClick={handleForm}>
+                        <h1>Cadastrar Secretário</h1>
+                        <Check/>
+                    </CadastrarSecretarioButton>
+                </ButtonSection>
+            </Container>
+        )
+        }
+        </Formik>
+        
 
     );
 
 }
+
 
 export default CadastroSecretarioForm;

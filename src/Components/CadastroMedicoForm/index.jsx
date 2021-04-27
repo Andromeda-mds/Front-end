@@ -153,11 +153,9 @@ const CadastroMedicoForm = () => {
         
 
   }
-  var interagiu = false
 
   return (
     <Formik
-      enableReinitialize
       initialValues={{
         nomeCompleto: '',
         cpf: '',
@@ -167,169 +165,167 @@ const CadastroMedicoForm = () => {
         cep: '',
         numero:''
       }}
-      // validateOnMount
       validationSchema={validationSchema}
-      // validateOnChange
     >
       {
-        ({handleChange, values, touched, errors, dirty, handleBlur}) => (
-         <Container>
-         <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
-           <div className="caixaDialogo">
-             <DialogTitle>Dados do médico</DialogTitle>
-             <hr style={{width: "100%"}}/>
-             <DialogContent>
-               <p>Nome: <b>{clientData.nomeCompleto}</b></p>
-               <br/>
-               <p>CRM: <b>{clientData.crm}</b></p>
-               <br/>
-               <p>E-mail: <b>{clientData.email}</b></p>
-               <br/>
-               <p>Senha: <b>{clientData.senhaAcesso}</b></p>
-             </DialogContent>
-           </div>
-         </Dialog>
-         <Backdrop open={showCircularProgress}>
-           <CircularProgress />
-         </Backdrop>
-         <InputSection>
-           <form className="form">
-             <InputNome
-               name="nomeCompleto"
-               label="Nome-Completo"
-               variant="outlined"
-               inputProps={{ className: "inputProps" }}
-               InputLabelProps={{ className: "inputLabelProps" }}
-               value={values.nomeCompleto}
-               onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value);  console.log(touched.nomeCompleto && Boolean(errors.nomeCompleto)); }}
-               helperText={touched.nomeCompleto ? errors.nomeCompleto : ''}
-               error={touched.nomeCompleto && Boolean(errors.nomeCompleto)}
-               onBlur={handleBlur}
-             />
-             <br />
-             <div className="Linha-CPF-Data">
-               <InputCPF
-                 name="cpf"
-                 label="CPF"
-                 variant="outlined"
-                 type="text"
-                 value={values.cpf}
-                 onChange={(e) => {handleChange(e); setCpf(e.target.value)}}
-                 error={touched.cpf && Boolean(errors.cpf)}
-                 helperText={touched.cpf ? errors.cpf : ''}
-                 onBlur={handleBlur}
-               />
-               <InputDataNascimento
-                 variant="outlined"
-                 type="date"
-                 onChange={(e) => setDataDeNascimento(e.target.value)}
-               />
-             </div>
-   
-             <br />
-             <div className="Linha-Email-CRM">
-               <InputEmail
-                 name="email"
-                 label="Email"
-                 variant="outlined"
-                 type="email"
-                 value={values.email}
-                 onChange={(e) => {handleChange(e); setEmail(e.target.value)}}
-                 error={touched.email && Boolean(errors.email)}
-                 helperText={touched.email ? errors.email : ''}
-                 onBlur={handleBlur}
-               />
-               <InputCRM
-                 name="crm"
-                 label="CRM"
-                 variant="outlined"
-                 type="xnutmber"
-                 value={values.crm}
-                 onChange={(e) => {handleChange(e); setCrm(e.target.value)}}
-                 error={touched.crm && Boolean(errors.crm)}
-                 helperText={touched.crm ? errors.crm : ''}
-                 onBlur={handleBlur}
-               />
-             </div>
-   
-             <br />
-             <div className="Linha-Especialidade-Telefone">
-               <FormControl variant="outlined" style={{ width: "60%" }}>
-                 <InputLabel id="especialidades">Especialidade</InputLabel>
-                 <InputEspecialidade
-                   labelId="especialidades"
-                   label="Especialid"
-                   variant="outlined"
-                   value={especialidade}
-                   onChange={handleEspecialidade}
-                 >
-                   {Especialidades.map((v,i) => {
-                     return <MenuItem key={i} value={v.value}>{v.label}</MenuItem>;
-                   })}
-                 </InputEspecialidade>
-               </FormControl>
-               <InputTelefone
-                 name="telefone"
-                 label="Telefone"
-                 variant="outlined"
-                 value={values.telefone}
-                 onChange={(e) => {handleChange(e); setTelefone(e.target.value)}}
-                 error={touched.telefone && Boolean(errors.telefone)}
-                 helperText={touched.telefone ? errors.telefone : ''}
-                 onBlur={handleBlur}
-               />
-             </div>
-   
-             <br />
-             <div className="Linha-CEP-Cidade">
-               <InputCEP
-                 name="cep"
-                 label="CEP"
-                 variant="outlined"
-                 value={values.cep}
-                 onChange={(e) => {handleChange(e); handleCEP(e, setCep); setCep(e.target.value)}} 
-                 error={touched.cep && Boolean(errors.cep)}
-                 helperText={touched.cep ? errors.cep : ''} 
-                 onBlur={handleBlur}        
-               />
-               <InputCidade
-                 name="city"
-                 label="Cidade"
-                 variant="outlined"
-                 value={city}
-                 onChange={(e) => {setCity(e.target.value)}}
-               />
-             </div>
-   
-              <br />
-            <div className="Linha-Logradouro-Numero">
-                <InputLogradouro
-                 name="logradouro"
-                 label="Logradouro"
-                 variant="outlined"
-                 value={logradouro}
-                 onChange={(e) => {setLogradouro(e.target.value)}}
-               />
-                <InputNumero
-                 name="numero"
-                 label="Numero"
-                 variant="outlined"
-                 value={values.numero}
-                 onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
-                 error={touched.numero && Boolean(errors.numero)}
-                 helperText={touched.numero ? errors.numero : ''}
-                 onBlur={handleBlur}
-               />
-             </div>
-            </form>
-              <ButtonSection>
-                <CadastrarMedicoButton onClick={handleForm}>
-                <h1>Cadastrar Médico</h1>
-                 <Check />
-               </CadastrarMedicoButton>
-              </ButtonSection>
+        ({handleChange, values, touched, errors, handleBlur}) => (
+          <Container>
+            <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
+              <div className="caixaDialogo">
+                <DialogTitle>Dados do médico</DialogTitle>
+                <hr style={{width: "100%"}}/>
+                <DialogContent>
+                  <p>Nome: <b>{clientData.nomeCompleto}</b></p>
+                  <br/>
+                  <p>CRM: <b>{clientData.crm}</b></p>
+                  <br/>
+                  <p>E-mail: <b>{clientData.email}</b></p>
+                  <br/>
+                  <p>Senha: <b>{clientData.senhaAcesso}</b></p>
+                </DialogContent>
+              </div>
+            </Dialog>
+            <Backdrop open={showCircularProgress}>
+              <CircularProgress />
+            </Backdrop>
+            <InputSection>
+              <form className="form">
+                <InputNome
+                  name="nomeCompleto"
+                  label="Nome-Completo"
+                  variant="outlined"
+                  inputProps={{ className: "inputProps" }}
+                  InputLabelProps={{ className: "inputLabelProps" }}
+                  value={values.nomeCompleto}
+                  onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value);  console.log(touched.nomeCompleto && Boolean(errors.nomeCompleto)); }}
+                  helperText={touched.nomeCompleto ? errors.nomeCompleto : ''}
+                  error={touched.nomeCompleto && Boolean(errors.nomeCompleto)}
+                  onBlur={handleBlur}
+                />
+                <br />
+                <div className="Linha-CPF-Data">
+                  <InputCPF
+                    name="cpf"
+                    label="CPF"
+                    variant="outlined"
+                    type="text"
+                    value={values.cpf}
+                    onChange={(e) => {handleChange(e); setCpf(e.target.value)}}
+                    error={touched.cpf && Boolean(errors.cpf)}
+                    helperText={touched.cpf ? errors.cpf : ''}
+                    onBlur={handleBlur}
+                  />
+                  <InputDataNascimento
+                    variant="outlined"
+                    type="date"
+                    onChange={(e) => setDataDeNascimento(e.target.value)}
+                  />
+                </div>
+      
+                <br />
+                <div className="Linha-Email-CRM">
+                  <InputEmail
+                    name="email"
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    value={values.email}
+                    onChange={(e) => {handleChange(e); setEmail(e.target.value)}}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email ? errors.email : ''}
+                    onBlur={handleBlur}
+                  />
+                  <InputCRM
+                    name="crm"
+                    label="CRM"
+                    variant="outlined"
+                    type="xnutmber"
+                    value={values.crm}
+                    onChange={(e) => {handleChange(e); setCrm(e.target.value)}}
+                    error={touched.crm && Boolean(errors.crm)}
+                    helperText={touched.crm ? errors.crm : ''}
+                    onBlur={handleBlur}
+                  />
+                </div>
+      
+                <br />
+                <div className="Linha-Especialidade-Telefone">
+                  <FormControl variant="outlined" style={{ width: "60%" }}>
+                    <InputLabel id="especialidades">Especialidade</InputLabel>
+                    <InputEspecialidade
+                      labelId="especialidades"
+                      label="Especialid"
+                      variant="outlined"
+                      value={especialidade}
+                      onChange={handleEspecialidade}
+                    >
+                      {Especialidades.map((v,i) => {
+                        return <MenuItem key={i} value={v.value}>{v.label}</MenuItem>;
+                      })}
+                    </InputEspecialidade>
+                  </FormControl>
+                  <InputTelefone
+                    name="telefone"
+                    label="Telefone"
+                    variant="outlined"
+                    value={values.telefone}
+                    onChange={(e) => {handleChange(e); setTelefone(e.target.value)}}
+                    error={touched.telefone && Boolean(errors.telefone)}
+                    helperText={touched.telefone ? errors.telefone : ''}
+                    onBlur={handleBlur}
+                  />
+                </div>
+      
+                <br />
+                <div className="Linha-CEP-Cidade">
+                  <InputCEP
+                    name="cep"
+                    label="CEP"
+                    variant="outlined"
+                    value={values.cep}
+                    onChange={(e) => {handleChange(e); handleCEP(e, setCep); setCep(e.target.value)}} 
+                    error={touched.cep && Boolean(errors.cep)}
+                    helperText={touched.cep ? errors.cep : ''} 
+                    onBlur={handleBlur}        
+                  />
+                  <InputCidade
+                    name="city"
+                    label="Cidade"
+                    variant="outlined"
+                    value={city}
+                    onChange={(e) => {setCity(e.target.value)}}
+                  />
+                </div>
+      
+                  <br />
+                <div className="Linha-Logradouro-Numero">
+                    <InputLogradouro
+                    name="logradouro"
+                    label="Logradouro"
+                    variant="outlined"
+                    value={logradouro}
+                    onChange={(e) => {setLogradouro(e.target.value)}}
+                  />
+                    <InputNumero
+                    name="numero"
+                    label="Numero"
+                    variant="outlined"
+                    value={values.numero}
+                    onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
+                    error={touched.numero && Boolean(errors.numero)}
+                    helperText={touched.numero ? errors.numero : ''}
+                    onBlur={handleBlur}
+                  />
+                </div>
+              </form>
+                <ButtonSection>
+                  <CadastrarMedicoButton onClick={handleForm}>
+                    <h1>Cadastrar Médico</h1>
+                    <Check />
+                  </CadastrarMedicoButton>
+                </ButtonSection>
             </InputSection>
-         </Container>  
+          </Container>  
          )
        }
      </Formik>
