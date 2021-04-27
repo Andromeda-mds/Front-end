@@ -23,6 +23,9 @@ import FormControl from "@material-ui/core/FormControl";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import Dialog from "@material-ui/core/Dialog";
+import { DialogContent, DialogTitle } from "@material-ui/core";
+import { backendURL } from "../../services/api";
 
 
 const CadastroPacienteForm = () => {
@@ -48,6 +51,8 @@ const CadastroPacienteForm = () => {
     const [cpf, setCpf] = React.useState("");
     const [logradouro, setLogradouro] = React.useState("");
     const [city, setCity] = React.useState("");
+    const [openDialog, setOpenDialog] = React.useState(false);
+    const [clientData, setClientData] = React.useState({});
 
     const handleConvenio = (event) =>{
         setConvenio(event.target.value);
@@ -80,7 +85,9 @@ const CadastroPacienteForm = () => {
             .then((res) => {
                 console.log(res.data.message);
                 setTimeout(() => setShowCircularProgress(false), 3000);
+                setClientData(res.data.item);
                 alert(res.data.message);
+                setTimeout(() => setOpenDialog(!openDialog), 3000);
             })
             .catch((err) => {
                 console.log("Ocorreu um erro: ", err);
@@ -90,6 +97,21 @@ const CadastroPacienteForm = () => {
 
     return(
         <Container>
+            <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
+            <div className="caixaDialogo">
+                <DialogTitle>Dados do paciente</DialogTitle>
+                <hr style={{width: "100%"}}/>
+                <DialogContent>
+                    <p>Nome: <b>{clientData.nomeCompleto}</b></p>
+                    <br/>
+                    <p>CPF: <b>{clientData.cpf}</b></p>
+                    <br/>
+                    <p>E-mail: <b>{clientData.email}</b></p>
+                    <br/>
+                    <p>Convênio: <b>{clientData.convenio}</b></p>
+                </DialogContent>
+            </div>
+         </Dialog>
             <Backdrop open={showCircularProgress}>
                 <CircularProgress />
             </Backdrop>
