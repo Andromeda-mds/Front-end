@@ -32,6 +32,7 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import { DialogContent, DialogTitle } from "@material-ui/core";
 import {Formik, ErrorMessage, useFormik} from 'formik';
 import validationSchema from './schema'
+import { ChangeHistory } from "@material-ui/icons";
 
 const CadastroMedicoForm = () => {
   const Especialidades = [
@@ -71,6 +72,7 @@ const CadastroMedicoForm = () => {
   const [showCircularProgress, setShowCircularProgress] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [clientData, setClientData] = React.useState({});
+
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
   );
@@ -97,35 +99,6 @@ const CadastroMedicoForm = () => {
     return _result.toString();
   };
 
-  // const handleCEP = (event) => {​​​​​
-
-  //   const CEP = event;
-
-  //   if(CEP.length > 6){​​​​​
-
-  //     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
-  //     axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-
-  //     axios.get(`http://viacep.com.br/ws/${​​​​​CEP}​​​​​/json/`)
-  //     .then((res) =>{​​​​​
-
-  //       setCep(res.endereco.cep);
-
-  //       setCity(res.endereco.localidade);
-
-  //       setLogradouro(res.endereco.logradouro);
-
-  //       console.log(res)
-
-  //     }​​​​​)
-  //     .catch((err) =>{​​​​​
-
-  //       console.log(err)
-
-  //     }​​​​​)
-  //   }​​​​​
-  // }​​​​​
 
   const handleForm = () => {
     let _senhaAcesso = makeid(8);
@@ -162,36 +135,29 @@ const CadastroMedicoForm = () => {
 
   const handleCEP = (event, setCep) =>{
 
-      setCep(event.target.value)
       let CEP = event.target.value
-      fetch(`http://viacep.com.br/ws/${CEP}/json/`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          let _result = [data.logradouro, data.bairro]
-          _result = _result.toString()
-          setLogradouro(_result);
-          setCity(data.localidade);
-        });
-          
-        // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
-        // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-        // axios.get(`http://viacep.com.br/ws/${CEP}/json/`)
-        // .then((res) =>{
-        //   setCep(res.endereco.cep);
-        //   setCity(res.endereco.localidade);
-        //   setLogradouro(res.endereco.logradouro);
-        //   console.log(res)
-        // })
-        // .catch((err) =>{
-        //   console.log(err)
-        // })
+      console.log(CEP)
+        if(CEP.length === 8){
+            axios.get(`http://viacep.com.br/ws/${CEP}/json/`)
+          .then((res) =>{
+            console.log(res)
+            setCep(res.data.cep);
+            setCity(res.data.localidade);
+            setLogradouro(res.data.logradouro);
+          })
+          .catch((err) =>{
+            console.log(err)
+          })
       
+        }
+        
 
   }
+  var interagiu = false
 
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         nomeCompleto: '',
         cpf: '',
@@ -199,17 +165,17 @@ const CadastroMedicoForm = () => {
         crm: '',
         telefone: '',
         cep: '',
-        numero:'',
-        city:''
+        numero:''
       }}
-      validateOnMount
+      // validateOnMount
       validationSchema={validationSchema}
+      // validateOnChange
     >
       {
-        ({handleChange, values, touched, errors, dirty}) => (
+        ({handleChange, values, touched, errors, dirty, handleBlur}) => (
          <Container>
          <Dialog onClose={() => setOpenDialog(!openDialog)} open={openDialog}>
-           <div >
+           <div className="caixaDialogo">
              <DialogTitle>Dados do médico</DialogTitle>
              <hr style={{width: "100%"}}/>
              <DialogContent>
@@ -234,11 +200,11 @@ const CadastroMedicoForm = () => {
                variant="outlined"
                inputProps={{ className: "inputProps" }}
                InputLabelProps={{ className: "inputLabelProps" }}
-              //  onChange={(e) => setNomeCompleto(e.target.value)}
                value={values.nomeCompleto}
-               onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value)}}
-               error={Boolean(errors.nomeCompleto) && dirty}
-               helperText={(errors.nomeCompleto && dirty) ?  errors.nomeCompleto : false}
+               onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value);  console.log(touched.nomeCompleto && Boolean(errors.nomeCompleto)); }}
+               helperText={touched.nomeCompleto ? errors.nomeCompleto : ''}
+               error={touched.nomeCompleto && Boolean(errors.nomeCompleto)}
+               onBlur={handleBlur}
              />
              <br />
              <div className="Linha-CPF-Data">
@@ -246,12 +212,12 @@ const CadastroMedicoForm = () => {
                  name="cpf"
                  label="CPF"
                  variant="outlined"
-                //  onChange={(e) => setCpf(e.target.value)}
                  type="text"
                  value={values.cpf}
                  onChange={(e) => {handleChange(e); setCpf(e.target.value)}}
-                 error={Boolean(errors.cpf) && dirty}
-                 helperText={(errors.cpf && dirty) ?  errors.cpf : false}
+                 error={touched.cpf && Boolean(errors.cpf)}
+                 helperText={touched.cpf ? errors.cpf : ''}
+                 onBlur={handleBlur}
                />
                <InputDataNascimento
                  variant="outlined"
@@ -269,8 +235,9 @@ const CadastroMedicoForm = () => {
                  type="email"
                  value={values.email}
                  onChange={(e) => {handleChange(e); setEmail(e.target.value)}}
-                 error={Boolean(errors.email) && dirty}
-                 helperText={(errors.email && dirty) ?  errors.email : false}
+                 error={touched.email && Boolean(errors.email)}
+                 helperText={touched.email ? errors.email : ''}
+                 onBlur={handleBlur}
                />
                <InputCRM
                  name="crm"
@@ -279,8 +246,9 @@ const CadastroMedicoForm = () => {
                  type="xnutmber"
                  value={values.crm}
                  onChange={(e) => {handleChange(e); setCrm(e.target.value)}}
-                 error={Boolean(errors.crm) && dirty}
-                 helperText={(errors.crm && dirty) ?  errors.crm : false}
+                 error={touched.crm && Boolean(errors.crm)}
+                 helperText={touched.crm ? errors.crm : ''}
+                 onBlur={handleBlur}
                />
              </div>
    
@@ -306,8 +274,9 @@ const CadastroMedicoForm = () => {
                  variant="outlined"
                  value={values.telefone}
                  onChange={(e) => {handleChange(e); setTelefone(e.target.value)}}
-                 error={Boolean(errors.telefone) && dirty}
-                 helperText={(errors.telefone && dirty) ?  errors.telefone : false}
+                 error={touched.telefone && Boolean(errors.telefone)}
+                 helperText={touched.telefone ? errors.telefone : ''}
+                 onBlur={handleBlur}
                />
              </div>
    
@@ -317,56 +286,56 @@ const CadastroMedicoForm = () => {
                  name="cep"
                  label="CEP"
                  variant="outlined"
-                 onChange={(e) => {handleChange(e); handleCEP(e, setCep) }} 
-                 error={Boolean(errors.cep) && dirty}
-                 helperText={(errors.cep && dirty) ?  errors.cep : false}        
+                 value={values.cep}
+                 onChange={(e) => {handleChange(e); handleCEP(e, setCep); setCep(e.target.value)}} 
+                 error={touched.cep && Boolean(errors.cep)}
+                 helperText={touched.cep ? errors.cep : ''} 
+                 onBlur={handleBlur}        
                />
                <InputCidade
                  name="city"
                  label="Cidade"
                  variant="outlined"
-                 value={values.city}
-                 onChange={(e) => {handleChange(e); setCity(e.target.value)}}
-                 error={Boolean(errors.city) && dirty}
-                 helperText={(errors.city && dirty) ?  errors.city : false}
+                 value={city}
+                 onChange={(e) => {setCity(e.target.value)}}
                />
              </div>
    
-             <br />
-             <div className="Linha-Logradouro-Numero">
-               <InputLogradouro
+              <br />
+            <div className="Linha-Logradouro-Numero">
+                <InputLogradouro
                  name="logradouro"
                  label="Logradouro"
                  variant="outlined"
-                 value={values.logradouro}
-                 onChange={(e) => {handleChange(e); setLogradouro(e.target.value)}}
-                 error={Boolean(errors.logradouro) && dirty}
-                 helperText={(errors.logradouro && dirty) ?  errors.logradouro : false}
+                 value={logradouro}
+                 onChange={(e) => {setLogradouro(e.target.value)}}
                />
-               <InputNumero
+                <InputNumero
                  name="numero"
                  label="Numero"
                  variant="outlined"
-                //  onChange={(e) => setNumero(e.target.value)}
                  value={values.numero}
                  onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
-                 error={Boolean(errors.numero) && dirty}
-                 helperText={(errors.numero && dirty) ?  errors.numero : false}
+                 error={touched.numero && Boolean(errors.numero)}
+                 helperText={touched.numero ? errors.numero : ''}
+                 onBlur={handleBlur}
                />
              </div>
-           </form>
-             <ButtonSection>
-               <CadastrarMedicoButton onClick={handleForm}>
-                 <h1>Cadastrar Médico</h1>
+            </form>
+              <ButtonSection>
+                <CadastrarMedicoButton onClick={handleForm}>
+                <h1>Cadastrar Médico</h1>
                  <Check />
                </CadastrarMedicoButton>
-             </ButtonSection>
-           </InputSection>
+              </ButtonSection>
+            </InputSection>
          </Container>  
-        )
-      }
-    </Formik>
-  );
-};
+         )
+       }
+     </Formik>
+   );
+ };
 
 export default CadastroMedicoForm;
+
+
