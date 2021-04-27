@@ -11,9 +11,6 @@ const validationSchema = Yup.object().shape({
     email: Yup.string()
 		.email('E-mail inválido')
 		.required('E-mail é obrigatório'),
- 	city: Yup.string()
-	 	.min(1)
-	 	.required('Cidade é obrigatório'),
     nomeCompleto: Yup.string('Só pode conter letras')
 		.matches(/^[A-Za-z ]*$/, 'Só pode conter letras')
 		.min(3, 'Nome inválido')
@@ -32,9 +29,9 @@ const validationSchema = Yup.object().shape({
 		.required('Número é obrigatório'),
 	crm: Yup.string()
 		.matches(/^[0-9]*$/, 'Só pode conter números')
-		.required('CRM é obrigatório'),
-	logradouro: Yup.string()
-		.required('Logradouro é obrigatório')
+		.required('CRM é obrigatório')
 
 })
 export default validationSchema
+
+
