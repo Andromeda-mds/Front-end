@@ -197,7 +197,7 @@ const CadastroMedicoForm = () => {
                   inputProps={{ className: "inputProps" }}
                   InputLabelProps={{ className: "inputLabelProps" }}
                   value={values.nomeCompleto}
-                  onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value);  console.log(touched.nomeCompleto && Boolean(errors.nomeCompleto)); }}
+                  onChange={(e) => {handleChange(e); setNomeCompleto(e.target.value)}}
                   helperText={touched.nomeCompleto ? errors.nomeCompleto : ''}
                   error={touched.nomeCompleto && Boolean(errors.nomeCompleto)}
                   onBlur={handleBlur}
@@ -300,21 +300,21 @@ const CadastroMedicoForm = () => {
                   <br />
                 <div className="Linha-Logradouro-Numero">
                     <InputLogradouro
-                    name="logradouro"
-                    label="Logradouro"
-                    variant="outlined"
-                    value={logradouro}
-                    onChange={(e) => {setLogradouro(e.target.value)}}
+                      name="logradouro"
+                      label="Logradouro"
+                      variant="outlined"
+                      value={logradouro}
+                      onChange={(e) => {setLogradouro(e.target.value)}}
                   />
                     <InputNumero
-                    name="numero"
-                    label="Numero"
-                    variant="outlined"
-                    value={values.numero}
-                    onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
-                    error={touched.numero && Boolean(errors.numero)}
-                    helperText={touched.numero ? errors.numero : ''}
-                    onBlur={handleBlur}
+                      name="numero"
+                      label="Numero"
+                      variant="outlined"
+                      value={values.numero}
+                      onChange={(e) => {handleChange(e); setNumero(e.target.value)}}
+                      error={touched.numero && Boolean(errors.numero)}
+                      helperText={touched.numero ? errors.numero : ''}
+                      onBlur={handleBlur}
                   />
                 </div>
               </form>
