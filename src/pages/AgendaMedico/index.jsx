@@ -9,6 +9,8 @@ import {
   Month,
   Agenda,
   Inject,
+  DragAndDrop,
+  Resize
 } from "@syncfusion/ej2-react-schedule";
 
 const AgendaMedico = () => {
@@ -20,7 +22,7 @@ const AgendaMedico = () => {
       <S.Content>
         <S.AgendaDiv>
           <ScheduleComponent>
-            <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
+            <Inject services={[Day, Week, WorkWeek, Month, Agenda, DragAndDrop, Resize]} />
           </ScheduleComponent>
         </S.AgendaDiv>
       </S.Content>
