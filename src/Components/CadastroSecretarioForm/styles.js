@@ -13,13 +13,13 @@ export const CadastroSecretarioFormWrapper = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    
+    height: 85%;
 `;
 
 
 export const InputSection = styled.div`
   width: 100%;
-  height: 35%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,7 +101,7 @@ export const CadastrarSecretarioButton = styled.button`
 
 
 export const InputNome = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 40%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -114,10 +114,10 @@ export const InputNome = styled(TextField)`
 `;
 
 export const InputCPF = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 49.5%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -127,10 +127,10 @@ export const InputCPF = styled(TextField)`
 `;
 
 export const InputDataNascimento = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 49.5%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -141,10 +141,10 @@ export const InputDataNascimento = styled(TextField)`
 `;
 
 export const InputEmail = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 70.5%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -153,10 +153,10 @@ export const InputEmail = styled(TextField)`
 
 
 export const InputTelefone = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 29%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -164,10 +164,10 @@ export const InputTelefone = styled(TextField)`
 `;
 
 export const InputCEP = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 30%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -175,10 +175,10 @@ export const InputCEP = styled(TextField)`
 `;
 
 export const InputCidade = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 69.5%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -186,10 +186,10 @@ export const InputCidade = styled(TextField)`
 `;
 
 export const InputLogradouro = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 79.5%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     .MuiOutlinedInput-root{
         border-radius: 8px;
@@ -197,10 +197,10 @@ export const InputLogradouro = styled(TextField)`
 `;
 
 export const InputNumero = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 20%;
     padding-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
     color: gray;
     border-radius: 50px;
     .MuiOutlinedInput-root{
