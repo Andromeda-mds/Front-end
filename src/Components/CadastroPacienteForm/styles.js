@@ -94,7 +94,7 @@ export const CadastrarPacienteButton = styled.button`
 `
 
 export const InputNome = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 40%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -107,7 +107,7 @@ export const InputNome = styled(TextField)`
 `;
 
 export const InputCPF = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 49.5%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -118,7 +118,7 @@ export const InputCPF = styled(TextField)`
 `;
 
 export const InputDataNascimento = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 49.5%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -132,7 +132,7 @@ export const InputDataNascimento = styled(TextField)`
 `;
 
 export const InputEmail = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 70.5%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -143,7 +143,7 @@ export const InputEmail = styled(TextField)`
 `;
 
 export const InputConvenio = styled(Select)`
-        height: 3.4rem;
+        height: 4rem;
         //width: 60%; 
         //background-color:red;
         .MuiSelect-root{
@@ -160,7 +160,7 @@ export const InputConvenio = styled(Select)`
 `;
 
 export const InputTelefone = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 29%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -171,7 +171,7 @@ export const InputTelefone = styled(TextField)`
 `;
 
 export const InputCEP = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 30%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -182,7 +182,7 @@ export const InputCEP = styled(TextField)`
 `;
 
 export const InputCidade = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 69.5%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -193,7 +193,7 @@ export const InputCidade = styled(TextField)`
 `;
 
 export const InputLogradouro = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 79.5%;
     padding-left: 1rem;
     margin-top: 1rem;
@@ -204,7 +204,7 @@ export const InputLogradouro = styled(TextField)`
 `;
 
 export const InputNumero = styled(TextField)`
-    height: 3.4rem;
+    height: 4rem;
     width: 20%;
     padding-left: 1rem;
     margin-top: 1rem;
