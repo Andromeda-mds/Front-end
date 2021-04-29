@@ -141,9 +141,10 @@ const CadastroMedicoForm = () => {
             axios.get(`http://viacep.com.br/ws/${CEP}/json/`)
           .then((res) =>{
             console.log(res)
+            let logradouroCompleto = [res.data.logradouro, res.data.bairro]
             setCep(res.data.cep);
             setCity(res.data.localidade);
-            setLogradouro(res.data.logradouro);
+            setLogradouro(logradouroCompleto);
           })
           .catch((err) =>{
             console.log(err)
