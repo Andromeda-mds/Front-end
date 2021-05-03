@@ -19,6 +19,8 @@ import { backendURL } from "../../services/api";
 import {Redirect} from 'react-router-dom'
 import GuiaMedico from '../GuiaMedicoPage';
 import ProfileIcon from "../../Components/ProfileIcon";
+import BotaoQuadrado from "../../Components/BotaoQuadrado";
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const HomePage = () => {
   const [role, setRole] = React.useState(localStorage.getItem("role"));
@@ -41,16 +43,16 @@ const HomePage = () => {
                 <div className="content-medico">
                   <div className="buttonSectionMedico">
                     <a href="/medico/agenda" style={{ textDecoration: "none" }}>
-                      <home.AgendaButton>
-                        <EventIcon style={{ fontSize: 80 }} />
-                        <h1>Agenda</h1>
-                      </home.AgendaButton>
+                      <BotaoQuadrado
+                        title="Agenda"
+                        image={EventIcon}
+                      />
                     </a>
                     <a href="/guiamedico" style={{textDecoration: "none"}}>
-                      <home.GuiaMedicoButton>
-                      <AssignmentIcon style={{ fontSize: 70 }} />
-                        <h1>Guia Médico</h1>
-                      </home.GuiaMedicoButton>
+                      <BotaoQuadrado 
+                        title="Guia Médico"
+                        image={AssignmentIcon}
+                      />
                     </a>
                   </div>
                 </div>
@@ -66,10 +68,12 @@ const HomePage = () => {
                       </div>
                       <h1>Buscar Médicos</h1>
                     </home.BuscarMedicosButton>
-                    <home.BuscarPacientesButton>
-                      <FindInPageIcon style={{ fontSize: 70 }} />
-                      <h1>Buscar ficha de paciente</h1>
-                    </home.BuscarPacientesButton>
+                    <div className="cadastrarPacienteButton">
+                      <BotaoQuadrado 
+                        title="Buscar ficha de paciente"
+                        image={FindInPageIcon}
+                      />
+                      </div>
                     <home.NovaConsultaButton>
                       <div className="calendario">
                         <CalendarToday style={{ fontSize: 70 }} />
@@ -79,6 +83,15 @@ const HomePage = () => {
                       </div>
                       <h1>Nova consulta</h1>
                     </home.NovaConsultaButton>
+                    <a href="/cadastro/paciente" style={{textDecoration: "none"}}>
+                      <div className="cadastrarPacienteButton">
+                        <BotaoQuadrado
+                          image={PersonAddIcon}
+                          title="Cadastrar Paciente"
+                        />
+                      </div>
+                    </a>
+                    
                   </div>
                 </div>
               )
@@ -88,9 +101,6 @@ const HomePage = () => {
                   <home.BuscarMedicosAdmButton>
                     <div className="buscarMedicosAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
-                      {/* <div className="lupa">
-                        <SearchIcon style={{ fontSize: 20 }} />
-                      </div> */}
                       <LocalHospitalIcon style={{ fontSize: 30 }} />
                       <h1>Buscar Médicos</h1>
                     </div>

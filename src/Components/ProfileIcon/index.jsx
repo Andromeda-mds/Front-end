@@ -22,7 +22,9 @@ const ProfileIcon = () =>{
     return (
         <home.Container>
             <home.PersonDiv>
-                <p>{clientName}</p>
+                <span>
+                    <p>{clientName}</p>
+                </span>
                 <PersonOutlineIcon fontSize="large" style={{ color: "gray" }} />
                 <span onClick={handleLogout}>
                     <p>Sair</p>
