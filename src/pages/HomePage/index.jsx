@@ -59,7 +59,7 @@ const HomePage = () => {
               ) : (
                 <div className="content-secretario">
                   <div className="buttonSectionSecretario">
-                    <home.BuscarMedicosButton>
+                    {/* <home.BuscarMedicosButton>
                       <div className="buscarMedicos">
                         <AccountBoxIcon style={{ fontSize: 70 }} />
                         <div className="search">
@@ -67,13 +67,16 @@ const HomePage = () => {
                         </div>
                       </div>
                       <h1>Buscar Médicos</h1>
-                    </home.BuscarMedicosButton>
-                    <div className="cadastrarPacienteButton">
-                      <BotaoQuadrado 
-                        title="Buscar ficha de paciente"
-                        image={FindInPageIcon}
-                      />
-                      </div>
+                    </home.BuscarMedicosButton> */}
+                    <a href="/secretario/busca" style={{textDecoration: "none"}}>
+                        <div className="buscarButton">
+                            <BotaoQuadrado 
+                              title="Buscar paciente ou médico"
+                              image={FindInPageIcon}
+                            />
+                        </div>
+                    </a>
+                    
                     <home.NovaConsultaButton>
                       <div className="calendario">
                         <CalendarToday style={{ fontSize: 70 }} />
