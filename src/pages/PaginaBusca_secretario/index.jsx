@@ -6,12 +6,14 @@ import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
 import { backendURL } from "../../services/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const PaginaBusca_secretario = () =>{
 
     const [nome, setNome] = React.useState("");
     const [valorSelecionado, setValorSelecionado] = React.useState("paciente")
     const [showCircularProgress, setShowCircularProgress] = React.useState(false);
+    const [info, setInfo] = React.useState({});
     const [clientToken, setClientToken] = React.useState(
         localStorage.getItem("loginToken")
       );
@@ -25,6 +27,7 @@ const PaginaBusca_secretario = () =>{
                 )
                 .then((res) => {
                     console.log(res)
+                    setInfo(res)
                     setTimeout(() => setShowCircularProgress(false), 3000);
                 })
                 .catch((err) =>{
@@ -39,8 +42,13 @@ const PaginaBusca_secretario = () =>{
 
 
     }
+
+    var listaMedicos = []
     return (
         <home.Container>
+            <Backdrop open={showCircularProgress}>
+                <CircularProgress />
+            </Backdrop>
             <home.HeaderDiv>
                 <Header/>
             </home.HeaderDiv>
@@ -93,6 +101,13 @@ const PaginaBusca_secretario = () =>{
                     </div>
                 </div>
                 <div className="resultados">
+                    {info.data && (
+                        <ul>
+                          {info.data.map((medico) => {
+                            <li key={medico._id}></li>
+                            })}  
+                        </ul> 
+                    )}
                     
                 </div>
             </div>
