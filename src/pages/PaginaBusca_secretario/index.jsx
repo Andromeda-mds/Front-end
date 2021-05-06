@@ -8,7 +8,7 @@ import { backendURL } from "../../services/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import BotaoPerfilUsuario from "./styles";
+import {BotaoPerfilUsuario} from "./styles";
 
 const PaginaBusca_secretario = () =>{
 

@@ -144,7 +144,7 @@ export const BotaoSelecao = styled(Radio)`
 
 `;
 
-export default BotaoPerfilUsuario = styled.button`
+export const BotaoPerfilUsuario = styled.button`
   width: 13rem;
   height: 2.5rem;
   font-size: 11px;
