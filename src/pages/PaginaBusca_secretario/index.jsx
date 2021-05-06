@@ -7,6 +7,8 @@ import axios from "axios";
 import { backendURL } from "../../services/api";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import BotaoPerfilUsuario from "./styles";
 
 const PaginaBusca_secretario = () =>{
 
@@ -37,13 +39,26 @@ const PaginaBusca_secretario = () =>{
 
         }
         else if(valorSelecionado === "paciente"){
-
+            axios
+                .get(
+                    `${backendURL}paciente/nome/${nome}`,
+                    { headers: {"x-access-token" : `${clientToken}`}}
+                )
+                .then((res) => {
+                    console.log(res)
+                    setInfo(res)
+                    setTimeout(() => setShowCircularProgress(false), 3000);
+                })
+                .catch((err) =>{
+                    console.log(err)
+                    setTimeout(() => setShowCircularProgress(false), 3000);
+                })
         }
 
 
     }
 
-    var listaMedicos = []
+    
     return (
         <home.Container>
             <Backdrop open={showCircularProgress}>
@@ -100,16 +115,60 @@ const PaginaBusca_secretario = () =>{
                         <home.BotaoPesquisa onClick={handlePesquisa}>Pesquisar</home.BotaoPesquisa>
                     </div>
                 </div>
-                <div className="resultados">
-                    {info.data && (
-                        <ul>
-                          {info.data.map((medico) => {
-                            <li key={medico._id}></li>
-                            })}  
-                        </ul> 
+               
+                    {valorSelecionado == "medico" ? (
+                        <div className="resultados">
+                            {info.data && (
+                                <div className="wrapper">
+                                {info.data.map((medico) => (
+                                    <div className="itemResultado" key={medico._id}>
+                                        <div className="iconeUsuario">
+                                            <PersonOutlineIcon style={{ fontSize: 60 }}/>
+                                        </div>
+                                        <div className="dadosUsuario">
+                                            <p> <b>Nome:</b> {medico.nomeCompleto} </p>
+                                            <p>  <b>CRM:</b> {medico.crm}  </p>
+                                            <p> <b>Especialidade:</b> {medico.especialidade}</p>
+                                        </div>
+                                        <div className="botaoPerfil">
+                                            <BotaoPerfilUsuario>Visualizar perfil completo</BotaoPerfilUsuario>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    ))}  
+                                </div> 
+                            )}
+                        </div>
+
+                    ) : (
+                       <div className="resultados">
+                            {info.data && (
+                                <div className="wrapper">
+                                {info.data.map((paciente) => (
+                                    <div className="itemResultado" key={paciente._id}>
+                                        <div className="iconeUsuario">
+                                            <PersonOutlineIcon style={{ fontSize: 60 }}/>
+                                        </div>
+                                        <div className="dadosUsuario">
+                                            <p> <b>Nome:</b> {paciente.nomeCompleto} </p>
+                                            <p>  <b>CPF:</b> {paciente.cpf}  </p>
+                                            <p> <b>Convenio:</b> {paciente.convenio}</p>
+                                        </div>
+                                        <div className="botaoPerfil">
+                                            <BotaoPerfilUsuario>Visualizar perfil completo</BotaoPerfilUsuario>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    ))}  
+                                </div> 
+                            )}
+                        </div>
                     )}
                     
-                </div>
+                
+                
             </div>
 
 
