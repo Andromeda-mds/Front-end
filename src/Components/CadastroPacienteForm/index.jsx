@@ -33,6 +33,10 @@ import validationSchema from "../CadastroMedicoForm/schema"
 const CadastroPacienteForm = () => {
     const Convenios = [
         {
+            label: "Nenhum",
+            value: "nenhum"
+        },
+        {
             label: "Bradesco",
             value: "bradesco"
         },

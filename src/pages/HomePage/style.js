@@ -51,7 +51,7 @@ export const ContentPage = styled.div`
     height: 70%;
     margin-top: 4rem;
     padding: 4rem;
-    .cadastrarPacienteButton{
+    .buscarButton{
       width: 15%;
     }
     .cadastrarPacienteButton{
