@@ -27,6 +27,7 @@ const AgendamentoConsultaForm = () => {
   var Profissional = [];
 
   const [nomePaciente, setNomePaciente] = React.useState("");
+  const [emailPaciente, setEmailPaciente] = React.useState("");
   const [pacientes, setPaciente] = React.useState([]);
   const [dataConsulta, setDataConsulta] = React.useState("");
   const [profissional, setProfissional] = React.useState("");
@@ -34,7 +35,8 @@ const AgendamentoConsultaForm = () => {
   const [horarioConsulta, setHorarioConsulta] = React.useState("");
   const [token, setToken] = React.useState(localStorage.getItem("loginToken"));
   const [redirect, setIsRedirect] = React.useState(false);
-  
+  const [pacienteIsFetched, setPacienteIsFetched] = React.useState(false);
+  const [messageFetched, setMessageFetched] = React.useState("");
 
   const fetchMedico = () => {
     axios
@@ -53,10 +55,22 @@ const AgendamentoConsultaForm = () => {
         headers: { "x-access-token": `${token}` },
       })
       .then((res) => {
-        console.log(res);
-        setPaciente(res.data);
+        console.log("paciente", res);
+        res.data.map((value) => {
+          if (value.email === emailPaciente) {
+            setPaciente(res.data);
+            setPacienteIsFetched(true);
+            setMessageFetched("Paciente Encontrado");
+          } else {
+            setMessageFetched("Paciente não encontrado");
+          }
+        });
+        // setPaciente(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log("Paciente", err);
+        setMessageFetched("Paciente não encontrado");
+      });
   };
 
   const handleMedico = () => {
@@ -66,14 +80,13 @@ const AgendamentoConsultaForm = () => {
       object.nome = v.nomeCompleto;
       object.crm = v.crm;
       object.id = v._id;
-      console.log("medico", v)
       object.value = v.nomeCompleto.toLowerCase();
       arr.push(object);
     });
     setMedicos(arr);
   };
 
-  const [medicoId, setMedicoId] = React.useState("")
+  const [medicoId, setMedicoId] = React.useState("");
   const handleProfissional = (event) => {
     setProfissional(event.target.value);
     medicos.map((v) => {
@@ -81,15 +94,7 @@ const AgendamentoConsultaForm = () => {
         setMedicoId(v.id);
       }
     });
-    console.log("To aqui:",medicoId)
-  };
-
-  const handlePacienteName = (event) => {
-    let name = event.target.value;
-    if (name.length > 3) {
-      setNomePaciente(event.target.value);
-      fetchPaciente();
-    }
+    console.log("To aqui:", medicoId);
   };
 
   React.useEffect(() => {
@@ -104,22 +109,43 @@ const AgendamentoConsultaForm = () => {
         />
       ) : (
         <InputSection>
-          <form className="form">
+          <div className="form">
             <div className="Linha-Nome-Paciente">
-              <InputNomePaciente
-                name="nomePaciente"
-                label="Nome-Paciente"
-                variant="outlined"
-                inputProps={{ className: "inputProps" }}
-                inputLabelProps={{ className: "inputLabelProps" }}
-                onChange={handlePacienteName}
-              />
-              <div className="BotaoCadastrarPaciente">
-                <ButtonCadastrarPaciente>
-                  Cadastar novo paciente
-                </ButtonCadastrarPaciente>
+              <div className="nome-email">
+                <InputNomePaciente
+                  name="nomePaciente"
+                  label="Nome-Paciente"
+                  variant="outlined"
+                  inputProps={{ className: "inputProps" }}
+                  inputLabelProps={{ className: "inputLabelProps" }}
+                  onChange={(e) => setNomePaciente(e.target.value)}
+                />
+                <InputNomePaciente
+                  name="emailPaciente"
+                  label="Email-Paciente"
+                  variant="outlined"
+                  inputProps={{ className: "inputProps" }}
+                  inputLabelProps={{ className: "inputLabelProps" }}
+                  onChange={(e) => setEmailPaciente(e.target.value)}
+                />
+                <span style={{ color: pacienteIsFetched ? "green" : "red" }}>
+                  <p>{messageFetched}</p>
+                </span>
+              </div>
+              <div className="buttons">
+                <div className="BotaoCadastrarPaciente">
+                  <ButtonCadastrarPaciente onClick={() => {fetchPaciente(); setPacienteIsFetched(false)} }>
+                    Buscar paciente
+                  </ButtonCadastrarPaciente>
+                </div>
+                <div className="BotaoCadastrarPaciente">
+                  <ButtonCadastrarPaciente>
+                    Cadastar novo paciente
+                  </ButtonCadastrarPaciente>
+                </div>
               </div>
             </div>
+
             <div className="Linha-Profissional">
               <FormControl variant="outlined" style={{ width: "56%" }}>
                 <InputLabel id="profissional">Profissional</InputLabel>
@@ -163,7 +189,7 @@ const AgendamentoConsultaForm = () => {
                 defaultValue="00:00"
               />
             </div>
-          </form>
+          </div>
           <ButtonSection>
             <ConcluidoButton>
               <h1>Concluir Agendamento</h1>

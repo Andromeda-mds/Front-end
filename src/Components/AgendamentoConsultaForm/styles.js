@@ -33,10 +33,25 @@ export const InputSection = styled.div`
         //padding: 2rem 0 0 2rem;
         margin-left: 2rem;
     }.Linha-Nome-Paciente{
-        width: 80%;
-        height: 15%;
+        width: 100%;
+        height: 30%;
         margin-top: 2rem;
         display: flex;
+        .nome-email{
+            width: 60%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .buttons{
+            width: 74%;
+            height: 83%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;;
+
+        }
         //justify-content: space-between;
         .BotaoCadastrarPaciente{
             width: 20%;
@@ -97,7 +112,7 @@ export const ConcluidoButton = styled.button`
 
 export const InputNomePaciente = styled(TextField)`
     height: 6rem;
-    width: 56%;
+    width: 100%;
     .MuiOutlinedInput-root{
         border-radius: 8px;
         .Mui-focused{

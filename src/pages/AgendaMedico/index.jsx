@@ -151,7 +151,7 @@ const AgendaMedico = (props) => {
 
   const fetchMedicoData = () => {
     axios
-      .get(`${backendURL}agenda/medico/${location?.state.id ?? userId._id}`, {
+      .get(`${backendURL}agenda/medico/${location?.state?.id ?? userId._id}`, {
         headers: { "x-access-token": `${token}` },
       })
       .then((res) => {
@@ -165,7 +165,7 @@ const AgendaMedico = (props) => {
       });
 
     axios
-      .get(`${backendURL}consulta/medico/${location?.state.id ?? userId._id}`, {
+      .get(`${backendURL}consulta/medico/${location?.state?.id ?? userId._id}`, {
         headers: { "x-access-token": `${token}` },
       })
       .then((_res) => {
