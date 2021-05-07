@@ -22,13 +22,16 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import { backendURL } from "../../services/api";
 import { Redirect } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import AgendaMedico from "../../pages/AgendaMedico";
 
 const AgendamentoConsultaForm = () => {
   var Profissional = [];
 
   const [nomePaciente, setNomePaciente] = React.useState("");
   const [emailPaciente, setEmailPaciente] = React.useState("");
-  const [pacientes, setPaciente] = React.useState([]);
+  const [pacientes, setPacientes] = React.useState([]);
+  const [fichaPaciente, setFichaPaciente] = React.useState({});
   const [dataConsulta, setDataConsulta] = React.useState("");
   const [profissional, setProfissional] = React.useState("");
   const [medicos, setMedicos] = React.useState([]);
@@ -37,6 +40,8 @@ const AgendamentoConsultaForm = () => {
   const [redirect, setIsRedirect] = React.useState(false);
   const [pacienteIsFetched, setPacienteIsFetched] = React.useState(false);
   const [messageFetched, setMessageFetched] = React.useState("");
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [medico, setMedico] = React.useState({});
 
   const fetchMedico = () => {
     axios
@@ -58,14 +63,22 @@ const AgendamentoConsultaForm = () => {
         console.log("paciente", res);
         res.data.map((value) => {
           if (value.email === emailPaciente) {
-            setPaciente(res.data);
+            setPacientes(res.data);
             setPacienteIsFetched(true);
             setMessageFetched("Paciente Encontrado");
+            axios
+              .get(`${backendURL}ficha/paciente/${value._id}`, {
+                headers: { "x-access-token": `${token}` },
+              })
+              .then((res) => {
+                console.log("Ficha paciente", res);
+                setFichaPaciente(res.data);
+              })
+              .catch((err) => console.log(err));
           } else {
             setMessageFetched("Paciente não encontrado");
           }
         });
-        // setPaciente(res.data);
       })
       .catch((err) => {
         console.log("Paciente", err);
@@ -86,118 +99,139 @@ const AgendamentoConsultaForm = () => {
     setMedicos(arr);
   };
 
-  const [medicoId, setMedicoId] = React.useState("");
   const handleProfissional = (event) => {
     setProfissional(event.target.value);
     medicos.map((v) => {
       if (v.value === event.target.value) {
-        setMedicoId(v.id);
+        setMedico(v);
       }
     });
-    console.log("To aqui:", medicoId);
+    console.log("To aqui:", medico.id);
+  };
+
+  const registerAppointment = () => {
+    axios
+      .post(
+        `${backendURL}consulta/${fichaPaciente._id}`,
+        {
+          medico: medico.id,
+          data: {
+            //TODO arrumar a formatação da data da consulta de acordo com o Back
+          },
+        },
+        { headers: { "x-access-token": `${token}` } }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   React.useEffect(() => {
     fetchMedico();
   }, []);
 
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <Container>
-      {redirect ? (
-        <Redirect
-          to={{ pathname: `/medico/agenda`, state: { id: medicoId } }}
-        />
-      ) : (
-        <InputSection>
-          <div className="form">
-            <div className="Linha-Nome-Paciente">
-              <div className="nome-email">
-                <InputNomePaciente
-                  name="nomePaciente"
-                  label="Nome-Paciente"
-                  variant="outlined"
-                  inputProps={{ className: "inputProps" }}
-                  inputLabelProps={{ className: "inputLabelProps" }}
-                  onChange={(e) => setNomePaciente(e.target.value)}
-                />
-                <InputNomePaciente
-                  name="emailPaciente"
-                  label="Email-Paciente"
-                  variant="outlined"
-                  inputProps={{ className: "inputProps" }}
-                  inputLabelProps={{ className: "inputLabelProps" }}
-                  onChange={(e) => setEmailPaciente(e.target.value)}
-                />
-                <span style={{ color: pacienteIsFetched ? "green" : "red" }}>
-                  <p>{messageFetched}</p>
-                </span>
-              </div>
-              <div className="buttons">
-                <div className="BotaoCadastrarPaciente">
-                  <ButtonCadastrarPaciente onClick={() => {fetchPaciente(); setPacienteIsFetched(false)} }>
-                    Buscar paciente
-                  </ButtonCadastrarPaciente>
-                </div>
-                <div className="BotaoCadastrarPaciente">
-                  <ButtonCadastrarPaciente>
-                    Cadastar novo paciente
-                  </ButtonCadastrarPaciente>
-                </div>
-              </div>
-            </div>
-
-            <div className="Linha-Profissional">
-              <FormControl variant="outlined" style={{ width: "56%" }}>
-                <InputLabel id="profissional">Profissional</InputLabel>
-                <InputProfissional
-                  labelId="profissional"
-                  label="Profissional"
-                  variant="outlined"
-                  value={profissional}
-                  onChange={handleProfissional}
-                >
-                  {medicos.map((v, i) => {
-                    return (
-                      <MenuItem key={i} value={v.value}>
-                        {v.nome}
-                        <br />
-                        CRM: {v.crm}
-                      </MenuItem>
-                    );
-                  })}
-                </InputProfissional>
-              </FormControl>
-              <div className="BotaoVerAgenda">
-                <ButtonVerAgenda
-                  disabled={profissional === "" ? true : false}
-                  onClick={() => setIsRedirect(true)}
-                >
-                  Ver agenda desse profissional
-                </ButtonVerAgenda>
-              </div>
-            </div>
-            <br />
-            <div className="Linha-Data-Horario">
-              <InputDataConsulta
+      <InputSection>
+        <Dialog open={modalOpen} onClose={handleClose}>
+          <AgendaMedico medico={medico.id} />
+        </Dialog>
+        <div className="form">
+          <div className="Linha-Nome-Paciente">
+            <div className="nome-email">
+              <InputNomePaciente
+                name="nomePaciente"
+                label="Nome-Paciente"
                 variant="outlined"
-                type="date"
-                onChange={(e) => setDataConsulta(e.target.value)}
+                inputProps={{ className: "inputProps" }}
+                inputLabelProps={{ className: "inputLabelProps" }}
+                onChange={(e) => setNomePaciente(e.target.value)}
               />
-              <HorarioDaConsulta
-                label="Horário Da Consulta"
-                type="time"
-                defaultValue="00:00"
+              <InputNomePaciente
+                name="emailPaciente"
+                label="Email-Paciente"
+                variant="outlined"
+                inputProps={{ className: "inputProps" }}
+                inputLabelProps={{ className: "inputLabelProps" }}
+                onChange={(e) => setEmailPaciente(e.target.value)}
               />
+              <span style={{ color: pacienteIsFetched ? "green" : "red" }}>
+                <p>{messageFetched}</p>
+              </span>
+            </div>
+            <div className="buttons">
+              <div className="BotaoCadastrarPaciente">
+                <ButtonCadastrarPaciente
+                  onClick={() => {
+                    fetchPaciente();
+                    setPacienteIsFetched(false);
+                  }}
+                >
+                  Buscar paciente
+                </ButtonCadastrarPaciente>
+              </div>
+              <div className="BotaoCadastrarPaciente">
+                <ButtonCadastrarPaciente>
+                  Cadastar novo paciente
+                </ButtonCadastrarPaciente>
+              </div>
             </div>
           </div>
-          <ButtonSection>
-            <ConcluidoButton>
-              <h1>Concluir Agendamento</h1>
-              <Check />
-            </ConcluidoButton>
-          </ButtonSection>
-        </InputSection>
-      )}
+
+          <div className="Linha-Profissional">
+            <FormControl variant="outlined" style={{ width: "56%" }}>
+              <InputLabel id="profissional">Profissional</InputLabel>
+              <InputProfissional
+                labelId="profissional"
+                label="Profissional"
+                variant="outlined"
+                value={profissional}
+                onChange={handleProfissional}
+              >
+                {medicos.map((v, i) => {
+                  return (
+                    <MenuItem key={i} value={v.value}>
+                      {v.nome}
+                      <br />
+                      CRM: {v.crm}
+                    </MenuItem>
+                  );
+                })}
+              </InputProfissional>
+            </FormControl>
+            <div className="BotaoVerAgenda">
+              <ButtonVerAgenda
+                disabled={profissional === "" ? true : false}
+                onClick={() => /*setIsRedirect(true)*/ setModalOpen(true)}
+              >
+                Ver agenda desse profissional
+              </ButtonVerAgenda>
+            </div>
+          </div>
+          <br />
+          <div className="Linha-Data-Horario">
+            <InputDataConsulta
+              variant="outlined"
+              type="date"
+              onChange={(e) => setDataConsulta(e.target.value)}
+            />
+            <HorarioDaConsulta
+              label="Horário Da Consulta"
+              type="time"
+              defaultValue="00:00"
+            />
+          </div>
+        </div>
+        <ButtonSection>
+          <ConcluidoButton>
+            <h1>Concluir Agendamento</h1>
+            <Check />
+          </ConcluidoButton>
+        </ButtonSection>
+      </InputSection>
     </Container>
   );
 };
