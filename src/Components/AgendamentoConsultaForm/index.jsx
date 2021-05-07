@@ -21,13 +21,7 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import { backendURL } from "../../services/api";
-import Dialog from "@material-ui/core/Dialog";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
-import { DialogContent, DialogTitle } from "@material-ui/core";
-import { Formik, ErrorMessage, useFormik, validateYupSchema } from "formik";
-import { ChangeHistory } from "@material-ui/icons";
+import { Redirect } from "react-router-dom";
 
 const AgendamentoConsultaForm = () => {
   var Profissional = [];
@@ -39,6 +33,8 @@ const AgendamentoConsultaForm = () => {
   const [medicos, setMedicos] = React.useState([]);
   const [horarioConsulta, setHorarioConsulta] = React.useState("");
   const [token, setToken] = React.useState(localStorage.getItem("loginToken"));
+  const [redirect, setIsRedirect] = React.useState(false);
+  
 
   const fetchMedico = () => {
     axios
@@ -68,14 +64,24 @@ const AgendamentoConsultaForm = () => {
     Profissional.map((v) => {
       var object = {};
       object.nome = v.nomeCompleto;
+      object.crm = v.crm;
+      object.id = v._id;
+      console.log("medico", v)
       object.value = v.nomeCompleto.toLowerCase();
       arr.push(object);
     });
     setMedicos(arr);
   };
 
+  const [medicoId, setMedicoId] = React.useState("")
   const handleProfissional = (event) => {
     setProfissional(event.target.value);
+    medicos.map((v) => {
+      if (v.value === event.target.value) {
+        setMedicoId(v.id);
+      }
+    });
+    console.log("To aqui:",medicoId)
   };
 
   const handlePacienteName = (event) => {
@@ -92,69 +98,80 @@ const AgendamentoConsultaForm = () => {
 
   return (
     <Container>
-      <InputSection>
-        <form className="form">
-          <div className="Linha-Nome-Paciente">
-            <InputNomePaciente
-              name="nomePaciente"
-              label="Nome-Paciente"
-              variant="outlined"
-              inputProps={{ className: "inputProps" }}
-              inputLabelProps={{ className: "inputLabelProps" }}
-              onChange={handlePacienteName}
-            />
-            <div className="BotaoCadastrarPaciente">
-              <ButtonCadastrarPaciente>
-                Cadastar novo paciente
-              </ButtonCadastrarPaciente>
-            </div>
-          </div>
-          <div className="Linha-Profissional">
-            <FormControl variant="outlined" style={{ width: "56%" }}>
-              <InputLabel id="profissional">Profissional</InputLabel>
-              <InputProfissional
-                labelId="profissional"
-                label="Profissional"
+      {redirect ? (
+        <Redirect
+          to={{ pathname: `/medico/agenda`, state: { id: medicoId } }}
+        />
+      ) : (
+        <InputSection>
+          <form className="form">
+            <div className="Linha-Nome-Paciente">
+              <InputNomePaciente
+                name="nomePaciente"
+                label="Nome-Paciente"
                 variant="outlined"
-                value={profissional}
-                onChange={handleProfissional}
-              >
-                {medicos.map((v, i) => {
-                  return (
-                    <MenuItem key={i} value={v.value}>
-                      {v.nome}
-                    </MenuItem>
-                  );
-                })}
-              </InputProfissional>
-            </FormControl>
-            <div className="BotaoVerAgenda">
-              <ButtonVerAgenda disabled={profissional === "" ? true : false}>
-                Ver agenda desse profissional
-              </ButtonVerAgenda>
+                inputProps={{ className: "inputProps" }}
+                inputLabelProps={{ className: "inputLabelProps" }}
+                onChange={handlePacienteName}
+              />
+              <div className="BotaoCadastrarPaciente">
+                <ButtonCadastrarPaciente>
+                  Cadastar novo paciente
+                </ButtonCadastrarPaciente>
+              </div>
             </div>
-          </div>
-          <br />
-          <div className="Linha-Data-Horario">
-            <InputDataConsulta
-              variant="outlined"
-              type="date"
-              onChange={(e) => setDataConsulta(e.target.value)}
-            />
-            <HorarioDaConsulta
-              label="Horário Da Consulta"
-              type="time"
-              defaultValue="00:00"
-            />
-          </div>
-        </form>
-        <ButtonSection>
-          <ConcluidoButton>
-            <h1>Concluir Agendamento</h1>
-            <Check />
-          </ConcluidoButton>
-        </ButtonSection>
-      </InputSection>
+            <div className="Linha-Profissional">
+              <FormControl variant="outlined" style={{ width: "56%" }}>
+                <InputLabel id="profissional">Profissional</InputLabel>
+                <InputProfissional
+                  labelId="profissional"
+                  label="Profissional"
+                  variant="outlined"
+                  value={profissional}
+                  onChange={handleProfissional}
+                >
+                  {medicos.map((v, i) => {
+                    return (
+                      <MenuItem key={i} value={v.value}>
+                        {v.nome}
+                        <br />
+                        CRM: {v.crm}
+                      </MenuItem>
+                    );
+                  })}
+                </InputProfissional>
+              </FormControl>
+              <div className="BotaoVerAgenda">
+                <ButtonVerAgenda
+                  disabled={profissional === "" ? true : false}
+                  onClick={() => setIsRedirect(true)}
+                >
+                  Ver agenda desse profissional
+                </ButtonVerAgenda>
+              </div>
+            </div>
+            <br />
+            <div className="Linha-Data-Horario">
+              <InputDataConsulta
+                variant="outlined"
+                type="date"
+                onChange={(e) => setDataConsulta(e.target.value)}
+              />
+              <HorarioDaConsulta
+                label="Horário Da Consulta"
+                type="time"
+                defaultValue="00:00"
+              />
+            </div>
+          </form>
+          <ButtonSection>
+            <ConcluidoButton>
+              <h1>Concluir Agendamento</h1>
+              <Check />
+            </ConcluidoButton>
+          </ButtonSection>
+        </InputSection>
+      )}
     </Container>
   );
 };

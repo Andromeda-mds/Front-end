@@ -21,8 +21,9 @@ import {
   TodayButton,
   ViewSwitcher,
 } from "@devexpress/dx-react-scheduler-material-ui";
+import {useLocation} from 'react-router-dom'
 
-const AgendaMedico = () => {
+const AgendaMedico = (props) => {
   const [token, setToken] = React.useState(localStorage.getItem("loginToken"));
   const [role, setRole] = React.useState(localStorage.getItem("role"));
   const [medicoWorkDays, setMedicoWorkDays] = React.useState([]);
@@ -31,6 +32,7 @@ const AgendaMedico = () => {
   var MworkDays = [];
   var agendaMedico;
   var consultas;
+  const location = useLocation();
 
   const handleClientId = async () => {
     userId = await decode(localStorage.getItem("loginToken"));
@@ -149,7 +151,7 @@ const AgendaMedico = () => {
 
   const fetchMedicoData = () => {
     axios
-      .get(`${backendURL}agenda/medico/${userId._id}`, {
+      .get(`${backendURL}agenda/medico/${location?.state.id ?? userId._id}`, {
         headers: { "x-access-token": `${token}` },
       })
       .then((res) => {
@@ -158,11 +160,12 @@ const AgendaMedico = () => {
         handleMedicoWorkHours();
       })
       .catch((err) => {
+        console.log("oioi",location)
         console.log(err);
       });
 
     axios
-      .get(`${backendURL}consulta/medico/${userId._id}`, {
+      .get(`${backendURL}consulta/medico/${location?.state.id ?? userId._id}`, {
         headers: { "x-access-token": `${token}` },
       })
       .then((_res) => {
