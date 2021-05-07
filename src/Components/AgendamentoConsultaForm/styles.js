@@ -165,6 +165,14 @@ export const ButtonVerAgenda = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    :disabled{
+        background-color: gray;
+        &:hover{
+            transform: translate(0);
+            background-color: gray;
+            box-shadow: none;
+        }
+    }
     &:hover{
         background-color: #ff7800;
         box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);

@@ -20,7 +20,6 @@ import {
   DateNavigator,
   TodayButton,
   ViewSwitcher,
-  DragDropProvider,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const AgendaMedico = () => {
