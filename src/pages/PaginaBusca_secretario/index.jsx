@@ -79,6 +79,7 @@ const PaginaBusca_secretario = () => {
         <Header />
       </home.HeaderDiv>
       {isRedirect ? (
+
         <Redirect
           to={{
             pathname: redirectIsMedico

@@ -1,95 +1,130 @@
 import styled from "styled-components";
 import { Theme } from "../../utils/Styles/Theme";
 
-
 export const Container = styled.div`
-    height: 110vh;
+  height: 100vh;
+  width: 100%;
+  /* overflow-y: scroll;
+  scroll-snap-type: y mandatory; */
+  .content {
+    height: 89%;
     width: 100%;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    .content{
-        height:89%;
-        width:100%;
+    display: flex;
+    flex-direction: column;
+    
+    .Dados-Botoes {
+      height: 90%;
+      width: 90%;
+      display: flex;
+      .DadosUsuario {
+        height: 80%;
+        width: 50%;
         display: flex;
         flex-direction: column;
-        .Dados-Botoes{
-            height: 90%;
-            width: 100%;
-            display: flex;
-            .DadosUsuario{
-                height: 80%;
-                width: 50%;
-                display: flex;
-                flex-direction: column;
-                >p{
-                    margin-left: 2.5rem;
-                    margin-top: 1rem;
-                }
-                .botaoEdicao{
-                    height: 10%;
-                    width: 25%;
-                    display: flex;
-                    align-self: center;
-                    margin-top: 2rem;
-                }
-                
-            }
-            .Botoes{
-                height: 100%;
-                width: 45%;
-                display: flex;
-                flex-direction: column;
-                /* background-color: red; */
-                .prontuarioPaciente{
-                    height: 25%;
-                    width: 30%;
-                    align-self: center;
-                }
-                .botaoAlerta{
-                    height: 75%;
-                    width: 45%;
-                    align-self: center;
-                    margin-top: 2rem;
-                    display: flex;
-                    flex-direction: column;
-                }
-            }
+        /* align-items: center; */
+        justify-content: center;
+        >p {
+          margin-left: 2.5rem;
+          margin-top: 1rem;
         }
+        .botaoEdicao {
+          height: 10%;
+          width: 25%;
+          display: flex;
+          align-self: center;
+          margin-top: 2rem;
+        }
+      }
+      .Botoes {
+        height: 80%;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        .prontuarioPaciente {
+          height: 10.625rem;
+          width: 12rem;
+          align-self: center;
+          background-color: lightyellow;
+        }
+        .prontuario-consulta{
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+        }
+        .botoes-FilaEspera-DesmarcarConsulta {
+          height: 6rem;
+          width: 18rem;
+          align-self: center;
+          margin-top: 4rem;
+          display: flex;
+          flex-direction: column;
+          /* background-color: lightseagreen; */
+        }
+      }
     }
+  }
+`;
+
+export const Voltar = styled.div`
+  width: 10%;
+  height: 10%;
+  >a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    color: grey;
+    >span {
+      margin-left: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      cursor: pointer;
+      width: 100%;
+      :hover {
+        color: lightgrey;
+        text-decoration: underline;
+      }
+    >h1 {
+      font-size: 1.5rem;
+      margin-left: 2rem;
+      align-self: center;
+    }
+  }
+  }
+  
 `;
 
 export const Titulo = styled.div`
-    width: 100%;
-    height: 15%;
-    padding: 0.5rem;
-    
+  width: 100%;
+  height: 15%;
+  padding: 0.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  .cabecalho {
+    /* background-color: lightblue; */
+    margin-left: 1.5rem;
     display: flex;
-    justify-content: space-between;
-    .cabecalho{
-        /* background-color: lightblue; */
-        margin-left: 1.5rem;
-        display: flex;
-        width: 40%;
-        >h1{
-            font-size: 2rem;
-            line-height: 40px;
-            margin-left: 2rem; 
-            margin-top: 1rem;
-            /* background-color: red; */
-        }
+    width: 40%;
+    > h1 {
+      font-size: 2rem;
+      line-height: 40px;
+      margin-left: 2rem;
+      margin-top: 1rem;
+      /* background-color: red; */
     }
-    
+  }
 `;
 
 export const ProfileWrapper = styled.div`
-    /* background-color: red; */
-    height: 100%;
-    width: 10%;
-    justify-self: flex-end;
+  /* background-color: red; */
+  height: 100%;
+  width: 10%;
+  justify-self: flex-end;
 `;
 
 export const HeaderDiv = styled.div`
-    height: 12%;
+  height: 12%;
 `;
 
 export const BotaoEditarDados = styled.button`
@@ -114,7 +149,6 @@ export const BotaoEditarDados = styled.button`
     background-color: #ff7800;
     color: #fff;
   }
-
 `;
 
 export const BotaoProntuario = styled.button`
@@ -143,12 +177,11 @@ export const BotaoProntuario = styled.button`
     font-weight: 500;
     width: 100%;
   }
-
 `;
 
 export const BotaoAlertaConsulta = styled.button`
-  width: 90%;
-  height: 70%;
+  width: 20rem;
+  height: 15rem;
   border-radius: 1.5rem;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
   background-color: ${Theme.colors.$sispocOrange};
@@ -163,14 +196,22 @@ export const BotaoAlertaConsulta = styled.button`
   cursor: pointer;
   padding: 0.5rem;
   align-self: center;
-    >p{
-        margin-top: 1rem;
-    }
+  > p {
+    margin-top: 0.7rem;
+  }
+  >span{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
 `;
 
 export const BotaoColocarFilaEspera = styled.button`
-  width: 100%;
-  height: 10%;
+  width: 18rem;
+  height: 2.5rem;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
@@ -186,12 +227,11 @@ export const BotaoColocarFilaEspera = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
 `;
 
 export const BotaoDesmarcarConsulta = styled.button`
-  width: 100%;
-  height: 10%;
+  width: 18rem;
+  height: 2.5rem;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
@@ -207,7 +247,7 @@ export const BotaoDesmarcarConsulta = styled.button`
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
-  >h1{
+  > h1 {
     font-weight: 400;
   }
 `;
