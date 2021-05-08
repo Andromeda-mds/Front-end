@@ -12,6 +12,7 @@ import AgendaMedico from "./pages/AgendaMedico";
 import CadastroPaciente from "./pages/CadastroPacientePage";
 import GuiaMedico from './pages/GuiaMedicoPage';
 import PaginaBusca_secretario from './pages/PaginaBusca_secretario';
+import FichaPaciente from "./pages/FichaPacientePage";
 
 function App() {
 
@@ -42,6 +43,10 @@ function App() {
           <ProtectedRoute
             path="/secretario/busca"
             render={() => <PaginaBusca_secretario/>}
+          />
+          <ProtectedRoute
+            path="/secretario/fichaPaciente"
+            render={() => <FichaPaciente/>}
           />
           <BoardRoute path="/login" render={() => <LoginPage />} />
           <AlreadyLoggedRoute path="/homepage" render={() => <HomePage />} />
