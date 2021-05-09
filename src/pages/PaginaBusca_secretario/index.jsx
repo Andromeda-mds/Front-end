@@ -18,6 +18,7 @@ const PaginaBusca_secretario = () => {
   const [info, setInfo] = React.useState({});
   const [redirectIsMedico, setRedirectIsMedico] = React.useState(false);
   const [isRedirect, setIsRedirect] = React.useState(false);
+  const [idFicha, setIdFicha] = React.useState("");
   
 
   const [clientToken, setClientToken] = React.useState(
@@ -34,12 +35,17 @@ const PaginaBusca_secretario = () => {
           },
         })
         .then((res) => {
-          console.log(res);
+          console.log(res.data.length);
+          if(res.data.length === 0) {
+            setInfo(false);
+            alert("Nenhum médico encontrado!")
+          }
           setInfo(res);
           setTimeout(() => setShowCircularProgress(false), 3000);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.status);
+          alert("Nenhum médico encontrado!");
           setTimeout(() => setShowCircularProgress(false), 3000);
         });
     } else if (valorSelecionado === "paciente") {
@@ -53,21 +59,29 @@ const PaginaBusca_secretario = () => {
           console.log(res);
           setInfo(res);
           console.log(info)
+          console.log("id aqui",res.data)
           setTimeout(() => setShowCircularProgress(false), 3000);
         })
         .catch((err) => {
           console.log(err);
+          setInfo(false);
+          alert("Paciente não encontrado!")
           setTimeout(() => setShowCircularProgress(false), 3000);
         });
     }
   };
 
-  const handleRedirect = (valorSelecionado) => {
-    setIsRedirect(true)
-    console.log(info)
+  const handleRedirect = (valorSelecionado, id) => {
+    axios.get(`${backendURL}ficha/paciente/${id}`,
+    {headers: {"x-access-token": `${clientToken}`}})
+    .then(async _res => {
+      setIdFicha(_res.data._id);
+    })
+    .catch(err => {console.log("fichaPaciente: ", err);})
     if (valorSelecionado === "medico") {
-      setRedirectIsMedico(true);
+      setRedirectIsMedico(true)
     }
+    setTimeout(() => setIsRedirect(true), 1000)
   };
 
   return (
@@ -85,7 +99,7 @@ const PaginaBusca_secretario = () => {
             pathname: redirectIsMedico
               ? "/secretatio/perfilMedico"
               : "/secretario/fichaPaciente",
-            state: { info: info }
+            state: { info: info, idFicha: idFicha }
             }}
           
         />
@@ -137,7 +151,7 @@ const PaginaBusca_secretario = () => {
               </home.BotaoPesquisa>
             </div>
           </div>
-          {valorSelecionado == "medico" ? (
+          {valorSelecionado === "medico" ? (
             <div className="resultados">
               {info.data && (
                 <div className="wrapper">
@@ -197,7 +211,7 @@ const PaginaBusca_secretario = () => {
                       </div>
                       <div className="botaoPerfil">
                         <BotaoPerfilUsuario
-                            onClick={() => {handleRedirect(valorSelecionado); setInfo(paciente)}}
+                            onClick={() => {handleRedirect(valorSelecionado, paciente._id); setInfo(paciente)}}
                         >
                           Visualizar perfil completo
                         </BotaoPerfilUsuario>

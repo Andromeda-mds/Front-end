@@ -24,6 +24,7 @@ import { backendURL } from "../../services/api";
 import { Redirect } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import AgendaMedico from "../../pages/AgendaMedico";
+import moment from 'moment'
 
 const AgendamentoConsultaForm = () => {
   var Profissional = [];
@@ -110,20 +111,58 @@ const AgendamentoConsultaForm = () => {
   };
 
   const registerAppointment = () => {
+
+    let _horarioConsulta = handleAppointmentData();
+    if(_horarioConsulta === 0) return alert("Horário inválido.");
+    if(medico.id === null || medico.id === undefined) return alert("Médico inválido");
+    if(fichaPaciente?._id === null || fichaPaciente?._id === undefined) return alert("Paciente inválido ou não cadastrado")
+
     axios
       .post(
         `${backendURL}consulta/${fichaPaciente._id}`,
         {
           medico: medico.id,
-          data: {
-            //TODO arrumar a formatação da data da consulta de acordo com o Back
-          },
+          data: _horarioConsulta,
         },
         { headers: { "x-access-token": `${token}` } }
       )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {console.log(res); alert("Consulta marcada com sucesso.")})
+      .catch((err) => {console.log(err.response.data.message); alert(err.response.data.message)});
   };
+
+  const handleAppointmentData = () => {
+    if(dataConsulta === "") return 0;
+    let data = dataConsulta.split("-").reverse().join("-").replaceAll("-", "/");
+    let horario;
+    let periodo;
+    switch(horarioConsulta){
+      case "08:00": horario = "1";  periodo = "manha";
+        break;
+      case "09:00": horario = "2"; periodo = "manha";
+        break;
+      case "10:00": horario = "3"; periodo = "manha";
+        break;
+      case "11:00": horario = "4"; periodo = "manha";
+        break;
+      case "13:00": horario = "1"; periodo = "tarde";
+        break;
+      case "14:00": horario = "2"; periodo = "tarde";
+        break;
+      case "15:00": horario = "3"; periodo = "tarde";
+        break;
+      case "16:00": horario = "4"; periodo = "tarde";
+        break;
+      default: horario = 0; periodo = 0;
+    }
+    if(horario === 0 && periodo === 0) return 0;
+    let object = {
+      dia: data,
+      periodo: periodo,
+      horario: horario
+    }
+    console.log("horario consulta", horarioConsulta);
+    return object;
+  }
 
   React.useEffect(() => {
     fetchMedico();
@@ -174,7 +213,7 @@ const AgendamentoConsultaForm = () => {
                 </ButtonCadastrarPaciente>
               </div>
               <div className="BotaoCadastrarPaciente">
-                <ButtonCadastrarPaciente>
+                <ButtonCadastrarPaciente onClick={() => handleAppointmentData()}>
                   Cadastar novo paciente
                 </ButtonCadastrarPaciente>
               </div>
@@ -217,16 +256,18 @@ const AgendamentoConsultaForm = () => {
               variant="outlined"
               type="date"
               onChange={(e) => setDataConsulta(e.target.value)}
+              formatDate={(date) => moment(date).format('DD-MM-YYYY')}
             />
             <HorarioDaConsulta
               label="Horário Da Consulta"
               type="time"
               defaultValue="00:00"
+              onChange={(e) => setHorarioConsulta(e.target.value)}
             />
           </div>
         </div>
         <ButtonSection>
-          <ConcluidoButton>
+          <ConcluidoButton onClick={() => registerAppointment()}>
             <h1>Concluir Agendamento</h1>
             <Check />
           </ConcluidoButton>
