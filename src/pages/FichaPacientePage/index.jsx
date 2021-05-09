@@ -17,15 +17,28 @@ const FichaPaciente = () => {
   const location = useLocation();
 
   const [redirectBack, setRedirectBack] = React.useState(false);
-  const [consultasPaciente, setconsultasPaciente] = React.useState(false);
+  const [consultasPaciente, setConsultasPaciente] = React.useState([]);
+  const [clientToken, setClientToken] = React.useState(
+    localStorage.getItem("loginToken")
+  );
 
-
-//   useEffect(() =>{
-//     axios
-//         .get(`${backendURL}ficha/consultas/${nome}`)
-//         .then()
-//         .catch()
-//   }, [])
+  useEffect(() =>{
+    console.log(location.state.info._id);
+    console.log("ID FICHA", location.state.idFicha);
+    axios
+        .get(`${backendURL}ficha/consultas/${location.state.idFicha}`, {
+          headers: {
+            "x-access-token": `${clientToken}`,
+          },
+        })
+        .then((res) =>{
+          console.log(res.data.item)
+          setConsultasPaciente(res.data.item)
+        })
+        .catch((err) =>{
+          console.log(err)
+        });
+  }, [])
 
   return (
     <home.Container>

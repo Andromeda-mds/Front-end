@@ -41,6 +41,7 @@ const AgendaMedico = (props) => {
   const handleMedicoWorkDays = () => {
     agendaMedico.map((i) => {
       let day = i.dia;
+      console.log("consolada", day)
       switch (day) {
         case "1":
           MworkDays.push(1);
