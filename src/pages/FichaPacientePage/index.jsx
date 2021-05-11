@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as home from "./styles";
 import Header from "../../Components/Header";
 import ProfileIcon from "../../Components/ProfileIcon";
@@ -18,28 +18,111 @@ const FichaPaciente = () => {
 
   const [redirectBack, setRedirectBack] = React.useState(false);
   const [consultasPaciente, setConsultasPaciente] = React.useState([]);
+  const [naoTemConsulta, setNaoTemConsulta] = React.useState(true);
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
   );
+  const [proxConsulta, setProxConsulta] = React.useState({
+    data: {
+      dia: "",
+      periodo: "",
+      horario: ""
+    },
+    medico: {}
+  });
+  var consultas;
 
-  useEffect(() =>{
+  useEffect(() => {
     console.log(location.state.info._id);
     console.log("ID FICHA", location.state.idFicha);
     axios
-        .get(`${backendURL}ficha/consultas/${location.state.idFicha}`, {
-          headers: {
-            "x-access-token": `${clientToken}`,
-          },
-        })
-        .then(async res =>{
-          console.log(res.data.item)
+      .get(`${backendURL}ficha/consultas/${location.state.idFicha}`, {
+        headers: {
+          "x-access-token": `${clientToken}`,
+        },
+      })
+      .then(async res => {
+        console.log(res.data.item)
+        if (res.data.item.length > 0) {
+          setNaoTemConsulta(false);
+          consultas = res.data.item;
+          await handleProxConsulta();
           setConsultasPaciente(res.data.item)
-          setTimeout(() => console.log("consultas: ", consultasPaciente), 2500)
-        })
-        .catch((err) =>{
-          console.log(err)
-        });
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }, [])
+
+  const handleProxConsulta = async () => {
+    let date_now = Date.now();
+    let aux = []
+    consultas.map((v) => {
+      let values = {};
+      values.dia = new Date(v.data.dia);
+      values.id = v.id
+      aux.push(values);
+    });
+
+    let _consultas_after_now = [];
+    aux.map(v => {
+      if (v.dia > date_now) _consultas_after_now.push(v);
+    })
+    _consultas_after_now.sort((a, b) => b.dia - a.dia);
+    let consulta = _consultas_after_now[0];
+    consultas.map(v => {
+      if (v.id === consulta.id) consulta = v;
+    })
+    let periodo = consulta.data.periodo;
+    let horario = consulta.data.horario;
+    consulta.data.horario = handleHorario(periodo, horario);
+    axios.get(`${backendURL}medico/${consulta.medico}`, { headers: { "x-access-token": `${clientToken}` } }).then(
+      res => {
+        console.log(res);
+        consulta.medico = res.data
+        setProxConsulta(consulta);
+      }
+    ).catch(err => console.log(err))
+  }
+
+  const handleHorario = (periodo, horario) => {
+    let hora;
+    if (periodo === "manha") {
+      switch (horario) {
+        case "1":
+          hora = "08:00"
+          break;
+        case "2":
+          hora = "09:00"
+          break;
+        case "3":
+          hora = "10:00"
+          break;
+        case "4":
+          hora = "11:00"
+          break;
+      }
+    } else if (periodo === "tarde") {
+      switch (horario) {
+        case "1":
+          hora = "13:00"
+          break;
+        case "2":
+          hora = "14:00"
+          break;
+        case "3":
+          hora = "15:00"
+          break;
+        case "4":
+          hora = "16:00"
+          break;
+      }
+    }
+
+    return hora;
+  }
+
 
   return (
     <home.Container>
@@ -101,19 +184,25 @@ const FichaPaciente = () => {
                   <h1>Visualizar prontuário do paciente</h1>
                 </home.BotaoProntuario>
               </div>
-              <home.BotaoAlertaConsulta>
-                <WarningIcon style={{ fontSize: 30, alignSelf: "center" }} />
-                <span>
-                  <p>Este paciente tem consulta </p>
-                   <p> agendada para:</p>
-                  <p>Data:</p>
-                  <p>Horário da consulta</p>
-                  <p>Medico da consulta</p>
-                </span>
-                  <p style={{ alignSelf: "center" }}>
-                    <u>Clique para ver mais detalhes</u>
-                  </p>
-              </home.BotaoAlertaConsulta>
+              {
+                naoTemConsulta
+                  ?
+                  undefined
+                  :
+                  <home.BotaoAlertaConsulta>
+                    <WarningIcon style={{ fontSize: 30, alignSelf: "center" }} />
+                    <span>
+                      <p>Este paciente tem consulta próxima</p>
+                      <p>Data: {proxConsulta.data.dia}</p>
+                      <p>Periodo: {proxConsulta.data.periodo}</p>
+                      <p>Horário da consulta: {proxConsulta.data.horario}h</p>
+                      <p>Medico da consulta: {proxConsulta.medico.nomeCompleto}</p>
+                    </span>
+                    <p style={{ alignSelf: "center" }}>
+                      <u>Clique para ver mais detalhes</u>
+                    </p>
+                  </home.BotaoAlertaConsulta>
+              }
             </div>
             <div className="botoes-FilaEspera-DesmarcarConsulta">
               <home.BotaoColocarFilaEspera>
