@@ -168,11 +168,12 @@ export const NovaConsultaButton = styled.button`
   .calendario {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
     position: relative;
     .add{
+      margin-top: 1rem;
       position: fixed;
-      padding: 1.7rem;
     }
   }
 `;
