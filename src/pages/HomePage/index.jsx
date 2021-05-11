@@ -22,6 +22,7 @@ import ProfileIcon from "../../Components/ProfileIcon";
 import BotaoQuadrado from "../../Components/BotaoQuadrado";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 
+
 const HomePage = () => {
   const [role, setRole] = React.useState(localStorage.getItem("role"));
   const [clientData, setClientData] = React.useState({});
@@ -106,20 +107,20 @@ const HomePage = () => {
             ) : (
               <div className="content-Admin">
                 <div className="buttonSectionAdmin">
-                  <home.BuscarMedicosAdmButton>
-                    <div className="buscarMedicosAdm">
+                  <home.BuscarAdmButton>
+                    <div className="buscarAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
-                      <LocalHospitalIcon style={{ fontSize: 30 }} />
-                      <h1>Buscar Médicos</h1>
+                      <SearchIcon style={{ fontSize: 30 }} />
+                      <h1>Buscar Médicos ou Secretários</h1>
                     </div>
-                  </home.BuscarMedicosAdmButton>
-                  <home.BuscarSecretariosAdmButton>
+                  </home.BuscarAdmButton>
+                  {/* <home.BuscarSecretariosAdmButton>
                     <div className="buscarSecretariosAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
                       <AssignmentIcon style={{ fontSize: 30 }} />
                     </div>
                     <h1>Buscar Secretários</h1>
-                  </home.BuscarSecretariosAdmButton>
+                  </home.BuscarSecretariosAdmButton> */}
                   <home.CadastrarMedicoButton>
                     <a
                       href="/cadastro/medico"

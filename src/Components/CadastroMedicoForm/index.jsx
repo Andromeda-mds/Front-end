@@ -130,7 +130,7 @@ const CadastroMedicoForm = () => {
       .catch((err) => {
         console.log("Ocorreu um erro: ", err);
         setTimeout(() => setShowCircularProgress(false), 3000);
-        alert(err.message);
+        alert("Dados inválidos");
       });
   };
 

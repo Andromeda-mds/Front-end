@@ -31,9 +31,10 @@ const FichaPaciente = () => {
             "x-access-token": `${clientToken}`,
           },
         })
-        .then((res) =>{
+        .then(async res =>{
           console.log(res.data.item)
           setConsultasPaciente(res.data.item)
+          setTimeout(() => console.log("consultas: ", consultasPaciente), 2500)
         })
         .catch((err) =>{
           console.log(err)
@@ -105,7 +106,7 @@ const FichaPaciente = () => {
                 <span>
                   <p>Este paciente tem consulta </p>
                    <p> agendada para:</p>
-                  <p>Data da consulta</p>
+                  <p>Data:</p>
                   <p>Horário da consulta</p>
                   <p>Medico da consulta</p>
                 </span>
