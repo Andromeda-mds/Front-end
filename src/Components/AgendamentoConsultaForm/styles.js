@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";   
 import InputLabel from '@material-ui/core/InputLabel';   
 import  Select  from "@material-ui/core/Select";
+import Dialog from "@material-ui/core/Dialog";
 
 
 
@@ -202,4 +203,11 @@ export const ButtonVerAgenda = styled.button`
 export const HorarioDaConsulta = styled(TextField)`
     width: 40%;
     margin-left: 2.5rem; 
+`
+
+export const FormCadastrarPaciente = styled(Dialog)`
+    /* width: 200rem;
+    height: 200rem;
+    align-self: center; */
+
 `

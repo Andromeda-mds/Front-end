@@ -24,10 +24,13 @@ const GuiaMedicoPage = () => {
                 <div className="second-section">
                     <div className="exames-button">
                         <div className="button">
-                            <BotaoQuadrado
-                                title={"Solicitar Exames"}
-                                image={DescriptionIcon}
-                            />
+                            <a href="/guiamedico/solicitarExame" style={{ textDecoration: "none" }}>
+                                <BotaoQuadrado
+                                    title={"Solicitar Exames"}
+                                    image={DescriptionIcon}
+                                />   
+                            </a>
+                            
                         </div>
                     </div>
                     <div className="dados-paciente">

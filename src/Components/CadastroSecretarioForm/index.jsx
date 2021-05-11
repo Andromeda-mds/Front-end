@@ -95,6 +95,7 @@ const CadastroSecretarioForm = () => {
         })
         .catch((err) => {
             console.log("Ocorreu um erro: ", err);
+            alert("Dados inválidos")
             setTimeout(() => setShowCircularProgress(false), 3000);
         });
     };

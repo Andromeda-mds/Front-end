@@ -43,6 +43,8 @@ export const Container = styled.div`
         }
         .resultados{
             height: 70%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
             .wrapper{
                 width: 50%;
                 height: 55%;

@@ -15,8 +15,8 @@ export const Container = styled.div`
 `;
 
 export const InputSection = styled.div`
-  width: 100%;
-  height: 90%;
+  width: 95rem;
+  height: 45rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +26,7 @@ export const InputSection = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    width: 100%;
+    width: 95rem;
     padding: 2rem 0 0 2rem;
     .Linha-CPF-Data{
         width: 40%;
