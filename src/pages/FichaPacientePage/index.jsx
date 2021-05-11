@@ -12,15 +12,24 @@ import { Redirect } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { backendURL } from "../../services/api";
+import EditarPerfilPacienteForm from "../../Components/EditarPerfilPacienteForm";
+import Dialog from "@material-ui/core/Dialog";
 
 const FichaPaciente = () => {
   const location = useLocation();
 
   const [redirectBack, setRedirectBack] = React.useState(false);
   const [consultasPaciente, setConsultasPaciente] = React.useState([]);
+  const [editar, setEditar] = React.useState(false);
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
   );
+
+  
+
+  const handleClose = () => {
+      setEditar(false);
+  };
 
   useEffect(() =>{
     console.log(location.state.info._id);
@@ -41,8 +50,21 @@ const FichaPaciente = () => {
         });
   }, [])
 
+  
   return (
     <home.Container>
+      <Dialog open={editar} onClose={handleClose} fullWidth={true}>
+          <EditarPerfilPacienteForm
+            nomeCompleto={location.state.info.nomeCompleto}
+            cpf={location.state.info.cpf}
+            email={location.state.info.email}
+            telefone={location.state.info.telefone}
+            convenio={location.state.info.convenio}
+            dataNascimento={location.state.info.dataNascimento}
+            endereco={location.state.info.endereco}
+            id={location.state.info._id}
+          />
+      </Dialog>
       <home.HeaderDiv>
         <Header />
       </home.HeaderDiv>
@@ -87,8 +109,15 @@ const FichaPaciente = () => {
             <p>
               <b>Email:</b> {location.state.info.email}
             </p>
+            <p>
+              <b>CEP:</b> {location.state.info.cep}
+            </p>
             <div className="botaoEdicao">
-              <home.BotaoEditarDados>Editar dados</home.BotaoEditarDados>
+              <home.BotaoEditarDados
+                onClick={() => setEditar(true)}
+               >
+                Editar dados
+              </home.BotaoEditarDados>
             </div>
           </div>
           <div className="Botoes">
