@@ -12,6 +12,7 @@ import {
   ButtonCadastrarPaciente,
   ButtonVerAgenda,
   HorarioDaConsulta,
+  FormCadastrarPaciente
 } from "./styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Check from "@material-ui/icons/Check";
@@ -24,6 +25,7 @@ import { backendURL } from "../../services/api";
 import { Redirect } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import AgendaMedico from "../../pages/AgendaMedico";
+import CadastroPacienteForm from "../../Components/CadastroPacienteForm"
 import moment from 'moment'
 
 const AgendamentoConsultaForm = () => {
@@ -42,6 +44,7 @@ const AgendamentoConsultaForm = () => {
   const [pacienteIsFetched, setPacienteIsFetched] = React.useState(false);
   const [messageFetched, setMessageFetched] = React.useState("");
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalCadastroOpen, setModalCadastroOpen] = React.useState(false);
   const [medico, setMedico] = React.useState({});
 
   const fetchMedico = () => {
@@ -172,12 +175,20 @@ const AgendamentoConsultaForm = () => {
     setModalOpen(false);
   };
 
+  const handleCloseCadastro = () => {
+    setModalCadastroOpen(false);
+    fetchPaciente()
+  };
+
   return (
-    <Container>
-      <InputSection>
-        <Dialog open={modalOpen} onClose={handleClose}>
+    <Container> 
+      <FormCadastrarPaciente open={modalCadastroOpen} onClose={handleCloseCadastro} fullWidth={true}>
+          <CadastroPacienteForm paciente={nomePaciente, emailPaciente, modalCadastroOpen} />
+      </FormCadastrarPaciente>
+      <Dialog open={modalOpen} onClose={handleClose} fullWidth={true}>
           <AgendaMedico medico={medico.id} />
-        </Dialog>
+      </Dialog>
+      <InputSection>
         <div className="form">
           <div className="Linha-Nome-Paciente">
             <div className="nome-email">
@@ -213,7 +224,7 @@ const AgendamentoConsultaForm = () => {
                 </ButtonCadastrarPaciente>
               </div>
               <div className="BotaoCadastrarPaciente">
-                <ButtonCadastrarPaciente onClick={() => handleAppointmentData()}>
+                <ButtonCadastrarPaciente onClick={() => setModalCadastroOpen(true)}>
                   Cadastar novo paciente
                 </ButtonCadastrarPaciente>
               </div>

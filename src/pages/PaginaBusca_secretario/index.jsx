@@ -131,7 +131,7 @@ const PaginaBusca_secretario = () => {
                 <home.BotaoSelecao
                   color="primary"
                   value="medico"
-                  onChange={(e) => setValorSelecionado(e.target.value)}
+                  onChange={(e) => {setValorSelecionado(e.target.value); setInfo({})}}
                   checked={valorSelecionado === "medico"}
                 />
               </div>
@@ -140,7 +140,7 @@ const PaginaBusca_secretario = () => {
                 <home.BotaoSelecao
                   color="primary"
                   value="paciente"
-                  onChange={(e) => setValorSelecionado(e.target.value)}
+                  onChange={(e) => {setValorSelecionado(e.target.value); setInfo({})}}
                   checked={valorSelecionado === "paciente"}
                 />
               </div>
@@ -162,15 +162,15 @@ const PaginaBusca_secretario = () => {
                       </div>
                       <div className="dadosUsuario">
                         <p>
-                          <b>Nome:</b>
+                          <b>Nome: </b>
                           {medico.nomeCompleto}{" "}
                         </p>
                         <p>
-                          <b>CRM:</b>
+                          <b>CRM: </b>
                           {medico.crm}{" "}
                         </p>
                         <p>
-                          <b>Especialidade:</b>
+                          <b>Especialidade: </b>
                           {medico.especialidade}
                         </p>
                       </div>
@@ -197,15 +197,15 @@ const PaginaBusca_secretario = () => {
                       </div>
                       <div className="dadosUsuario">
                         <p>
-                          <b>Nome:</b>
+                          <b>Nome: </b>
                           {paciente.nomeCompleto}{" "}
                         </p>
                         <p>
-                          <b>CPF:</b>
+                          <b>CPF: </b>
                           {paciente.cpf}{" "}
                         </p>
                         <p>
-                          <b>Convenio:</b>
+                          <b>Convenio: </b>
                           {paciente.convenio}
                         </p>
                       </div>
