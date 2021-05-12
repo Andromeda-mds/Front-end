@@ -12,7 +12,8 @@ import {
   ButtonCadastrarPaciente,
   ButtonVerAgenda,
   HorarioDaConsulta,
-  FormCadastrarPaciente
+  FormCadastrarPaciente,
+  DialogSchedule
 } from "./styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Check from "@material-ui/icons/Check";
@@ -27,6 +28,11 @@ import Dialog from "@material-ui/core/Dialog";
 import AgendaMedico from "../../pages/AgendaMedico";
 import CadastroPacienteForm from "../../Components/CadastroPacienteForm"
 import moment from 'moment'
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const AgendamentoConsultaForm = () => {
   var Profissional = [];
@@ -180,14 +186,16 @@ const AgendamentoConsultaForm = () => {
     fetchPaciente()
   };
 
+ 
+
   return (
     <Container> 
       <FormCadastrarPaciente open={modalCadastroOpen} onClose={handleCloseCadastro} fullWidth={true}>
           <CadastroPacienteForm paciente={nomePaciente, emailPaciente, modalCadastroOpen} />
       </FormCadastrarPaciente>
-      <Dialog open={modalOpen} onClose={handleClose} fullWidth={true}>
+      <DialogSchedule className="dialog" TransitionComponent={Transition} open={modalOpen} onClose={handleClose}>
           <AgendaMedico medico={medico.id} />
-      </Dialog>
+      </DialogSchedule>
       <InputSection>
         <div className="form">
           <div className="Linha-Nome-Paciente">
