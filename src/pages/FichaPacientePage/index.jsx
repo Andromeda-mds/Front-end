@@ -12,13 +12,36 @@ import { Redirect } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { backendURL } from "../../services/api";
+import EditarPerfilPacienteForm from "../../Components/EditarPerfilPacienteForm";
+import Dialog from "@material-ui/core/Dialog";
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const FichaPaciente = () => {
   const location = useLocation();
 
   const [redirectBack, setRedirectBack] = React.useState(false);
   const [consultasPaciente, setConsultasPaciente] = React.useState([]);
+
+  const [editar, setEditar] = React.useState(false);
+  const [pacienteData, setPacienteData] = React.useState({})
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [openErrorSnack, setOpenErrorSnack] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [nomeCompleto, setNomeCompleto] = React.useState(location.state.info.nomeCompleto);
+  const [telefone, setTelefone] = React.useState(location.state.info.telefone);
+  const [email, setEmail] = React.useState(location.state.info.email);
+  const [dataNascimento, setDataDeNascimento] = React.useState(location.state.info.dataNascimento);
+  const [convenio, setConvenio] = React.useState(location.state.info.convenio);
+  const [cep, setCep] = React.useState(location.state.info.cep);
+  const [cpf, setCpf] = React.useState(location.state.info.cpf);
+  const [mudouRecentemente, setMudouRecentemente] = React.useState(false)
+  const [numero, setNumero] = React.useState("");
+  const [logradouro, setLogradouro] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [endereco, setEndereco] = React.useState("");
   const [naoTemConsulta, setNaoTemConsulta] = React.useState(true);
+
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
   );
@@ -32,9 +55,62 @@ const FichaPaciente = () => {
   });
   var consultas;
 
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+    setOpenErrorSnack(false);
+  };
+
+  const handleClose = () => {
+    setEditar(false);
+    console.log("entrei")
+    axios
+    .get(`${backendURL}paciente/${location.state.info._id}`, {headers: {"x-access-token": `${clientToken}`}})
+    .then(res => {
+      console.log(res)
+      setNomeCompleto(res.data.item.nomeCompleto)
+      setEmail(res.data.item.email)
+      setConvenio(res.data.item.convenio)
+      setCpf(res.data.item.cpf)
+      setTelefone(res.data.item.telefone)
+      setDataDeNascimento(res.data.item.dataNascimento)
+      let _endereco = res.data.item.endereco.split(",")
+      setCep(_endereco[0])
+      _endereco = res.data.item.endereco.slice(8)
+      setEndereco(_endereco)
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+
   useEffect(() => {
-    console.log(location.state.info._id);
+    
+    let _endereco = location.state.info?.endereco?.split(",")
+    if(_endereco){
+      console.log("_endereco", _endereco)
+      setCep(_endereco[0]??"")
+      setCity(_endereco[1])
+      setLogradouro(_endereco[2])
+      setNumero(_endereco[3])
+      _endereco.shift()
+      console.log("depois do shift", _endereco)
+     _endereco = _endereco.join(",")
+     console.log("depois do tostring", _endereco)
+      setEndereco(_endereco)
+    }
+    
+    console.log("id paciente", location.state.info._id);
+
     console.log("ID FICHA", location.state.idFicha);
+    
     axios
       .get(`${backendURL}ficha/consultas/${location.state.idFicha}`, {
         headers: {
@@ -43,17 +119,24 @@ const FichaPaciente = () => {
       })
       .then(async res => {
         console.log(res.data.item)
+
+        setConsultasPaciente(res.data.item)
+        setTimeout(() => console.log("consultas: ", consultasPaciente), 2500)
+
         if (res.data.item.length > 0) {
           setNaoTemConsulta(false);
           consultas = res.data.item;
           await handleProxConsulta();
           setConsultasPaciente(res.data.item)
         }
+
       })
       .catch((err) => {
         console.log(err)
       });
   }, [])
+
+
 
   const handleProxConsulta = async () => {
     let date_now = Date.now();
@@ -124,8 +207,40 @@ const FichaPaciente = () => {
   }
 
 
+
   return (
     <home.Container>
+      <Snackbar open={openSnack} autoHideDuration={5000} onClose={handleCloseSnack}>
+        <Alert onClose={handleCloseSnack} severity="success">
+          {message}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={openErrorSnack} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleCloseSnack} severity="error">
+          {message}
+        </Alert>
+      </Snackbar>
+      <Dialog open={editar} onClose={handleClose} fullWidth={true}>
+        <EditarPerfilPacienteForm
+          nomeCompleto={nomeCompleto}
+          cpf={cpf}
+          email={email}
+          telefone={telefone}
+          convenio={convenio}
+          cep={cep}
+          dataNascimento={dataNascimento}
+          logradouro={logradouro}
+          numero={numero}
+          city={city}
+          id={location.state.info._id}
+          data={setPacienteData}
+          trigger={() => handleClose()}
+          openSnack={setOpenSnack}
+          openErrorSnack={setOpenErrorSnack}
+          message={setMessage}
+          mudou={setMudouRecentemente}
+        />
+      </Dialog>
       <home.HeaderDiv>
         <Header />
       </home.HeaderDiv>
@@ -150,28 +265,35 @@ const FichaPaciente = () => {
         <div className="Dados-Botoes">
           <div className="DadosUsuario">
             <p>
-              <b>Nome:</b> {location.state.info.nomeCompleto}
+              <b>Nome:</b> {nomeCompleto}
             </p>
             <p>
-              <b>Data de nascimento:</b> {location.state.info.dataNascimento}
+              <b>Data de nascimento:</b> {dataNascimento}
             </p>
             <p>
-              <b>Convênio:</b> {location.state.info.convenio}
+              <b>Convênio:</b> {convenio}
             </p>
             <p>
-              <b>CPF:</b> {location.state.info.cpf}
+              <b>CPF:</b> {cpf}
             </p>
             <p>
-              <b>Endereço:</b> {location.state.info.endereco}
+              <b>Endereço:</b> {endereco}
             </p>
             <p>
-              <b>Telefone:</b> {location.state.info.telefone}
+              <b>Telefone:</b> {telefone}
             </p>
             <p>
-              <b>Email:</b> {location.state.info.email}
+              <b>Email:</b> {email}
+            </p>
+            <p>
+              <b>CEP:</b> {cep}
             </p>
             <div className="botaoEdicao">
-              <home.BotaoEditarDados>Editar dados</home.BotaoEditarDados>
+              <home.BotaoEditarDados
+                onClick={() => setEditar(true)}
+              >
+                Editar dados
+              </home.BotaoEditarDados>
             </div>
           </div>
           <div className="Botoes">
@@ -184,6 +306,7 @@ const FichaPaciente = () => {
                   <h1>Visualizar prontuário do paciente</h1>
                 </home.BotaoProntuario>
               </div>
+
               {
                 naoTemConsulta
                   ?
@@ -203,6 +326,7 @@ const FichaPaciente = () => {
                     </p>
                   </home.BotaoAlertaConsulta>
               }
+
             </div>
             <div className="botoes-FilaEspera-DesmarcarConsulta">
               <home.BotaoColocarFilaEspera>
