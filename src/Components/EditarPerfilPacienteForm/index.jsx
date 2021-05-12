@@ -12,6 +12,8 @@ import { backendURL } from "../../services/api";
 import * as home from "./styles";
 import { useEffect } from "react";
 
+import { FormatAlignLeftSharp } from "@material-ui/icons";
+
 
 
 
@@ -25,11 +27,11 @@ const [telefone, setTelefone] = React.useState(props.telefone);
 const [email, setEmail] = React.useState(props.email);
 const [dataDeNascimento, setDataDeNascimento] = React.useState(props.dataNascimento);
 const [convenio, setConvenio] = React.useState(props.convenio);
-const [cep, setCep] = React.useState("");
-const [numero, setNumero] = React.useState("");
+const [cep, setCep] = React.useState(props.cep);
+const [numero, setNumero] = React.useState(props.numero);
 const [cpf, setCpf] = React.useState(props.cpf);
-const [logradouro, setLogradouro] = React.useState("");
-const [city, setCity] = React.useState("");
+const [logradouro, setLogradouro] = React.useState(props.logradouro);
+const [city, setCity] = React.useState(props.city);
 const [openDialog, setOpenDialog] = React.useState(false);
 
 
@@ -49,9 +51,12 @@ const [clientToken, setClientToken] = React.useState(
     return _result.toString();
 }
 
+
+
   const handleForm = () => {
     let _endereco = handleEndereco();
-    let id = props._id
+    let id = props.id
+    console.log("id paciente", id)
     setShowCircularProgress(true);
     axios
         .put(`${backendURL}paciente/${id}`,{
@@ -69,12 +74,26 @@ const [clientToken, setClientToken] = React.useState(
             console.log(res.data);
             setTimeout(() => setShowCircularProgress(false), 3000);
             setClientData(res.data.item.paciente);
-            alert(res.data.message);
+            props.message(res.data.message);
+            props.openSnack(true)
             setTimeout(() => setOpenDialog(!openDialog), 3000);
+            var informacoes = {
+                nomeCompleto: nomeCompleto,
+                cpf: cpf,
+                email: email,
+                telefone: telefone,
+                convenio: convenio,
+                dataNascimento: dataDeNascimento,
+                endereco: _endereco
+            }
+            props.data(informacoes) 
+            props.trigger()
+            props.mudou(true)
         })
         .catch((err) => {
             console.log("Ocorreu um erro: ", err);
-            alert("Dados inválidos")
+            props.message("Dados inválidos")
+            props.openErrorSnack(true)
             setTimeout(() => setShowCircularProgress(false), 3000);
         });
         
@@ -98,21 +117,14 @@ const [clientToken, setClientToken] = React.useState(
     const handleConvenio = (event) =>{
         setConvenio(event.target.value);
     }
-    useEffect(() =>{
-        let _endereco = props.endereco.split(",")
-        setCep(_endereco[0])
-        setCity(_endereco[1])
-        setLogradouro(_endereco[2])
-        setNumero(_endereco[3])
-    }, [])
-
     return (
         <home.Container>
-            <Dialog onClose={() => { setOpenDialog(!openDialog)}} open={openDialog}>
+           
+            {/* <Dialog onClose={() => { setOpenDialog(!openDialog)}} open={openDialog}>
                 <div className="caixaDialogo">
                     <DialogTitle>Dados salvos com sucesso!</DialogTitle>
                 </div>
-            </Dialog>
+            </Dialog> */}
             <Backdrop open={showCircularProgress}>
                 <CircularProgress />
             </Backdrop>
