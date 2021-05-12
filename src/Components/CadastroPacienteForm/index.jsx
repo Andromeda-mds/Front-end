@@ -58,7 +58,6 @@ const CadastroPacienteForm = () => {
     const [logradouro, setLogradouro] = React.useState("");
     const [city, setCity] = React.useState("");
     const [openDialog, setOpenDialog] = React.useState(false);
-    const [redirect, setRedirect] = React.useState(false);
     const [clientData, setClientData] = React.useState({});
     const [clientToken, setClientToken] = React.useState(
         localStorage.getItem("loginToken")
@@ -145,7 +144,7 @@ const CadastroPacienteForm = () => {
         >
         {({handleChange, values, touched, errors, handleBlur}) => (
             <Container>
-                <Dialog onClose={() => {setOpenDialog(!openDialog); setRedirect(true)}} open={openDialog}>
+                <Dialog onClose={() => {setOpenDialog(!openDialog)}} open={openDialog}>
                 <div className="caixaDialogo">
                     <DialogTitle>Dados do paciente</DialogTitle>
                     <hr style={{width: "100%"}}/>
