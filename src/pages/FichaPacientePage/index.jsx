@@ -92,14 +92,21 @@ const FichaPaciente = () => {
   };
 
   useEffect(() => {
-    let _endereco = location.state.info.endereco.split(",")
-    console.log("_endereco", _endereco)
-    setCep(_endereco[0])
-    setCity(_endereco[1])
-    setLogradouro(_endereco[2])
-    setNumero(_endereco[3])
-    _endereco = location.state.info.endereco.slice(8)
-    setEndereco(_endereco)
+    
+    let _endereco = location.state.info?.endereco?.split(",")
+    if(_endereco){
+      console.log("_endereco", _endereco)
+      setCep(_endereco[0]??"")
+      setCity(_endereco[1])
+      setLogradouro(_endereco[2])
+      setNumero(_endereco[3])
+      _endereco.shift()
+      console.log("depois do shift", _endereco)
+     _endereco = _endereco.join(",")
+     console.log("depois do tostring", _endereco)
+      setEndereco(_endereco)
+    }
+    
     console.log("id paciente", location.state.info._id);
 
     console.log("ID FICHA", location.state.idFicha);
