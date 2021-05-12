@@ -105,41 +105,6 @@ export const BuscarMedicosButton = styled.button`
   }
 `;
 
-// export const BuscarPacientesButton = styled.button`
-//   width: 12.5rem;
-//   height: 11rem;
-//   border-radius: 1.5rem;
-//   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
-//   background-color: ${Theme.colors.$sispocPrimary};
-//   color: #1b1b1b;
-//   border: none;
-//   transition: all 0.3s ease 0s;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   &:hover {
-//     background-color: #ff7800;
-//     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-//     color: #fff;
-//     transform: translateY(-7px);
-//   }
-//   > h1 {
-//     font-weight: 600;
-//     width: 80%;
-//   }
-
-//   .buscarMedicos{
-//     display: flex;
-//     justify-content: center;
-//     /* margin-bottom: 1rem; */
-//     padding-left: 3rem;
-//     position: relative;
-//     .search{
-//       position: absolute;
-//     }
-//   }
-// `;
 
 export const NovaConsultaButton = styled.button`
   width: 12.5rem;
@@ -202,6 +167,9 @@ export const BuscarAdmButton = styled.button`
     flex-direction: column;
     align-items: center;
     outline-style: none;
+    >a{
+      color: black;
+    }
     &:hover{
         background-color: #ff7800;
         box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);

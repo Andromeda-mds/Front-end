@@ -108,19 +108,17 @@ const HomePage = () => {
               <div className="content-Admin">
                 <div className="buttonSectionAdmin">
                   <home.BuscarAdmButton>
+                    <a
+                      href="/admin/busca"
+                      style={{ textDecoration: "none" }}
+                    >
                     <div className="buscarAdm">
                       <AccountBoxIcon style={{ fontSize: 70 }} />
                       <SearchIcon style={{ fontSize: 30 }} />
                       <h1>Buscar Médicos ou Secretários</h1>
                     </div>
+                    </a>
                   </home.BuscarAdmButton>
-                  {/* <home.BuscarSecretariosAdmButton>
-                    <div className="buscarSecretariosAdm">
-                      <AccountBoxIcon style={{ fontSize: 70 }} />
-                      <AssignmentIcon style={{ fontSize: 30 }} />
-                    </div>
-                    <h1>Buscar Secretários</h1>
-                  </home.BuscarSecretariosAdmButton> */}
                   <home.CadastrarMedicoButton>
                     <a
                       href="/cadastro/medico"
