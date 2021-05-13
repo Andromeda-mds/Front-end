@@ -113,7 +113,7 @@ const CadastroPacienteForm = () => {
         let CEP = event.target.value
         console.log(CEP)
           if(CEP.length === 8){
-              axios.get(`http://viacep.com.br/ws/${CEP}/json/`)
+              axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
             .then((res) =>{
               console.log(res)
               let logradouroCompleto = [res.data.logradouro, res.data.bairro]
