@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Theme } from "../../utils/Styles/Theme";
+import Dialog from "@material-ui/core/Dialog";
 
 export const Container = styled.div`
   height: 100vh;
@@ -193,7 +194,6 @@ export const BotaoAlertaConsulta = styled.button`
   /* flex-wrap: wrap; */
   justify-content: flex-start;
   outline: none;
-  cursor: pointer;
   padding: 0.5rem;
   align-self: center;
   > p {
@@ -249,5 +249,11 @@ export const BotaoDesmarcarConsulta = styled.button`
   margin-top: 1rem;
   > h1 {
     font-weight: 400;
+  }
+`;
+
+export const FormEditarPaciente = styled(Dialog)`
+  .MuiDialog-paperWidthSm {
+    min-width: 70%;
   }
 `;
