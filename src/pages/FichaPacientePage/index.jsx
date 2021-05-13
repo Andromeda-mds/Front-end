@@ -11,7 +11,7 @@ import WarningIcon from "@material-ui/icons/Warning";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useEffect } from "react";
 import axios from "axios";
-import { backendURL } from "../../services/api";
+import { backendURL, fila_espera_id } from "../../services/api";
 import EditarPerfilPacienteForm from "../../Components/EditarPerfilPacienteForm";
 import Dialog from "@material-ui/core/Dialog";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -144,20 +144,24 @@ const FichaPaciente = () => {
 
   const handleProxConsulta = async () => {
     let date_now = Date.now();
+    console.log(date_now)
     let aux = []
     consultas.map((v) => {
       let values = {};
-      v.data.dia = v.data.dia.split("/").reverse().join("/").replaceAll("/", "-");
-      values.dia = new Date(v.data.dia);
+      v.data.dia = v.data.dia.split("/").reverse().join("/").replaceAll("/", "-").split("-");
+      values.dia = new Date(v.data.dia[0], v.data.dia[1], v.data.dia[2]);
+      v.data.dia = v.data.dia.reverse().join("-")
       values.id = v.id
       aux.push(values);
     });
 
     let _consultas_after_now = [];
     aux.map(v => {
+      console.log(v)
       if (v.dia > date_now) _consultas_after_now.push(v);
     })
     console.log("oioioioio",_consultas_after_now.length)
+    console.log(new Date(2021, 5, 14, 8))
     if(_consultas_after_now.length < 1) return setNaoTemConsulta(true);
     _consultas_after_now.sort((a, b) => b.dia - a.dia);
     let consulta = _consultas_after_now[0];
@@ -235,6 +239,22 @@ const cancelAppointment = () => {
      setOpenErrorSnack(true);
      setCancelAppoinmentDialog(false)
    })
+}
+
+const AdicionarConsultaFila = () => {
+  axios.post(`${backendURL}fila/${fila_espera_id}`, {
+    consultaId : proxConsulta.id
+  }, {headers : {"x-access-token" : `${clientToken}`}})
+  .then(res => {
+    console.log(res)
+    setMessage("Consulta adicionada à fila de espera")
+    setOpenSnack(true);
+  })
+  .catch(err => {
+    console.log(err)
+    setMessage("Falha ao adicionar consulta à fila de espera")
+    setOpenErrorSnack(true);
+  })
 }
 
   return (
@@ -370,14 +390,20 @@ const cancelAppointment = () => {
               }
 
             </div>
-            <div className="botoes-FilaEspera-DesmarcarConsulta">
-              <home.BotaoColocarFilaEspera>
+            {
+              naoTemConsulta
+              ?
+              undefined
+              :
+              <div className="botoes-FilaEspera-DesmarcarConsulta">
+              <home.BotaoColocarFilaEspera onClick={()=> AdicionarConsultaFila()}>
                 Colocar na fila de espera
               </home.BotaoColocarFilaEspera>
               <home.BotaoDesmarcarConsulta onClick={() => setCancelAppoinmentDialog(true)}>
                 Desmarcar consulta
               </home.BotaoDesmarcarConsulta>
             </div>
+            }
           </div>
         </div>
       </div>
