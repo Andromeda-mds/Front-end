@@ -14,8 +14,9 @@ import GuiaMedico from './pages/GuiaMedicoPage';
 import PaginaBusca_secretario from './pages/PaginaBusca_secretario';
 import AgendamentoConsultaPage from "./pages/AgendamentoConsulta";
 import FichaPaciente from "./pages/FichaPacientePage";
-import SolicitarExamePage from "./pages/SolicitarExamePage"
-import PaginaBusca_admin from "./pages/PaginaBusca_admin"
+import SolicitarExamePage from "./pages/SolicitarExamePage";
+import PaginaBusca_admin from "./pages/PaginaBusca_admin";
+import PerfilMedico from "./pages/PerfilMedicoPage";
 
 function App() {
 
@@ -50,6 +51,10 @@ function App() {
           <ProtectedRoute
             path="/admin/busca"
             render={() => <PaginaBusca_admin />}
+          />
+          <ProtectedRoute
+            path="/perfilMedico"
+            render={() => <PerfilMedico/>}
           />
           <ProtectedRoute path="/agendamentoconsulta" render={() => <AgendamentoConsultaPage />}/>
           <ProtectedRoute path="/guiamedico" render={() => <GuiaMedico />}/>

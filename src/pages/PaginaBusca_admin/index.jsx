@@ -19,7 +19,7 @@ const PaginaBusca_admin = () => {
   const [redirectIsMedico, setRedirectIsMedico] = React.useState(false);
   const [isRedirect, setIsRedirect] = React.useState(false);
   const [idSecretario, setIdSecretario] = React.useState("");
-  
+  const usuario = "admin"
 
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
@@ -97,9 +97,9 @@ const PaginaBusca_admin = () => {
         <Redirect
           to={{
             pathname: redirectIsMedico
-              ? "/secretatio/perfilMedico"
+              ? "/perfilMedico"
               : "/secretario/perfilSecretario",
-            state: { info: info, idSecretario: idSecretario }
+            state: { info: info, idSecretario: idSecretario, usuario: usuario }
             }}
           
         />
@@ -176,7 +176,7 @@ const PaginaBusca_admin = () => {
                       </div>
                       <div className="botaoPerfil">
                         <BotaoPerfilUsuario
-                          
+                          onClick={() => {handleRedirect(valorSelecionado, medico._id); setInfo(medico)}}
                         >
                           Visualizar perfil completo
                         </BotaoPerfilUsuario>
