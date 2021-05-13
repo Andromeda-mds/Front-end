@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
+import React from "react";
 import * as home from "./styles";
 import Header from "../../Components/Header";
 import ProfileIcon from "../../Components/ProfileIcon";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import { useLocation } from "react-router-dom";
-import BotaoQuadrado from "../../Components/BotaoQuadrado";
 import FolderSharedIcon from "@material-ui/icons/FolderShared";
 import WarningIcon from "@material-ui/icons/Warning";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Redirect } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { backendURL } from "../../services/api";
@@ -16,6 +16,11 @@ import EditarPerfilPacienteForm from "../../Components/EditarPerfilPacienteForm"
 import Dialog from "@material-ui/core/Dialog";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 const FichaPaciente = () => {
   const location = useLocation();
@@ -41,6 +46,7 @@ const FichaPaciente = () => {
   const [city, setCity] = React.useState("");
   const [endereco, setEndereco] = React.useState("");
   const [naoTemConsulta, setNaoTemConsulta] = React.useState(true);
+  const [openCancelAppointmentDialog, setCancelAppoinmentDialog] = React.useState(false)
 
   const [clientToken, setClientToken] = React.useState(
     localStorage.getItem("loginToken")
@@ -124,12 +130,10 @@ const FichaPaciente = () => {
         setTimeout(() => console.log("consultas: ", consultasPaciente), 2500)
 
         if (res.data.item.length > 0) {
-          setNaoTemConsulta(false);
           consultas = res.data.item;
           await handleProxConsulta();
           setConsultasPaciente(res.data.item)
         }
-
       })
       .catch((err) => {
         console.log(err)
@@ -143,6 +147,7 @@ const FichaPaciente = () => {
     let aux = []
     consultas.map((v) => {
       let values = {};
+      v.data.dia = v.data.dia.split("/").reverse().join("/").replaceAll("/", "-");
       values.dia = new Date(v.data.dia);
       values.id = v.id
       aux.push(values);
@@ -152,10 +157,14 @@ const FichaPaciente = () => {
     aux.map(v => {
       if (v.dia > date_now) _consultas_after_now.push(v);
     })
+    console.log("oioioioio",_consultas_after_now.length)
+    if(_consultas_after_now.length < 1) return setNaoTemConsulta(true);
     _consultas_after_now.sort((a, b) => b.dia - a.dia);
     let consulta = _consultas_after_now[0];
-    consultas.map(v => {
-      if (v.id === consulta.id) consulta = v;
+    consultas.map((v) => {
+      if (v.id === consulta.id) {
+        consulta = v;
+      }
     })
     let periodo = consulta.data.periodo;
     let horario = consulta.data.horario;
@@ -165,6 +174,7 @@ const FichaPaciente = () => {
         console.log(res);
         consulta.medico = res.data
         setProxConsulta(consulta);
+        setNaoTemConsulta(false)
       }
     ).catch(err => console.log(err))
   }
@@ -185,6 +195,7 @@ const FichaPaciente = () => {
         case "4":
           hora = "11:00"
           break;
+        default: break;
       }
     } else if (periodo === "tarde") {
       switch (horario) {
@@ -200,13 +211,31 @@ const FichaPaciente = () => {
         case "4":
           hora = "16:00"
           break;
+        default:
+          break;
       }
     }
-
     return hora;
   }
 
-
+const cancelAppointment = () => {
+  let prox = proxConsulta;
+  axios.delete(`${backendURL}consulta/${prox.id}`,
+   {headers : {"x-access-token": `${clientToken}`}})
+   .then(res => {
+     console.log(res)
+     setMessage("Consulta desmarcada com sucesso")
+     setOpenSnack(true);
+     setCancelAppoinmentDialog(false)
+     window.location.reload();
+   })
+   .catch(err => {
+     console.log(err)
+     setMessage("Erro ao desmarcar consulta")
+     setOpenErrorSnack(true);
+     setCancelAppoinmentDialog(false)
+   })
+}
 
   return (
     <home.Container>
@@ -220,7 +249,23 @@ const FichaPaciente = () => {
           {message}
         </Alert>
       </Snackbar>
-      <Dialog open={editar} onClose={handleClose} fullWidth={true}>
+      <Dialog open={openCancelAppointmentDialog}>
+        <DialogTitle>Desmarcar próxima consulta</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Tem certeza que deseja desmarcar a próxima consulta?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCancelAppoinmentDialog(false)} color="secondary">
+            Não
+          </Button>
+          <Button onClick={() => cancelAppointment()} color="primary" autoFocus>
+            Sim
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <home.FormEditarPaciente open={editar} onClose={handleClose} fullWidth={true}>
         <EditarPerfilPacienteForm
           nomeCompleto={nomeCompleto}
           cpf={cpf}
@@ -240,7 +285,7 @@ const FichaPaciente = () => {
           message={setMessage}
           mudou={setMudouRecentemente}
         />
-      </Dialog>
+      </home.FormEditarPaciente>
       <home.HeaderDiv>
         <Header />
       </home.HeaderDiv>
@@ -321,9 +366,6 @@ const FichaPaciente = () => {
                       <p>Horário da consulta: {proxConsulta.data.horario}h</p>
                       <p>Medico da consulta: {proxConsulta.medico.nomeCompleto}</p>
                     </span>
-                    <p style={{ alignSelf: "center" }}>
-                      <u>Clique para ver mais detalhes</u>
-                    </p>
                   </home.BotaoAlertaConsulta>
               }
 
@@ -332,7 +374,7 @@ const FichaPaciente = () => {
               <home.BotaoColocarFilaEspera>
                 Colocar na fila de espera
               </home.BotaoColocarFilaEspera>
-              <home.BotaoDesmarcarConsulta>
+              <home.BotaoDesmarcarConsulta onClick={() => setCancelAppoinmentDialog(true)}>
                 Desmarcar consulta
               </home.BotaoDesmarcarConsulta>
             </div>
