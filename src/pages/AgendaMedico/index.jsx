@@ -34,6 +34,7 @@ const AgendaMedico = (props) => {
   var consultas;
   const location = useLocation();
   //fffff
+  //gggg
   const handleClientId = async () => {
     userId = await decode(localStorage.getItem("loginToken"));
   };
